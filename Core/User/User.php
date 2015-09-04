@@ -1,9 +1,10 @@
 <?php
-// src/AppBundle/Entity/Core/User.php
+// src/AppBundle/Entity/Core/User/User.php
 // cachced system.user:username:['password' => text, 'roles' => $user->getRoles()]
 // <- ApiKeyAuthenticator:authenticateToken:93
 
-namespace AppBundle\Entity\User;
+// config: fos_user.user_class
+namespace AppBundle\Entity\Core\User;
 
 use AppBundle\Entity\Work\Position;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -42,15 +43,15 @@ class User extends BaseUser
         $position->setEmployee($this);
     }
 
-
     /**
-     * @ORM\ManyToMany(targetEntity="\AppBundle\Entity\Core\Site")
-     * @ORM\JoinTable(name="user_site",
+     * @ORM\ManyToMany(targetEntity="UserGroup")
+     * @ORM\JoinTable(name="user_user_group",
      *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_site", referencedColumnName="id")}
-     *      )
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_group", referencedColumnName="id")}
+     * )
      */
-    private $sites;
+    protected $groups;
+    //TODO implement addGroup, removeGroup
 
     /** @ORM\Column(length=120, name="ssn",type="string",nullable=true) */
     private $ssn;

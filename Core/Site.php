@@ -20,4 +20,12 @@ class Site {
     private $name;
     /** @ORM\Column(length=50) */
     private $domain;
+    /** @ORM\Column(length=50) */
+    private $subdomain;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Work\Organisation", inversedBy="sites")
+     * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
+     **/
+    private $organisation;
 }

@@ -42,7 +42,15 @@ class Organisation
     {
         $this->positions->add($position);
         $position->setEmployer($this);
+        return $this;
     }
+    //todo implement removePosition
+
+    /**
+     * @OneToMany(targetEntity="AppBundle\Entity\Core\Site", mappedBy="organisation")
+     **/
+    private $sites;
+    //TODO implement addSite, removeSite
 
     /**
      * @ORM\OneToMany(targetEntity="Organisation", mappedBy="parent")

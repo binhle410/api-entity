@@ -1,13 +1,13 @@
 <?php
-namespace AppBundle\Entity\Merchant;
+namespace AppBundle\Entity\Merchant\Account;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="merchant_account")
+ * @ORM\Table(name="merchant")
  */
-abstract class MerchantAccount
+abstract class Merchant
 {
     /**
      * @ORM\Id
