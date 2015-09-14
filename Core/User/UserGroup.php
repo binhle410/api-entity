@@ -17,4 +17,9 @@ class UserGroup extends BaseGroup
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="type",type="string",nullable=false) */
+    private $type;
 }

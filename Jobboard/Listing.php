@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity\Jobboard;
 
+use AppBundle\Entity\Core\Location\Location;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,7 +40,7 @@ class Listing
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\UserAccount")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
      **/
     private $owner;
@@ -58,11 +59,16 @@ class Listing
 
     /** @ORM\Column(length=120, name="qr_code_url",type="string",nullable=true) */
     private $qrCodeURL;
-    /** @ORM\Column(length=120, type="string",nullable=true) */
+
+    /**
+     * @var Location
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
+     * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
+     **/
     private $location;
 
     /**
-     * @return mixed
+     * @return Location
      */
     public function getLocation()
     {
@@ -70,9 +76,9 @@ class Listing
     }
 
     /**
-     * @param mixed $location
+     * @param Location $location
      */
-    public function setLocation($location)
+    public function setLocation(Location $location)
     {
         $this->location = $location;
     }

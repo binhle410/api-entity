@@ -6,14 +6,20 @@
 // config: fos_user.user_class
 namespace AppBundle\Entity\Core\User;
 
-use AppBundle\Entity\Work\Position;
+use AppBundle\Entity\Organisation\Position;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
+
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ *
+ * @Serializer\XmlRoot("user")
+ * @Hateoas\Relation("self", href = "expr('/api/users/' ~ object.getId())")
  */
 class User extends BaseUser
 {
@@ -24,16 +30,14 @@ class User extends BaseUser
      */
     protected $id;
 
-
     public function __construct()
     {
         parent::__construct();
         $this->jobs = new ArrayCollection();
-        // your own logic
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Work\Position", mappedBy="employee", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Organisation\Position", mappedBy="employee", orphanRemoval=true)
      */
     private $positions;
 
@@ -64,7 +68,11 @@ class User extends BaseUser
 
     /** @ORM\Column(length=120, name="last_name",type="string",nullable=true) */
     private $lastName;
-
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="login_email",type="string",nullable=true)
+     */
+    private $loginEmail;
 
     /**
      * @return mixed
@@ -114,14 +122,6 @@ class User extends BaseUser
         $this->lastName = $lastName;
     }
 
-    /**
-     * @return Organisation
-     */
-    public function getOrganisation()
-    {
-        return $this->organisation;
-    }
-
 
     /**
      * @return mixed
@@ -169,6 +169,22 @@ class User extends BaseUser
     public function getPositions()
     {
         return $this->positions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLoginEmail()
+    {
+        return $this->loginEmail;
+    }
+
+    /**
+     * @param string $loginEmail
+     */
+    public function setLoginEmail($loginEmail)
+    {
+        $this->loginEmail = $loginEmail;
     }
 
 

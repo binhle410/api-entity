@@ -1,6 +1,6 @@
 <?php
-// src/AppBundle/Entity/Work/Position.php
-namespace AppBundle\Entity\Work;
+// src/AppBundle/Entity/Organisation/Position.php
+namespace AppBundle\Entity\Organisation;
 use AppBundle\Entity\User\UserAccount;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,15 +28,15 @@ class Position
     private $title;
 
     /**
-     * @var \AppBundle\Entity\User\UserAccount
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User\UserAccount", inversedBy="positions",cascade={"persist","merge","remove"})
+     * @var \AppBundle\Entity\Core\User\User
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User", inversedBy="positions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_employee", referencedColumnName="id")
      */
     private $employee;
 
     /**
-     * @var \AppBundle\Entity\Work\Organisation
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Work\Organisation", inversedBy="positions",cascade={"persist","merge","remove"})
+     * @var \AppBundle\Entity\Organisation\Organisation
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation", inversedBy="positions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_employer", referencedColumnName="id")
      */
     private $employer;

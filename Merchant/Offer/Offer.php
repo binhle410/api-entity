@@ -3,7 +3,7 @@
 
 namespace AppBundle\Entity\Merchant\Offer;
 
-abstract class Offer
+class Offer
 {
 
 }

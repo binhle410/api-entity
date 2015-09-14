@@ -4,31 +4,31 @@
 namespace AppBundle\Entity\Core\Field;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="field")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"integer" = "IntegerField", "title" = "TitleField","location"="LocationField"})
+ * ORM\Entity
+ * ORM\Table(name="field")
+ * ORM\InheritanceType("SINGLE_TABLE")
+ * ORM\DiscriminatorColumn(name="discr", type="string")
+ * ORM\DiscriminatorMap({"integer" = "IntegerField", "title" = "TitleField","location"="LocationField"})
  */
 abstract class Field
 {
     /**
      * @var int
-     * @ORM\Id
-     * @ORM\Column(type="bigint",options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * ORM\Id
+     * ORM\Column(type="bigint",options={"unsigned":true})
+     * ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var bool
-     * @ORM\Column(name="active",type="boolean",nullable=false)
+     * ORM\Column(name="active",type="boolean",nullable=false)
      */
     protected $active = true;
 
     /**
      * @var string
-     * @ORM\Column(length=50, name="type",type="string",nullable=false)
+     * ORM\Column(length=50, name="type",type="string",nullable=false)
      */
     protected $name;
 

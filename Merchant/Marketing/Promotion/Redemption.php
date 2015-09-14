@@ -6,5 +6,9 @@ namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 
 class Redemption
 {
-
+//todo map
+    /**
+     * outletParticipant:OutletParticipant
+     * user:User
+     */
 }
