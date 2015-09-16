@@ -18,7 +18,7 @@ class Organisation
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     function __construct()
     {
