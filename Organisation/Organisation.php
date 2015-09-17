@@ -6,6 +6,7 @@ namespace AppBundle\Entity\Organisation;
 use AppBundle\Entity\Core\Location\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Sonata\MediaBundle\Model\MediaInterface;
 
 /**
  * @ORM\Entity
@@ -90,6 +91,28 @@ class Organisation
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
      **/
     private $location;
+
+    /**
+     * @var \Application\Sonata\MediaBundle\Entity\Media
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY", orphanRemoval=true)
+     */
+    private $media;
+
+    /**
+     * @param MediaInterface $media
+     */
+    public function setMedia(MediaInterface $media)
+    {
+        $this->media = $media;
+    }
+
+    /**
+     * @return MediaInterface
+     */
+    public function getMedia()
+    {
+        return $this->media;
+    }
 
     /**
      * @return Location
