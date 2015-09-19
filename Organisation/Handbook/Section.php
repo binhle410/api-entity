@@ -1,7 +1,7 @@
 <?php
 // src/AppBundle/Entity/Organisation/Handbook/Section.php
 
-namespace AppBundle\Entity\Organisation;
+namespace AppBundle\Entity\Organisation\Handbook;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
