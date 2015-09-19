@@ -1,7 +1,7 @@
 <?php
 // src/AppBundle/Entity/Organisation/Position.php
 namespace AppBundle\Entity\Organisation;
-use AppBundle\Entity\User\UserAccount;
+use AppBundle\Entity\Core\User\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +17,7 @@ class Position
      */
     private $id;
 
-    function __construct(UserAccount $employee, Organisation $employer)
+    function __construct(User $employee, Organisation $employer)
     {
         $employee->addPosition($this);
         $employer->addPosition($this);
@@ -51,7 +51,7 @@ class Position
 
 
     /**
-     * @return \AppBundle\Entity\User\UserAccount
+     * @return \AppBundle\Entity\Core\User\User
      */
     public function getEmployee()
     {
@@ -59,9 +59,9 @@ class Position
     }
 
     /**
-     * @param \AppBundle\Entity\User\UserAccount $employee
+     * @param \AppBundle\Entity\Core\User\User $employee
      */
-    public function setEmployee(UserAccount $employee)
+    public function setEmployee(User $employee)
     {
         $this->employee = $employee;
     }
