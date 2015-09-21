@@ -68,11 +68,6 @@ class User extends BaseUser
 
     /** @ORM\Column(length=120, name="last_name",type="string",nullable=true) */
     private $lastName;
-    /**
-     * @var string
-     * @ORM\Column(length=120, name="login_email",type="string",nullable=true)
-     */
-    private $loginEmail;
 
     /**
      * @return mixed
@@ -170,22 +165,5 @@ class User extends BaseUser
     {
         return $this->positions;
     }
-
-    /**
-     * @return string
-     */
-    public function getLoginEmail()
-    {
-        return $this->loginEmail;
-    }
-
-    /**
-     * @param string $loginEmail
-     */
-    public function setLoginEmail($loginEmail)
-    {
-        $this->loginEmail = $loginEmail;
-    }
-
 
 }
