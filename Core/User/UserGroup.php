@@ -22,4 +22,9 @@ class UserGroup extends BaseGroup
      * @var string
      * @ORM\Column(length=120, name="type",type="string",nullable=false) */
     private $type;
+
+    //todo map
+    /**
+     * organisation:Orga.... - each usergroup must belong to an Organisation
+     */
 }

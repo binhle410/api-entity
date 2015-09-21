@@ -27,6 +27,9 @@ class Promotion
      * effectiveFrom:DateTime, expireOn:DateTime, isActive:bool (-true/false-)
      *
      * outletParticipants:ArrayCollection<OutletParticipation>
+     * business:Business
+     * clients:ArrayCollectoin<Organisation>
+     * clientEmployees:ArrayCollectoin<UserGroup>
      *
      */
 }

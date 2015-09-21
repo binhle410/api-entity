@@ -166,4 +166,12 @@ class User extends BaseUser
         return $this->positions;
     }
 
+    /**
+     * @param mixed $positions
+     */
+    public function setPositions($positions)
+    {
+        $this->positions = $positions;
+    }
+
 }

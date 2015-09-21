@@ -19,6 +19,17 @@ class Handbook
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Organisation", inversedBy="handbook")
+     * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
+     **/
+    private $organisation;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Section", mappedBy="handbook")
+     **/
+    private $sections;
+
+    /**
      * @var string
      * @ORM\Column(length=50)
      */
@@ -87,9 +98,33 @@ class Handbook
     /**
      * @return mixed
      */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @param mixed $organisation
+     */
+    public function setOrganisation($organisation)
+    {
+        $this->organisation = $organisation;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 

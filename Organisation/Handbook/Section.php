@@ -23,6 +23,11 @@ class Section
         $this->children = new ArrayCollection();
     }
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", inversedBy="sections")
+     * @ORM\JoinColumn(name="id_handbook", referencedColumnName="id")
+     **/
+    private $handbook;
 
     /**
      * @var string

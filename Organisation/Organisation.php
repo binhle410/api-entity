@@ -4,6 +4,7 @@
 namespace AppBundle\Entity\Organisation;
 
 use AppBundle\Entity\Core\Location\Location;
+use AppBundle\Entity\Organisation\Handbook\Handbook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\MediaBundle\Model\MediaInterface;
@@ -39,6 +40,11 @@ class Organisation
      * aboutCompany:String
      * Integrate with SonataMediaBundle to store app images along with banner images
      */
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="organisation")
+     **/
+    private $handbook;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="owner", orphanRemoval=true)
@@ -95,6 +101,7 @@ class Organisation
     /**
      * @var \Application\Sonata\MediaBundle\Entity\Media
      * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY", orphanRemoval=true)
+     * @ORM\JoinColumn(name="id_media", referencedColumnName="id")
      */
     private $media;
 
@@ -161,5 +168,72 @@ class Organisation
     {
         $this->code = $code;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHandbook()
+    {
+        return $this->handbook;
+    }
+
+    /**
+     * @param Handbook $handbook
+     */
+    public function setHandbook(Handbook $handbook)
+    {
+        $this->handbook = $handbook;
+        $handbook->setOrganisation($this);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param Organisation $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPositions()
+    {
+        return $this->positions;
+    }
+
+    /**
+     * @param mixed $positions
+     */
+    public function setPositions($positions)
+    {
+        $this->positions = $positions;
+    }
+
+
 
 }
