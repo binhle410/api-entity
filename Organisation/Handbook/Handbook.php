@@ -31,8 +31,9 @@ class Handbook
     private $year;
 
     /**
-     * @var string
-     * @ORM\Column(length=255)
+     * @var text $description
+     *
+     * @ORM\Column(name="description", type="text", nullable=false)
      */
     private $description;
 
