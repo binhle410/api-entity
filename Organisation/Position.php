@@ -23,6 +23,12 @@ class Position
         $employer->addPosition($this);
     }
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="active", options={"default":false})
+     */
+    private $active;
+
     // e.g: Business Development, Telesales
     /** @ORM\Column(length=50, name="title",type="string",nullable=true) */
     private $title;
@@ -96,6 +102,22 @@ class Position
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
     }
 
 

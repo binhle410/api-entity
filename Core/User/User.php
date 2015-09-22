@@ -19,7 +19,12 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Table(name="user")
  *
  * @Serializer\XmlRoot("user")
- * @Hateoas\Relation("self", href = "expr('/api/users/' ~ object.getId())")
+ * @Hateoas\Relation("self", href = @Hateoas\Route(
+ *         "get_user",
+ *         parameters = { "username" = "expr(object.getEmail())" },
+ *         absolute = true
+ *     )
+ * )
  */
 class User extends BaseUser
 {
