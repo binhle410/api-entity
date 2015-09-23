@@ -5,10 +5,12 @@ namespace AppBundle\Entity\Organisation\Handbook;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="handbook_section")
+ * @Gedmo\Loggable()
  */
 class Section
 {
@@ -19,7 +21,8 @@ class Section
      */
     private $id;
 
-    function __construct(){
+    function __construct()
+    {
         $this->children = new ArrayCollection();
     }
 
@@ -32,6 +35,7 @@ class Section
     /**
      * @var string
      * @ORM\Column(length=50)
+     * @Gedmo\Versioned
      */
     private $title;
 
@@ -40,13 +44,14 @@ class Section
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $active;
+    private $active = true;
 
 
     /**
      * @var text $description
      *
      * @ORM\Column(name="description", type="text", nullable=false)
+     * @Gedmo\Versioned
      */
     private $description;
 
@@ -64,18 +69,12 @@ class Section
      **/
     private $children;
 
-
-    /**
-     * @var integer
-     * @ORM\Column(length=10)
-     */
-    private $handbook_id;
-
     /**
      * @param Section $section
      * @return $this
      */
-    public function addChild(Section $section){
+    public function addChild(Section $section)
+    {
         $this->children->add($section);
         $section->setParent($this);
         return $this;
@@ -160,21 +159,12 @@ class Section
     {
         return $this->id;
     }
-    public function getHandbookId()
-    {
-        return $this->handbook_id;
-    }
-
-    public function setHandbookId($handbook_id)
-    {
-        $this->handbook_id = $handbook_id;
-    }
 
 
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -190,4 +180,22 @@ class Section
     {
         $this->children->removeElement($children);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHandbook()
+    {
+        return $this->handbook;
+    }
+
+    /**
+     * @param mixed $handbook
+     */
+    public function setHandbook($handbook)
+    {
+        $this->handbook = $handbook;
+    }
+
+
 }

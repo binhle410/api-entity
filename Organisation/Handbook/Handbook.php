@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity\Organisation\Handbook;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,9 +26,25 @@ class Handbook
     private $organisation;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Section", mappedBy="handbook")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Section", orphanRemoval=true, mappedBy="handbook", cascade={"persist", "remove", "merge"})
      **/
     private $sections;
+
+    public function addSection(Section $section)
+    {
+        $this->sections->add($section);
+        $section->setHandbook($this);
+    }
+
+    /**
+     * @param Section $section
+     */
+    public function removeChild(Section $section)
+    {
+        $this->children->removeElement($section);
+        $section->setHandbook(null);
+    }
 
     /**
      * @var string
@@ -126,6 +143,22 @@ class Handbook
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSections()
+    {
+        return $this->sections;
+    }
+
+    /**
+     * @param ArrayCollection $sections
+     */
+    public function setSections($sections)
+    {
+        $this->sections = $sections;
     }
 
 
