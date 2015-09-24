@@ -5,10 +5,13 @@ namespace AppBundle\Entity\Organisation\Handbook;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="handbook")
+ * @Gedmo\Loggable()
  */
 class Handbook
 {
@@ -18,6 +21,27 @@ class Handbook
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+
+    /**
+     * @var string
+     * @ORM\Column(length=10, nullable=true)
+     * @Gedmo\Versioned
+     */
+    private $version;
+
+    /**
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+        foreach ($this->sections as $section) {
+//            $section = new Section();
+            $section->setVersion($version);
+        }
+        $this->version = $version;
+    }
+
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Organisation", inversedBy="handbook")
@@ -161,5 +185,12 @@ class Handbook
         $this->sections = $sections;
     }
 
+    /**
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
 
 }

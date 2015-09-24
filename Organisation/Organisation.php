@@ -9,9 +9,74 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\MediaBundle\Model\MediaInterface;
 
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="organisation")
+ *
+ * @Serializer\XmlRoot("organisation")
+ * @Hateoas\Relation("self", href = @Hateoas\Route(
+ *         "get_organisation",
+ *         parameters = { "organisation" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation(
+ *  "handbook",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook",
+ *         parameters = { "organisation" = "expr(object.getId())","handbook" = "expr(object.getHandbook().getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbook() === null)")
+ * )
+ * @Hateoas\Relation(
+ *  "positions",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_positions",
+ *         parameters = { "organisationId" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPositions().count() == 0)")
+ * )
+ * @Hateoas\Relation(
+ *  "sites",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_sites",
+ *         parameters = { "organisationId" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getSites().count() == 0)")
+ * )
+ * @Hateoas\Relation(
+ *  "children",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_children",
+ *         parameters = { "organisationId" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getChildren().count() == 0)")
+ * )
+ * @Hateoas\Relation(
+ *  "parent",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_parent",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() === null)")
+ * )
+ * @Hateoas\Relation(
+ *  "businesses",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_businesses",
+ *         parameters = { "organisationId" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBusinesses().count() == 0)")
+ * )
  */
 class Organisation
 {
@@ -27,6 +92,8 @@ class Organisation
         $this->children = new ArrayCollection();
         $this->positions = new ArrayCollection();
         $this->locations = new ArrayCollection();
+        $this->businesses = new ArrayCollection();
+        $this->sites = new ArrayCollection();
     }
 //todo map the following fields
     /**
@@ -36,32 +103,41 @@ class Organisation
      * regNo, businessType:Tag, headOfficeNo, billingAddress:String, adminUserEmail,
      * reservationEmail, userContactNo, clientSince:Date
      * officeHours:String
-     * redemptionPassword:String, merchantID:String
+     * redemptionPassword:String, merchantCode:String
      * aboutCompany:String
      * Integrate with SonataMediaBundle to store app images along with banner images
      */
 
     /**
+     * @var Handbook
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="organisation")
+     * @Serializer\Exclude
      **/
     private $handbook;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="owner", orphanRemoval=true)
+     * @Serializer\Exclude
      */
     private $businesses;
 
     /** @ORM\Column(length=150) */
     private $name;
 
-    //todo map OneToOne with UserGroup entity
-    private $benefitUserGroup;
+    //todo map OneToMany with Benefit entity
+    /**
+     * @var ArrayCollection Benefit
+     */
+    private $benefits;
 
     /** @ORM\Column(length=50) */
     private $code;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Position", mappedBy="employer", orphanRemoval=true)
+     * @Serializer\Exclude
      */
     private $positions;
 
@@ -74,13 +150,17 @@ class Organisation
     //todo implement removePosition
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Site", mappedBy="organisation")
+     * @Serializer\Exclude
      **/
     private $sites;
     //TODO implement addSite, removeSite
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Organisation", mappedBy="parent")
+     * @Serializer\Exclude
      **/
     private $children;
 
@@ -88,6 +168,7 @@ class Organisation
      * @var Organisation
      * @ORM\ManyToOne(targetEntity="Organisation", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
      **/
     private $parent;
 
@@ -101,25 +182,27 @@ class Organisation
     /**
      * @var \Application\Sonata\MediaBundle\Entity\Media
      * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY", orphanRemoval=true)
-     * @ORM\JoinColumn(name="id_media", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_logo", referencedColumnName="id")
      */
-    private $media;
+    private $logo;
 
     /**
-     * @param MediaInterface $media
+     * @return \Application\Sonata\MediaBundle\Entity\Media
      */
-    public function setMedia(MediaInterface $media)
+    public function getLogo()
     {
-        $this->media = $media;
+        return $this->logo;
     }
 
     /**
-     * @return MediaInterface
+     * @param \Application\Sonata\MediaBundle\Entity\Media $logo
      */
-    public function getMedia()
+    public function setLogo($logo)
     {
-        return $this->media;
+        $this->logo = $logo;
     }
+
+
 
     /**
      * @return Location
@@ -219,7 +302,7 @@ class Organisation
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getPositions()
     {
@@ -227,13 +310,59 @@ class Organisation
     }
 
     /**
-     * @param mixed $positions
+     * @param ArrayCollection $positions
      */
-    public function setPositions($positions)
+    public function setPositions(ArrayCollection $positions)
     {
         $this->positions = $positions;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getBusinesses()
+    {
+        return $this->businesses;
+    }
 
+    /**
+     * @param ArrayCollection $businesses
+     */
+    public function setBusinesses(ArrayCollection $businesses)
+    {
+        $this->businesses = $businesses;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSites()
+    {
+        return $this->sites;
+    }
+
+    /**
+     * @param ArrayCollection $sites
+     */
+    public function setSites(ArrayCollection $sites)
+    {
+        $this->sites = $sites;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param ArrayCollection $children
+     */
+    public function setChildren(ArrayCollection $children)
+    {
+        $this->children = $children;
+    }
 
 }

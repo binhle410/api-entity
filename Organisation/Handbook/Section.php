@@ -29,8 +29,16 @@ class Section
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", inversedBy="sections")
      * @ORM\JoinColumn(name="id_handbook", referencedColumnName="id")
+     * @Gedmo\Versioned
      **/
     private $handbook;
+
+    /**
+     * @var string
+     * @ORM\Column(length=10, nullable=true)
+     * @Gedmo\Versioned
+     */
+    private $version;
 
     /**
      * @var string
@@ -43,6 +51,7 @@ class Section
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Gedmo\Versioned
      */
     private $active = true;
 
@@ -59,6 +68,7 @@ class Section
      * @var Organisation
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
+     * @Gedmo\Versioned
      **/
     private $parent;
 
@@ -77,6 +87,18 @@ class Section
     {
         $this->children->add($section);
         $section->setParent($this);
+        return $this;
+    }
+
+    /**
+     * Remove a child
+     *
+     * @param Section $child
+     */
+    public function removeChild(Section $child)
+    {
+        $this->children->removeElement($child);
+        $child->setParent(null);
         return $this;
     }
 
@@ -172,14 +194,21 @@ class Section
     }
 
     /**
-     * Remove children
-     *
-     * @param \AppBundle\Entity\Organisation\Handbook\Section $children
+     * @return string
      */
-    public function removeChild(\AppBundle\Entity\Organisation\Handbook\Section $children)
+    public function getVersion()
     {
-        $this->children->removeElement($children);
+        return $this->version;
     }
+
+    /**
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+    }
+
 
     /**
      * @return mixed

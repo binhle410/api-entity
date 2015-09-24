@@ -5,9 +5,18 @@ namespace AppBundle\Entity\Core;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @ORM\Entity
  * @ORM\Table(name="site")
+ * @Serializer\XmlRoot("site")
+ * @Hateoas\Relation("self", href = @Hateoas\Route(
+ *         "get_site",
+ *         parameters = { "site" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
  */
 class Site {
     /**
