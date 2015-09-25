@@ -1,4 +1,5 @@
 <?php
+
 // src/AppBundle/Entity/Organisation/Handbook/Section.php
 
 namespace AppBundle\Entity\Organisation\Handbook;
@@ -6,14 +7,23 @@ namespace AppBundle\Entity\Organisation\Handbook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
+ * @Serializer\XmlRoot("handbook")
+ * @Hateoas\Relation("self", href = @Hateoas\Route(
+ *         "get_handbook",
+ *         parameters = { "handbook" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
  * @ORM\Entity
  * @ORM\Table(name="handbook_section")
  * @Gedmo\Loggable()
  */
-class Section
-{
+class Section {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
@@ -21,8 +31,7 @@ class Section
      */
     private $id;
 
-    function __construct()
-    {
+    function __construct() {
         $this->children = new ArrayCollection();
     }
 
@@ -30,7 +39,7 @@ class Section
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", inversedBy="sections")
      * @ORM\JoinColumn(name="id_handbook", referencedColumnName="id")
      * @Gedmo\Versioned
-     **/
+     * */
     private $handbook;
 
     /**
@@ -47,14 +56,12 @@ class Section
      */
     private $title;
 
-
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      * @Gedmo\Versioned
      */
     private $active = true;
-
 
     /**
      * @var text $description
@@ -69,22 +76,20 @@ class Section
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      * @Gedmo\Versioned
-     **/
+     * */
     private $parent;
-
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Section", mappedBy="parent")
-     **/
+     * */
     private $children;
 
     /**
      * @param Section $section
      * @return $this
      */
-    public function addChild(Section $section)
-    {
+    public function addChild(Section $section) {
         $this->children->add($section);
         $section->setParent($this);
         return $this;
@@ -95,8 +100,7 @@ class Section
      *
      * @param Section $child
      */
-    public function removeChild(Section $child)
-    {
+    public function removeChild(Section $child) {
         $this->children->removeElement($child);
         $child->setParent(null);
         return $this;
@@ -105,126 +109,108 @@ class Section
     /**
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
     /**
      * @param string $title
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
     }
 
     /**
      * @return boolean
      */
-    public function isActive()
-    {
+    public function isActive() {
         return $this->active;
     }
 
     /**
      * @param boolean $active
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->active = $active;
     }
 
     /**
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
     /**
      * @param string $description
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
     }
 
     /**
      * @return Organisation
      */
-    public function getParent()
-    {
+    public function getParent() {
         return $this->parent;
     }
 
     /**
      * @param Organisation $parent
      */
-    public function setParent($parent)
-    {
+    public function setParent($parent) {
         $this->parent = $parent;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getChildren()
-    {
+    public function getChildren() {
         return $this->children;
     }
 
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
-
 
     /**
      * Get active
      *
      * @return boolean
      */
-    public function getActive()
-    {
+    public function getActive() {
         return $this->active;
     }
 
     /**
      * @return string
      */
-    public function getVersion()
-    {
+    public function getVersion() {
         return $this->version;
     }
 
     /**
      * @param string $version
      */
-    public function setVersion($version)
-    {
+    public function setVersion($version) {
         $this->version = $version;
     }
-
 
     /**
      * @return mixed
      */
-    public function getHandbook()
-    {
+    public function getHandbook() {
         return $this->handbook;
     }
 
     /**
      * @param mixed $handbook
      */
-    public function setHandbook($handbook)
-    {
+    public function setHandbook($handbook) {
         $this->handbook = $handbook;
     }
-
 
 }
