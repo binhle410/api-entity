@@ -42,7 +42,10 @@ class Business
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Tag", inversedBy="businesses")
-     * @ORM\JoinTable(name="businesses_tags")
+     * @ORM\JoinTable(name="businesses_tags",
+     *      joinColumns={@ORM\JoinColumn(name="id_business", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
      */
     private $tags;
 
