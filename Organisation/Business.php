@@ -56,6 +56,15 @@ class Business
     private $retailOutlets;
 
     /**
+     *
+     * Integrate with SonataMediaBundle to store app images along with banner images
+     */
+
+    /** @ORM\Column(length=10,name="merchant_code") */
+    private $merchantCode;
+
+
+    /**
      * @return int
      */
     public function getId()

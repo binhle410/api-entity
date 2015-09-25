@@ -116,7 +116,6 @@ class Organisation
     private $handbook;
 
 
-
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="owner", orphanRemoval=true)
@@ -237,24 +236,25 @@ class Organisation
     private $name;
     /** @ORM\Column(length=50) */
     private $code;
-    /** @ORM\Column(length=50) */
+    /** @ORM\Column(length=50,name="reg_no") */
     private $regNo;
-    /** @ORM\Column(length=50) */
+    /** @ORM\Column(length=50,name="head_office_no") */
     private $headOfficeNo;
-    /** @ORM\Column(length=50) */
+    /** @ORM\Column(length=50,name="billing_address") */
     private $billingAddress;
+    /** @ORM\Column(length=50,name="reservation_email") */
+    private $reservationEmail;
+    /** @ORM\Column(length=50,name="user_contact_no") */
+    private $userContactNo;
+    /** @Column(type="datetime", name="client_since") */
+    private $clientSince;
+    /** @ORM\Column(length=120,name="office_hours") */
+    private $officeHours;
+    /** @ORM\Column(length=10,name="redemption_password") */
+    private $redemptionPassword;
+    /** @ORM\Column(length=10,name="about_company") */
+    private $aboutCompany;
 
-
-
-    /**
-     * check slide 22
-     * , , , , ,
-     * reservationEmail, userContactNo, clientSince:Date
-     * officeHours:String
-     * redemptionPassword:String, merchantCode:String
-     * aboutCompany:String
-     * Integrate with SonataMediaBundle to store app images along with banner images
-     */
 
     /**
      * @return \Application\Sonata\MediaBundle\Entity\Media
