@@ -35,6 +35,8 @@ class Benefit
 
     /**
      * @var Organisation
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation", inversedBy="benefits",cascade={"persist","merge","remove"})
+     * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
      */
     private $organisation;
 
