@@ -11,8 +11,10 @@ use Sonata\MediaBundle\Model\MediaInterface;
 
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * @Gedmo\Tree(type="nested")
  * @ORM\Entity
  * @ORM\Table(name="organisation")
  *
@@ -128,6 +130,8 @@ class Organisation
     //todo map OneToMany with Benefit entity
     /**
      * @var ArrayCollection Benefit
+     * @ORM\OneToMany(targetEntity="Benefit", mappedBy="organisation", orphanRemoval=true)
+     * @Serializer\Exclude
      */
     private $benefits;
 
@@ -136,7 +140,7 @@ class Organisation
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Position", mappedBy="employer", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Position", mappedBy="employer", orphanRemoval=true)
      * @Serializer\Exclude
      */
     private $positions;
@@ -158,19 +162,53 @@ class Organisation
     //TODO implement addSite, removeSite
 
     /**
+     * @var integer
+     * @Gedmo\TreeRoot
+     * @ORM\Column(name="root", type="integer", nullable=true)
+     * @Serializer\Exclude
+     */
+    private $root;
+
+    /**
+     * @var integer
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
+     * @Serializer\Exclude
+     */
+    private $lft;
+
+    /**
+     * @var integer
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     * @Serializer\Exclude
+     */
+    private $lvl;
+
+    /**
+     * @var integer
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     * @Serializer\Exclude
+     */
+    private $rgt;
+
+    /**
+     * @var Organisation
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Organisation", inversedBy="children")
+     * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
+     **/
+    private $parent;
+
+    /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Organisation", mappedBy="parent")
      * @Serializer\Exclude
      **/
     private $children;
 
-    /**
-     * @var Organisation
-     * @ORM\ManyToOne(targetEntity="Organisation", inversedBy="children")
-     * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
-     * @Serializer\Exclude
-     **/
-    private $parent;
 
     /**
      * @var Location
@@ -201,7 +239,6 @@ class Organisation
     {
         $this->logo = $logo;
     }
-
 
 
     /**
@@ -364,5 +401,70 @@ class Organisation
     {
         $this->children = $children;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * @param mixed $root
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * @param int $lft
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * @param int $lvl
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * @param int $rgt
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+    }
+
 
 }
