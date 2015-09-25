@@ -2,11 +2,13 @@
 // src/AppBundle/Entity/Organisation/Business.php
 
 namespace AppBundle\Entity\Organisation;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="business")
@@ -36,6 +38,13 @@ class Business
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
      */
     private $owner;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Tag", inversedBy="businesses")
+     * @ORM\JoinTable(name="businesses_tags")
+     */
+    private $tags;
 
     /**
      * @var ArrayCollection

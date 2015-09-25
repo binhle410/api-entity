@@ -4,6 +4,8 @@
 namespace AppBundle\Entity\Organisation;
 
 use AppBundle\Entity\Core\Location\Location;
+use AppBundle\Entity\Core\Tag;
+use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Handbook\Handbook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -97,18 +99,14 @@ class Organisation
         $this->businesses = new ArrayCollection();
         $this->sites = new ArrayCollection();
     }
-//todo map the following fields
+
     /**
-     * check slide 22
-     *
-     *
-     * regNo, businessType:Tag, headOfficeNo, billingAddress:String, adminUserEmail,
-     * reservationEmail, userContactNo, clientSince:Date
-     * officeHours:String
-     * redemptionPassword:String, merchantCode:String
-     * aboutCompany:String
-     * Integrate with SonataMediaBundle to store app images along with banner images
-     */
+     * @var User
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\User\User")
+     * @ORM\JoinColumn(name="id_admin", referencedColumnName="id")
+     * @Serializer\Exclude
+     **/
+    private $adminUser;
 
     /**
      * @var Handbook
@@ -117,6 +115,8 @@ class Organisation
      **/
     private $handbook;
 
+
+
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="owner", orphanRemoval=true)
@@ -124,10 +124,7 @@ class Organisation
      */
     private $businesses;
 
-    /** @ORM\Column(length=150) */
-    private $name;
 
-    //todo map OneToMany with Benefit entity
     /**
      * @var ArrayCollection Benefit
      * @ORM\OneToMany(targetEntity="Benefit", mappedBy="organisation", orphanRemoval=true)
@@ -135,8 +132,6 @@ class Organisation
      */
     private $benefits;
 
-    /** @ORM\Column(length=50) */
-    private $code;
 
     /**
      * @var ArrayCollection
@@ -145,13 +140,27 @@ class Organisation
      */
     private $positions;
 
+    /**
+     * @param Position $position
+     * @return Organisation
+     */
     public function addPosition(Position $position)
     {
         $this->positions->add($position);
         $position->setEmployer($this);
         return $this;
     }
-    //todo implement removePosition
+
+    /**
+     * @param Position $position
+     * @return Organisation
+     */
+    public function removePosition(Position $position)
+    {
+        $this->positions->removeElement($position);
+        $position->setEmployer(null);
+        return $this;
+    }
 
     /**
      * @var ArrayCollection
@@ -223,6 +232,29 @@ class Organisation
      * @ORM\JoinColumn(name="id_logo", referencedColumnName="id")
      */
     private $logo;
+
+    /** @ORM\Column(length=150) */
+    private $name;
+    /** @ORM\Column(length=50) */
+    private $code;
+    /** @ORM\Column(length=50) */
+    private $regNo;
+    /** @ORM\Column(length=50) */
+    private $headOfficeNo;
+    /** @ORM\Column(length=50) */
+    private $billingAddress;
+
+
+
+    /**
+     * check slide 22
+     * , , , , ,
+     * reservationEmail, userContactNo, clientSince:Date
+     * officeHours:String
+     * redemptionPassword:String, merchantCode:String
+     * aboutCompany:String
+     * Integrate with SonataMediaBundle to store app images along with banner images
+     */
 
     /**
      * @return \Application\Sonata\MediaBundle\Entity\Media
@@ -464,6 +496,22 @@ class Organisation
     public function setRgt($rgt)
     {
         $this->rgt = $rgt;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAdminUser()
+    {
+        return $this->adminUser;
+    }
+
+    /**
+     * @param User $adminUser
+     */
+    public function setAdminUser(User $adminUser)
+    {
+        $this->adminUser = $adminUser;
     }
 
 

@@ -2,6 +2,7 @@
 // src/AppBundle/Entity/Core/Tag.php
 namespace AppBundle\Entity\Core;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,14 +18,22 @@ class Tag
      */
     private $id;
 
-    /** @ORM\Column(length=120, name="label",type="string",nullable=true) */
-    private $label;
-
     /**
      * @ORM\ManyToOne(targetEntity="Site")
      * @ORM\JoinColumn(name="id_site", referencedColumnName="id")
      **/
     private $site;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="tags")
+     **/
+    private $businesses;
+
+
+    /** @ORM\Column(length=120, name="label",type="string",nullable=true) */
+    private $label;
+
 
     /**
      * @return mixed

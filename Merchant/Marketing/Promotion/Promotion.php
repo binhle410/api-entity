@@ -1,6 +1,12 @@
 <?php
 namespace AppBundle\Entity\Merchant\Marketing\Promotion;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
+
 
 /**
  * @ORM\Entity
@@ -16,6 +22,19 @@ class Promotion
      */
     private $id;
 
+    function __construct()
+    {
+    $this->benefits = new ArrayCollection();
+    }
+
+    /**
+     * @var ArrayCollection Benefit
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Benefit", mappedBy="promotion", orphanRemoval=true)
+     * @Serializer\Exclude
+     */
+    private $benefits;
+
+
     //todo map
     /**
      * slide 24
@@ -28,8 +47,7 @@ class Promotion
      *
      * outletParticipants:ArrayCollection<OutletParticipation>
      * business:Business
-     * clients:ArrayCollectoin<Organisation>
-     * clientEmployees:ArrayCollectoin<UserGroup>
      *
      */
+
 }
