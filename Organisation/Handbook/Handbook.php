@@ -57,17 +57,6 @@ class Handbook {
     private $version;
 
     /**
-     * @param string $version
-     */
-    public function setVersion($version) {
-        foreach ($this->sections as $section) {
-//            $section = new Section();
-            $section->setVersion($version);
-        }
-        $this->version = $version;
-    }
-
-    /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Organisation", inversedBy="handbook")
      * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
      * @Serializer\Exclude
@@ -80,19 +69,6 @@ class Handbook {
      * @Serializer\Exclude
      * */
     private $sections;
-
-    public function addSection(Section $section) {
-        $this->sections->add($section);
-        $section->setHandbook($this);
-    }
-
-    /**
-     * @param Section $section
-     */
-    public function removeChild(Section $section) {
-        $this->children->removeElement($section);
-        $section->setHandbook(null);
-    }
 
     /**
      * @var string
@@ -112,6 +88,19 @@ class Handbook {
      * @ORM\Column(name="description", type="text", nullable=false)
      */
     private $description;
+
+    
+    public function addSection(Section $section) {
+        $this->sections->add($section);
+        $section->setHandbook($this);
+    }
+    /**
+     * @param Section $section
+     */
+    public function removeChild(Section $section) {
+        $this->children->removeElement($section);
+        $section->setHandbook(null);
+    }
 
     /**
      * @return string
@@ -202,6 +191,17 @@ class Handbook {
      */
     public function getVersion() {
         return $this->version;
+    }
+
+    /**
+     * @param string $version
+     */
+    public function setVersion($version) {
+//        foreach ($this->sections as $section) {
+////            $section = new Section();
+//            $section->setVersion($version);
+//        }
+        $this->version = $version;
     }
 
 }
