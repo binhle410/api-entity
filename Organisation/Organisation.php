@@ -246,7 +246,7 @@ class Organisation
     private $reservationEmail;
     /** @ORM\Column(length=50,name="user_contact_no") */
     private $userContactNo;
-    /** @Column(type="datetime", name="client_since") */
+    /** @ORM\Column(type="datetime", name="client_since") */
     private $clientSince;
     /** @ORM\Column(length=120,name="office_hours") */
     private $officeHours;

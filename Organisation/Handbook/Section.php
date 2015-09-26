@@ -11,12 +11,43 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * @Serializer\XmlRoot("handbook")
- * @Hateoas\Relation("self", href = @Hateoas\Route(
- *         "get_handbook",
- *         parameters = { "handbook" = "expr(object.getId())" },
+ * @Hateoas\Relation("self",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook_sections",
+ *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation(
+ *  "organisation",
+ *  href= @Hateoas\Route(
+ *         "get_organisation",
+ *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ *  @Hateoas\Relation("handbook",
+ *  href = @Hateoas\Route(
+ *         "get_organisation_handbook",
+ *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())" },
  *         absolute = true
  *     )
+ * )
+ *  @Hateoas\Relation("children",
+ *  href = @Hateoas\Route(
+ *         "get_organisation_handbook_section_children",
+ *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getChildren().count() == 0)")
+ * )
+ *  @Hateoas\Relation("parent",
+ *  href = @Hateoas\Route(
+ *         "get_organisation_handbook_section_parent",
+ *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *   exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() == null)")
  * )
  * @ORM\Entity
  * @ORM\Table(name="handbook_section")
@@ -39,6 +70,7 @@ class Section {
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", inversedBy="sections")
      * @ORM\JoinColumn(name="id_handbook", referencedColumnName="id")
      * @Gedmo\Versioned
+     * @Serializer\Exclude
      * */
     private $handbook;
 
@@ -76,12 +108,14 @@ class Section {
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      * @Gedmo\Versioned
+     * @Serializer\Exclude
      * */
     private $parent;
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Section", mappedBy="parent")
+     * @Serializer\Exclude
      * */
     private $children;
 

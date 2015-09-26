@@ -13,16 +13,16 @@ use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @Serializer\XmlRoot("handbook")
  * @Hateoas\Relation("self", href = @Hateoas\Route(
- *         "get_handbook",
- *         parameters = { "handbook" = "expr(object.getId())" },
+ *         "get_organisation_handbook",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())" },
  *         absolute = true
  *     )
  * )
  * @Hateoas\Relation(
- *  "sestions",
+ *  "sections",
  *  href= @Hateoas\Route(
- *         "get_handbook_sections",
- *         parameters = { "handbookId" = "expr(object.getId())"},
+ *         "get_organisation_handbook_sections",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getSections().count() == 0)")
