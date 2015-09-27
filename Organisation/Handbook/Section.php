@@ -13,8 +13,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
- *         "get_organisation_handbook_sections",
- *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())"},
+ *         "get_organisation_handbook_section",
+ *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())","section"="expr(object.getId())"},
  *         absolute = true
  *     ),
  * )
