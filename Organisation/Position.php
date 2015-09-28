@@ -11,14 +11,11 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\XmlRoot("position")
- * 
+ *
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
  *         "get_organisation_position",
- *
-        $employee->addPosition($this);
-        $employer->addPosition($this);
-         parameters = { "organisationId" = "expr(object.getEmployer().getId())","positionId" = "expr(object.getEmployer().getId())"},
+ *          parameters = { "organisationId" = "expr(object.getEmployer().getId())","positionId" = "expr(object.getEmployer().getId())"},
  *         absolute = true
  *     ),
  * )
@@ -30,18 +27,19 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     ),
  * )
- *  @Hateoas\Relation("employee",
+ * @Hateoas\Relation("employee",
  *  href = @Hateoas\Route(
  *         "get_user",
  *         parameters = { "username" = "expr(object.getEmployee().getEmail())"},
  *         absolute = true
  *     )
  * )
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="position")
  */
-class Position {
+class Position
+{
 
 //    function __construct(User $employee, Organisation $employer) {
 //        $this->employee = $employee;
@@ -78,14 +76,16 @@ class Position {
     /**
      * @return \AppBundle\Entity\Core\User\User
      */
-    public function getEmployee() {
+    public function getEmployee()
+    {
         return $this->employee;
     }
 
     /**
      * @param \AppBundle\Entity\Core\User\User $employee
      */
-    public function setEmployee(User $employee) {
+    public function setEmployee(User $employee)
+    {
         $this->employee = $employee;
         $employee->getPositions()->add($this);
     }
@@ -93,14 +93,16 @@ class Position {
     /**
      * @return Organisation
      */
-    public function getEmployer() {
+    public function getEmployer()
+    {
         return $this->employer;
     }
 
     /**
      * @param Organisation $employer
      */
-    public function setEmployer(Organisation $employer) {
+    public function setEmployer(Organisation $employer)
+    {
         $this->employer = $employer;
         $employer->getPositions()->add($this);
     }
@@ -108,28 +110,32 @@ class Position {
     /**
      * @return mixed
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * @param mixed $title
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
     }
 
     /**
      * @return boolean
      */
-    public function isActive() {
+    public function isActive()
+    {
         return $this->active;
     }
 
     /**
      * @param boolean $active
      */
-    public function setActive($active) {
+    public function setActive($active)
+    {
         $this->active = $active;
     }
 
