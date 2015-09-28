@@ -15,7 +15,10 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
  *         "get_organisation_position",
- *         parameters = { "organisationId" = "expr(object.getEmployer().getId())","positionId" = "expr(object.getEmployer().getId())"},
+ *
+        $employee->addPosition($this);
+        $employer->addPosition($this);
+         parameters = { "organisationId" = "expr(object.getEmployer().getId())","positionId" = "expr(object.getEmployer().getId())"},
  *         absolute = true
  *     ),
  * )
@@ -40,12 +43,12 @@ use Hateoas\Configuration\Annotation as Hateoas;
  */
 class Position {
 
-    function __construct(User $employee, Organisation $employer) {
-        $this->employee = $employee;
-        $employee->getPositions()->add($this);
-        $this->employer = $employer;
-        $employer->getPositions()->add($this);
-    }
+//    function __construct(User $employee, Organisation $employer) {
+//        $this->employee = $employee;
+//        $employee->getPositions()->add($this);
+//        $this->employer = $employer;
+//        $employer->getPositions()->add($this);
+//    }
 
     /**
      * @var bool
@@ -84,6 +87,7 @@ class Position {
      */
     public function setEmployee(User $employee) {
         $this->employee = $employee;
+        $employee->getPositions()->add($this);
     }
 
     /**
@@ -98,6 +102,7 @@ class Position {
      */
     public function setEmployer(Organisation $employer) {
         $this->employer = $employer;
+        $employer->getPositions()->add($this);
     }
 
     /**
