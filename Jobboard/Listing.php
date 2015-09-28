@@ -4,6 +4,7 @@
 namespace AppBundle\Entity\Jobboard;
 
 use AppBundle\Entity\Core\Location\Location;
+use AppBundle\Entity\Core\User\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,9 +26,19 @@ class Listing
         // your own logic
     }
 
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
+     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
+     **/
+    private $owner;
 
-    /** @ORM\Column(length=120, name="title",type="string",nullable=true) */
-    private $title;
+    /**
+     * @var Location
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
+     * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
+     **/
+    private $location;
 
     /** @ORM\Column(length=20, name="job_type",type="string",nullable=true) */
     private $jobType; // Referenced from Type.php
@@ -35,21 +46,26 @@ class Listing
     /** @ORM\Column(length=20, name="visibility",type="string",nullable=true) */
     private $visibility; // Referenced from Visibility.php
 
-    /** @ORM\Column(length=250, name="description",type="string",nullable=true) */
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="title",type="string",nullable=true) */
+    private $title;
+
+
+    /**
+     * @var string
+     * @ORM\Column(length=250, name="description",type="string",nullable=true) */
     private $description;
 
-
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
-     **/
-    private $owner;
-    /**
+     * @var int
      * @ORM\Column(type="integer",name="salary_from",options={"unsigned":true})
      **/
     private $salaryFrom;
 
     /**
+     * @var int
      * @ORM\Column(type="integer",name="salary_to",options={"unsigned":true})
      **/
     private $salaryTo;
@@ -60,12 +76,6 @@ class Listing
     /** @ORM\Column(length=120, name="qr_code_url",type="string",nullable=true) */
     private $qrCodeURL;
 
-    /**
-     * @var Location
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
-     * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
-     **/
-    private $location;
 
     /**
      * @return Location
