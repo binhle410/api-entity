@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
@@ -46,10 +47,15 @@ class User extends BaseUser
      */
     private $positions;
 
-    public function addPosition(Position $position)
+    /**
+     * @param Position $position
+     * @return Organisation
+     */
+    public function removePosition(Position $position)
     {
-        $this->positions->add($position);
-        $position->setEmployee($this);
+        $this->positions->removeElement($position);
+        $position->setEmployer(null);
+        return $this;
     }
 
     /**

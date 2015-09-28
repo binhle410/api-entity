@@ -129,6 +129,7 @@ class Organisation
      */
     private $benefits;
 
+
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Position", mappedBy="employer", orphanRemoval=true)
@@ -136,16 +137,6 @@ class Organisation
      */
     private $positions;
 
-    /**
-     * @param Position $position
-     * @return Organisation
-     */
-    public function addPosition(Position $position)
-    {
-        $this->positions->add($position);
-        $position->setEmployer($this);
-        return $this;
-    }
 
     /**
      * @param Position $position
@@ -675,6 +666,22 @@ class Organisation
     public function setAboutCompany($aboutCompany)
     {
         $this->aboutCompany = $aboutCompany;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBenefits()
+    {
+        return $this->benefits;
+    }
+
+    /**
+     * @param ArrayCollection $benefits
+     */
+    public function setBenefits($benefits)
+    {
+        $this->benefits = $benefits;
     }
 
 

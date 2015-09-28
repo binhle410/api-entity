@@ -14,12 +14,12 @@ use Hateoas\Configuration\Annotation as Hateoas;
  */
 class Position
 {
-
-
     function __construct(User $employee, Organisation $employer)
     {
-        $employee->addPosition($this);
-        $employer->addPosition($this);
+        $this->employee = $employee;
+        $employee->getPositions()->add($this);
+        $this->employer = $employer;
+        $employer->getPositions()->add($this);
     }
 
     /**
@@ -45,7 +45,6 @@ class Position
      * @ORM\JoinColumn(name="id_employer", referencedColumnName="id")
      */
     private $employer;
-
 
 
     /**

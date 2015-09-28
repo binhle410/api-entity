@@ -9,6 +9,7 @@ class OutletParticipation
      * retailOutlet:RetailOutlet
      * promotion:Promotion
      * redemptions:ArrayCollection<Redemption>
+     * business:Business
      *
      */
 

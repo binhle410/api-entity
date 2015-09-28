@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity\Organisation;
 
+use AppBundle\Entity\Merchant\Marketing\Promotion\Promotion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,6 +39,27 @@ class Business
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
      */
     private $owner;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\Promotion", mappedBy="business", orphanRemoval=true,cascade={"persist","merge","remove"})
+     * @Serializer\Exclude
+     */
+    private $promotions;
+
+    public function addPromotion(Promotion $promotion)
+    {
+        $this->promotions->add($promotion);
+        $promotion->setBusiness($this);
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion)
+    {
+        $this->promotions->removeElement($promotion);
+        $promotion->setBusiness(null);
+        return $this;
+    }
 
     /**
      * @var ArrayCollection

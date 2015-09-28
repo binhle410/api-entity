@@ -17,9 +17,13 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class Benefit
 {
 
-    function __construct()
+    function __construct(Promotion $promotion, Organisation $organisation)
     {
         $this->beneficiaries = new ArrayCollection();
+        $this->promotion = $promotion;
+        $promotion->getBenefits()->add($this);
+        $this->organisation = $organisation;
+        $organisation->getBenefits()->add($this);
     }
 
     /**
