@@ -110,11 +110,10 @@ class Organisation
 
     /**
      * @var Handbook
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="organisation")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="organisation", orphanRemoval=true)
      * @Serializer\Exclude
      **/
     private $handbook;
-
 
     /**
      * @var ArrayCollection
@@ -123,14 +122,12 @@ class Organisation
      */
     private $businesses;
 
-
     /**
      * @var ArrayCollection Benefit
      * @ORM\OneToMany(targetEntity="Benefit", mappedBy="organisation", orphanRemoval=true)
      * @Serializer\Exclude
      */
     private $benefits;
-
 
     /**
      * @var ArrayCollection
@@ -232,27 +229,49 @@ class Organisation
      */
     private $logo;
 
-    /** @ORM\Column(length=150) */
+    /**
+     * @var string
+     * @ORM\Column(length=150) */
     private $name;
-    /** @ORM\Column(length=50) */
+    /**
+     * @var string
+     * @ORM\Column(length=50) */
     private $code;
-    /** @ORM\Column(length=50,name="reg_no") */
+    /**
+     * @var string
+     * @ORM\Column(length=50,name="reg_no") */
     private $regNo;
-    /** @ORM\Column(length=50,name="head_office_no") */
+    /**
+     * @var string
+     * @ORM\Column(length=50,name="head_office_no") */
     private $headOfficeNo;
-    /** @ORM\Column(length=50,name="billing_address") */
+    /**
+     * @var string
+     * @ORM\Column(length=50,name="billing_address") */
     private $billingAddress;
-    /** @ORM\Column(length=50,name="reservation_email") */
+    /**
+     * @var string
+     * @ORM\Column(length=50,name="reservation_email") */
     private $reservationEmail;
-    /** @ORM\Column(length=50,name="user_contact_no") */
+    /**
+     * @var string
+     * @ORM\Column(length=50,name="user_contact_no") */
     private $userContactNo;
-    /** @ORM\Column(type="datetime", name="client_since") */
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="client_since") */
     private $clientSince;
-    /** @ORM\Column(length=120,name="office_hours") */
+    /**
+     * @var string
+     * @ORM\Column(length=120,name="office_hours") */
     private $officeHours;
-    /** @ORM\Column(length=10,name="redemption_password") */
+    /**
+     * @var string
+     * @ORM\Column(length=10,name="redemption_password") */
     private $redemptionPassword;
-    /** @ORM\Column(length=10,name="about_company") */
+    /**
+     * @var string
+     * @ORM\Column(length=10,name="about_company") */
     private $aboutCompany;
 
 
@@ -512,6 +531,150 @@ class Organisation
     public function setAdminUser(User $adminUser)
     {
         $this->adminUser = $adminUser;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegNo()
+    {
+        return $this->regNo;
+    }
+
+    /**
+     * @param string $regNo
+     */
+    public function setRegNo($regNo)
+    {
+        $this->regNo = $regNo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeadOfficeNo()
+    {
+        return $this->headOfficeNo;
+    }
+
+    /**
+     * @param string $headOfficeNo
+     */
+    public function setHeadOfficeNo($headOfficeNo)
+    {
+        $this->headOfficeNo = $headOfficeNo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillingAddress()
+    {
+        return $this->billingAddress;
+    }
+
+    /**
+     * @param string $billingAddress
+     */
+    public function setBillingAddress($billingAddress)
+    {
+        $this->billingAddress = $billingAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReservationEmail()
+    {
+        return $this->reservationEmail;
+    }
+
+    /**
+     * @param string $reservationEmail
+     */
+    public function setReservationEmail($reservationEmail)
+    {
+        $this->reservationEmail = $reservationEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserContactNo()
+    {
+        return $this->userContactNo;
+    }
+
+    /**
+     * @param string $userContactNo
+     */
+    public function setUserContactNo($userContactNo)
+    {
+        $this->userContactNo = $userContactNo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getClientSince()
+    {
+        return $this->clientSince;
+    }
+
+    /**
+     * @param \DateTime $clientSince
+     */
+    public function setClientSince($clientSince)
+    {
+        $this->clientSince = $clientSince;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOfficeHours()
+    {
+        return $this->officeHours;
+    }
+
+    /**
+     * @param string $officeHours
+     */
+    public function setOfficeHours($officeHours)
+    {
+        $this->officeHours = $officeHours;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedemptionPassword()
+    {
+        return $this->redemptionPassword;
+    }
+
+    /**
+     * @param string $redemptionPassword
+     */
+    public function setRedemptionPassword($redemptionPassword)
+    {
+        $this->redemptionPassword = $redemptionPassword;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutCompany()
+    {
+        return $this->aboutCompany;
+    }
+
+    /**
+     * @param string $aboutCompany
+     */
+    public function setAboutCompany($aboutCompany)
+    {
+        $this->aboutCompany = $aboutCompany;
     }
 
 

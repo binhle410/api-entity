@@ -24,12 +24,12 @@ class Promotion
 
     function __construct()
     {
-    $this->benefits = new ArrayCollection();
+        $this->benefits = new ArrayCollection();
     }
 
     /**
      * @var ArrayCollection Benefit
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Benefit", mappedBy="promotion", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Benefit", mappedBy="promotion", orphanRemoval=true,cascade={"persist","merge","remove"})
      * @Serializer\Exclude
      */
     private $benefits;

@@ -1,23 +1,20 @@
 <?php
 // src/AppBundle/Entity/Organisation/Position.php
 namespace AppBundle\Entity\Organisation;
+
 use AppBundle\Entity\Core\User\User;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="position")
  */
 class Position
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer",options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+
 
     function __construct(User $employee, Organisation $employer)
     {
@@ -37,25 +34,18 @@ class Position
 
     /**
      * @var \AppBundle\Entity\Core\User\User
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User", inversedBy="positions",cascade={"persist","merge","remove"})
+     * @ORM\Id @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_employee", referencedColumnName="id")
      */
     private $employee;
 
     /**
      * @var \AppBundle\Entity\Organisation\Organisation
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation", inversedBy="positions",cascade={"persist","merge","remove"})
+     * @ORM\Id @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation",inversedBy="positions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_employer", referencedColumnName="id")
      */
     private $employer;
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
 
     /**
