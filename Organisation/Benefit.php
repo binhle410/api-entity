@@ -47,7 +47,7 @@ class Benefit
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinTable(name="beneficiaries",
-     *      joinColumns={@ORM\JoinColumn(name="id_benefit", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="id_benefit", referencedColumnName="id_promotion")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")}
      *      )
      * @Serializer\Exclude

@@ -135,13 +135,13 @@ class Promotion
 
     /**
      * @var float
-     * @ORM\Column(name="discount_amount", precision="2")
+     * @ORM\Column(name="discount_amount", precision=2)
      */
     private $discountAmount;
 
     /**
      * @var float
-     * @ORM\Column(name="estimated_value", scale="2", precision="5")
+     * @ORM\Column(name="estimated_value", scale=2, precision=5)
      */
     private $estimatedValue;
 
