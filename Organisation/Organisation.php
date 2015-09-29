@@ -250,6 +250,7 @@ class Organisation
     private $userContactNo;
     /**
      * @var \DateTime
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
      * @ORM\Column(type="datetime", name="client_since") */
     private $clientSince;
     /**
