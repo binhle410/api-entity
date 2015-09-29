@@ -15,7 +15,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook_section",
- *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())","section"="expr(object.getId())"},
+ *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"="expr(object.getId())"},
  *         absolute = true
  *     ),
  * )
@@ -30,14 +30,14 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  @Hateoas\Relation("handbook",
  *  href = @Hateoas\Route(
  *         "get_organisation_handbook",
- *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())" },
+ *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())" },
  *         absolute = true
  *     )
  * )
  *  @Hateoas\Relation("children",
  *  href = @Hateoas\Route(
  *         "get_organisation_handbook_section_children",
- *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
+ *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getChildren().count() == 0)")
@@ -45,7 +45,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  @Hateoas\Relation("parent",
  *  href = @Hateoas\Route(
  *         "get_organisation_handbook_section_parent",
- *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
+ *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
  *         absolute = true
  *     ),
  *   exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() == null)")

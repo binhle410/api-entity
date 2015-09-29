@@ -14,7 +14,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Serializer\XmlRoot("handbook")
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_organisation_handbook",
- *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())" },
+ *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())" },
  *         absolute = true
  *     )
  * )
@@ -22,7 +22,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  "sections",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook_sections",
- *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())"},
+ *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbookId" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getSections().count() == 0)")
