@@ -93,11 +93,11 @@ class Organisation
 
     function __construct()
     {
-        $this->children = new ArrayCollection();
-        $this->positions = new ArrayCollection();
-        $this->locations = new ArrayCollection();
         $this->businesses = new ArrayCollection();
+        $this->benefits = new ArrayCollection();
+        $this->positions = new ArrayCollection();
         $this->sites = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     /**
@@ -238,7 +238,7 @@ class Organisation
     private $headOfficeNo;
     /**
      * @var string
-     * @ORM\Column(length=50,name="billing_address") */
+     * @ORM\Column(length=120,name="billing_address") */
     private $billingAddress;
     /**
      * @var string

@@ -3,6 +3,7 @@ namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 
 use AppBundle\Entity\Core\Tag;
 use AppBundle\Entity\Organisation\Business;
+use AppBundle\Entity\Organisation\RetailOutlet;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,6 +28,9 @@ class Promotion
     function __construct()
     {
         $this->benefits = new ArrayCollection();
+        $this->retailOutlets = new ArrayCollection();
+        $this->redemptions = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -38,11 +42,31 @@ class Promotion
     private $business;
 
     /**
+     * empty array means it include all organisations
      * @var ArrayCollection Benefit
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Benefit", mappedBy="promotion", orphanRemoval=true,cascade={"persist","merge","remove"})
      * @Serializer\Exclude
      */
     private $benefits;
+
+    /**
+     * @var ArrayCollection RetailOutlet
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\RetailOutlet")
+     * @ORM\JoinTable(name="promotions_outlets",
+     *      joinColumns={@ORM\JoinColumn(name="id_promotion", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_outlet", referencedColumnName="id")}
+     *      )
+     * @Serializer\Exclude
+     */
+    private $retailOutlets;
+
+    /**
+     * @var ArrayCollection Redemption
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\Redemption", mappedBy="promotion",orphanRemoval=true,cascade={"persist","merge","remove"})
+     * @Serializer\Exclude
+     */
+    private $redemptions;
+
 
     /**
      * only manytomany relationship is named with plural nouns.
@@ -67,13 +91,6 @@ class Promotion
         $this->tags->removeElement($tag);
         return $this;
     }
-
-    //todo map
-    /**
-     * outletParticipants:ArrayCollection<OutletParticipation>
-     *
-     */
-
 
     /**
      * @var int

@@ -138,7 +138,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getSites()
     {
@@ -146,9 +146,9 @@ class User extends BaseUser
     }
 
     /**
-     * @param mixed $sites
+     * @param ArrayCollection $sites
      */
-    public function setSites($sites)
+    public function setSites(ArrayCollection $sites)
     {
         $this->sites = $sites;
     }
@@ -178,9 +178,9 @@ class User extends BaseUser
     }
 
     /**
-     * @param mixed $positions
+     * @param ArrayCollection $positions
      */
-    public function setPositions($positions)
+    public function setPositions(ArrayCollection $positions)
     {
         $this->positions = $positions;
     }
