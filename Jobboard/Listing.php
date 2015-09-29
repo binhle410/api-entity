@@ -3,8 +3,11 @@
 
 namespace AppBundle\Entity\Jobboard;
 
+use AppBundle\Entity\Accounting\Payroll\Salary;
 use AppBundle\Entity\Core\Location\Location;
+use AppBundle\Entity\Core\Tag;
 use AppBundle\Entity\Core\User\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,42 +43,59 @@ class Listing
      **/
     private $location;
 
-    /** @ORM\Column(length=20, name="job_type",type="string",nullable=true) */
-    private $jobType; // Referenced from Type.php
-
-    /** @ORM\Column(length=20, name="visibility",type="string",nullable=true) */
-    private $visibility; // Referenced from Visibility.php
-
 
     /**
-     * @var string
-     * @ORM\Column(length=120, name="title",type="string",nullable=true) */
-    private $title;
-
-
-    /**
-     * @var string
-     * @ORM\Column(length=250, name="description",type="string",nullable=true) */
-    private $description;
-
-    /**
-     * @var int
-     * @ORM\Column(type="integer",name="salary_from",options={"unsigned":true})
+     * @var Salary
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
+     * @ORM\JoinColumn(name="id_salary_from", referencedColumnName="id")
      **/
     private $salaryFrom;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer",name="salary_to",options={"unsigned":true})
+     * @var Salary
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
+     * @ORM\JoinColumn(name="id_salary_to", referencedColumnName="id")
      **/
     private $salaryTo;
 
-    /** @ORM\Column(length=3, name="currency",type="string",nullable=true) */
-    private $currency;
+    /**
+     * @var JobType
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Jobboard\JobType")
+     * @ORM\JoinColumn(name="id_listing_type", referencedColumnName="id")
+     */
+    private $jobType;
+
+    /**
+     * @var Visibility
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Jobboard\Visibility")
+     * @ORM\JoinColumn(name="id_listing_visibility", referencedColumnName="id")
+     */
+    private $visibility; // Referenced from Visibility.php
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Tag")
+     * @ORM\JoinTable(name="job_listings_tags",
+     *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     **/
+    private $tags;
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="title",type="string",nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     * @ORM\Column(length=250, name="description",type="string",nullable=true)
+     */
+    private $description;
+
 
     /** @ORM\Column(length=120, name="qr_code_url",type="string",nullable=true) */
     private $qrCodeURL;
-
 
     /**
      * @return Location
@@ -93,14 +113,6 @@ class Listing
         $this->location = $location;
     }
 
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Tag")
-     * @ORM\JoinTable(name="listing_tag",
-     *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
-     *      )
-     **/
-    private $tags;
 
     /** @ORM\Column(name="expiry_date",type="datetime",nullable=true) */
     private $expiryDate;
@@ -125,54 +137,6 @@ class Listing
     /**
      * @return mixed
      */
-    public function getSalaryFrom()
-    {
-        return $this->salaryFrom;
-    }
-
-    /**
-     * @param mixed $salaryFrom
-     */
-    public function setSalaryFrom($salaryFrom)
-    {
-        $this->salaryFrom = $salaryFrom;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSalaryTo()
-    {
-        return $this->salaryTo;
-    }
-
-    /**
-     * @param mixed $salaryTo
-     */
-    public function setSalaryTo($salaryTo)
-    {
-        $this->salaryTo = $salaryTo;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCurrency()
-    {
-        return $this->currency;
-    }
-
-    /**
-     * @param mixed $currency
-     */
-    public function setCurrency($currency)
-    {
-        $this->currency = $currency;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getQrCodeURL()
     {
         return $this->qrCodeURL;
@@ -187,7 +151,7 @@ class Listing
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getTags()
     {
@@ -195,9 +159,9 @@ class Listing
     }
 
     /**
-     * @param mixed $tags
+     * @param ArrayCollection $tags
      */
-    public function setTags($tags)
+    public function setTags(ArrayCollection $tags)
     {
         $this->tags = $tags;
     }
@@ -219,7 +183,7 @@ class Listing
     }
 
     /**
-     * @return mixed
+     * @return JobType
      */
     public function getJobType()
     {
@@ -227,15 +191,15 @@ class Listing
     }
 
     /**
-     * @param mixed $jobType
+     * @param JobType $jobType
      */
-    public function setJobType($jobType)
+    public function setJobType(JobType $jobType)
     {
         $this->jobType = $jobType;
     }
 
     /**
-     * @return mixed
+     * @return Visibility
      */
     public function getVisibility()
     {
@@ -243,9 +207,9 @@ class Listing
     }
 
     /**
-     * @param mixed $visibility
+     * @param Visibility $visibility
      */
-    public function setVisibility($visibility)
+    public function setVisibility(Visibility $visibility)
     {
         $this->visibility = $visibility;
     }
