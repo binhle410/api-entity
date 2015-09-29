@@ -21,12 +21,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="organisation")
  *
  * @Serializer\XmlRoot("organisation")
- * @Hateoas\Relation("self", href = @Hateoas\Route(
- *         "get_organisation",
- *         parameters = { "organisation" = "expr(object.getId())" },
- *         absolute = true
- *     )
- * )
+
  * @Hateoas\Relation(
  *  "handbook",
  *  href= @Hateoas\Route(
@@ -99,7 +94,6 @@ class Organisation
         $this->sites = new ArrayCollection();
         $this->children = new ArrayCollection();
     }
-
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\User\User")
