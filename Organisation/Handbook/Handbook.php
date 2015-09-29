@@ -216,9 +216,11 @@ class Handbook
     public function setVersion($version)
     {
         if ($version !== $this->version) {
-            foreach ($this->getSections() as $section) {
+            if (!empty($this->getSections())) {
+                foreach ($this->sections as $section) {
 //            $section = new Section();
-                $section->setVersion($version);
+                    $section->setVersion($version);
+                }
             }
         }
         $this->version = $version;
