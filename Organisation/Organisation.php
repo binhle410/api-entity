@@ -31,7 +31,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  "handbook",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook",
- *         parameters = { "organisation" = "expr(object.getId())","handbook" = "expr(object.getHandbook().getId())" },
+ *         parameters = { "organisationId" = "expr(object.getId())","handbook" = "expr(object.getHandbook().getId())" },
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbook() === null)")
