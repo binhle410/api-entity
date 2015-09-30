@@ -23,6 +23,38 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Serializer\XmlRoot("organisation")
 
  * @Hateoas\Relation(
+ *  "post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation",
+ *         parameters = {},
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation(
+ *  "put",
+ *  href= @Hateoas\Route(
+ *         "get_organisation",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation(
+ *  "delete",
+ *  href= @Hateoas\Route(
+ *         "get_organisation",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_organisation",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation(
  *  "handbook",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook",
@@ -30,6 +62,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbook() === null)")
+ * )
+ * @Hateoas\Relation("handbook:post", href = @Hateoas\Route(
+ *         "post_organisation_handbook",
+ *         parameters = { "organisationId" = "expr(object.getId())"},
+ *         absolute = true
+ *     )
  * )
  * @Hateoas\Relation(
  *  "positions",
@@ -39,6 +77,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPositions().count() == 0)")
+ * )
+ * @Hateoas\Relation("positions:post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_position",
+ *          parameters = { "organisationId" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
  * )
  * @Hateoas\Relation(
  *  "sites",

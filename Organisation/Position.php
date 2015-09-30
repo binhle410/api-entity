@@ -12,6 +12,27 @@ use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @Serializer\XmlRoot("position")
  *
+ * @Hateoas\Relation("post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_position",
+ *          parameters = { "organisationId" = "expr(object.getEmployer().getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation("put",
+ *  href= @Hateoas\Route(
+ *         "put_organisation_position",
+ *          parameters = { "organisationId" = "expr(object.getEmployer().getId())","userId" = "expr(object.getEmployee().getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation("delete",
+ *  href= @Hateoas\Route(
+ *         "delete_organisation_position",
+ *          parameters = { "organisationId" = "expr(object.getEmployer().getId())","userId" = "expr(object.getEmployee().getId())"},
+ *         absolute = true
+ *     ),
+ * )
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
  *         "get_organisation_position",

@@ -20,6 +20,24 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Table(name="user")
  *
  * @Serializer\XmlRoot("user")
+ * @Hateoas\Relation("post", href = @Hateoas\Route(
+ *         "post_user",
+ *         parameters = {},
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation("put", href = @Hateoas\Route(
+ *         "put_user",
+ *         parameters = { "user" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation("delete", href = @Hateoas\Route(
+ *         "delete_user",
+ *         parameters = { "user" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_user",
  *         parameters = { "username" = "expr(object.getEmail())" },
