@@ -24,7 +24,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         "post_user",
  *         parameters = {},
  *         absolute = true
- *     )
+ *     ),
+ *  attributes = { "method" = {"post","put","delete"} },
  * )
  * @Hateoas\Relation("put", href = @Hateoas\Route(
  *         "put_user",

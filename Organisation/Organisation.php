@@ -28,7 +28,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "post_organisation",
  *         parameters = {},
  *         absolute = true
- *     )
+ *     ),
+ *  attributes = { "method" = {"post","put","delete"} },
  * )
  * @Hateoas\Relation(
  *  "put",

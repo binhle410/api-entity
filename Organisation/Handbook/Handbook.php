@@ -34,7 +34,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         "get_organisation_handbook",
  *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())" },
  *         absolute = true
- *     )
+ *     ),
+ *   attributes = { "method" = {"post","put","delete"} },
  * )
  * @Hateoas\Relation(
  *  "sections",
