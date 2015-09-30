@@ -48,14 +48,7 @@ class Position
 //        $employer->getPositions()->add($this);
 //    }
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean", name="active", options={"default":false})
-     */
-    private $active;
-    // e.g: Business Development, Telesales
-    /** @ORM\Column(length=50, name="title",type="string",nullable=true) */
-    private $title;
+
 
     /**
      * @var \AppBundle\Entity\Core\User\User
@@ -72,6 +65,21 @@ class Position
      * @Serializer\Exclude
      */
     private $employer;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="active", options={"default":false})
+     */
+    private $active;
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="handbook_contact", options={"default":false})
+     */
+    private $handbookContact;
+
+    // e.g: Business Development, Telesales
+    /** @ORM\Column(length=50, name="title",type="string",nullable=true) */
+    private $title;
 
     /**
      * @return \AppBundle\Entity\Core\User\User
@@ -138,5 +146,22 @@ class Position
     {
         $this->active = $active;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isHandbookContact()
+    {
+        return $this->handbookContact;
+    }
+
+    /**
+     * @param boolean $handbookContact
+     */
+    public function setHandbookContact($handbookContact)
+    {
+        $this->handbookContact = $handbookContact;
+    }
+
 
 }
