@@ -12,34 +12,20 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\XmlRoot("section")
- * @Hateoas\Relation("post",
- *  href= @Hateoas\Route(
- *         "post_organisation_handbook_section",
- *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())"},
- *         absolute = true
- *     ),
- * )
- * @Hateoas\Relation("put",
- *  href= @Hateoas\Route(
- *         "put_organisation_handbook_section",
- *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"="expr(object.getId())"},
- *         absolute = true
- *     ),
- * )
- * @Hateoas\Relation("delete",
- *  href= @Hateoas\Route(
- *         "delete_organisation_handbook_section",
- *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"="expr(object.getId())"},
- *         absolute = true
- *     ),
- * )
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook_section",
  *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"="expr(object.getId())"},
  *         absolute = true
  *     ),
- *   attributes = { "method" = {"post","put","delete"} },
+ *   attributes = { "method" = {"put","delete"} },
+ * )
+ * @Hateoas\Relation("post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_handbook_section",
+ *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())"},
+ *         absolute = true
+ *     ),
  * )
  * @Hateoas\Relation(
  *  "organisation",
@@ -65,10 +51,9 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getChildren().count() == 0)")
  * )
  *  @Hateoas\Relation("parent",
- *  attributes = { "id" = "expr(object.getParent().getId())" },
- *  href = @Hateoas\Route(
- *         "get_organisation_handbook_section_parent",
- *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook_section",
+ *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"="expr(object.getParent().getId())"},
  *         absolute = true
  *     ),
  *   exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() == null)")

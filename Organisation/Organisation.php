@@ -21,37 +21,20 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="organisation")
  *
  * @Serializer\XmlRoot("organisation")
-
- * @Hateoas\Relation(
- *  "post",
- *  href= @Hateoas\Route(
- *         "post_organisation",
- *         parameters = {},
- *         absolute = true
- *     ),
- *  attributes = { "method" = {"post","put","delete"} },
- * )
- * @Hateoas\Relation(
- *  "put",
- *  href= @Hateoas\Route(
- *         "get_organisation",
- *         parameters = { "organisation" = "expr(object.getId())"},
- *         absolute = true
- *     )
- * )
- * @Hateoas\Relation(
- *  "delete",
- *  href= @Hateoas\Route(
- *         "get_organisation",
- *         parameters = { "organisation" = "expr(object.getId())"},
- *         absolute = true
- *     )
- * )
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
  *         "get_organisation",
  *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
+ * @Hateoas\Relation(
+ *  "post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation",
+ *         parameters = {},
  *         absolute = true
  *     )
  * )

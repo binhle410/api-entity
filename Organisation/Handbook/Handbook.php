@@ -12,30 +12,18 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\XmlRoot("handbook")
- * @Hateoas\Relation("post", href = @Hateoas\Route(
- *         "post_organisation_handbook",
- *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())"},
- *         absolute = true
- *     )
- * )
- * @Hateoas\Relation("put", href = @Hateoas\Route(
- *         "put_organisation_handbook",
- *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())" },
- *         absolute = true
- *     )
- * )
- * @Hateoas\Relation("delete", href = @Hateoas\Route(
- *         "delete_organisation_handbook",
- *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())" },
- *         absolute = true
- *     )
- * )
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_organisation_handbook",
  *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())" },
  *         absolute = true
  *     ),
- *   attributes = { "method" = {"post","put","delete"} },
+ *   attributes = { "method" = {"put","delete"} },
+ * )
+ * @Hateoas\Relation("post", href = @Hateoas\Route(
+ *         "post_organisation_handbook",
+ *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())"},
+ *         absolute = true
+ *     )
  * )
  * @Hateoas\Relation(
  *  "sections",
