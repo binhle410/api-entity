@@ -41,6 +41,15 @@ class Promotion
      **/
     private $business;
 
+
+    /**
+     * @var PromotionType
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\PromotionType", cascade={"persist","merge","remove"})
+     * @ORM\JoinColumn(name="id_type", referencedColumnName="id")
+     * @Serializer\Exclude
+     **/
+    private $type;
+
     /**
      * empty array means it include all organisations
      * @var ArrayCollection Benefit
@@ -144,11 +153,6 @@ class Promotion
      */
     private $title;
 
-    /**
-     * @var string
-     * @ORM\Column(length=120,name="type")
-     */
-    private $type;
 
     /**
      * @var float
@@ -211,7 +215,7 @@ class Promotion
     }
 
     /**
-     * @return string
+     * @return PromotionType
      */
     public function getType()
     {
@@ -219,9 +223,9 @@ class Promotion
     }
 
     /**
-     * @param string $type
+     * @param PromotionType $type
      */
-    public function setType($type)
+    public function setType(PromotionType $type)
     {
         $this->type = $type;
     }
@@ -416,6 +420,38 @@ class Promotion
     public function setBusiness($business)
     {
         $this->business = $business;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRetailOutlets()
+    {
+        return $this->retailOutlets;
+    }
+
+    /**
+     * @param ArrayCollection $retailOutlets
+     */
+    public function setRetailOutlets($retailOutlets)
+    {
+        $this->retailOutlets = $retailOutlets;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRedemptions()
+    {
+        return $this->redemptions;
+    }
+
+    /**
+     * @param ArrayCollection $redemptions
+     */
+    public function setRedemptions($redemptions)
+    {
+        $this->redemptions = $redemptions;
     }
 
 

@@ -65,6 +65,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getChildren().count() == 0)")
  * )
  *  @Hateoas\Relation("parent",
+ *  attributes = { "id" = "expr(object.getParent().getId())" },
  *  href = @Hateoas\Route(
  *         "get_organisation_handbook_section_parent",
  *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
