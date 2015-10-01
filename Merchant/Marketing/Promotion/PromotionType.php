@@ -35,7 +35,7 @@ class PromotionType extends BasicEnum
 
     /**
      * @var string
-     * @ORM\Column(length="25")
+     * @ORM\Column(length=25)
      */
     private $title;
 
