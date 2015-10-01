@@ -19,7 +19,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *   attributes = { "method" = {"put","delete"} },
  * )
- * @Hateoas\Relation("post", href = @Hateoas\Route(
+ * @Hateoas\Relation("handbook.post", href = @Hateoas\Route(
  *         "post_organisation_handbook",
  *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())"},
  *         absolute = true

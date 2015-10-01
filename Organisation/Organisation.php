@@ -31,7 +31,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  attributes = { "method" = {"put","delete"} },
  * )
  * @Hateoas\Relation(
- *  "post",
+ *  "organisation.post",
  *  href= @Hateoas\Route(
  *         "post_organisation",
  *         parameters = {},
@@ -90,8 +90,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "parent",
  *  href= @Hateoas\Route(
- *         "get_organisation_parent",
- *         parameters = { "organisation" = "expr(object.getId())"},
+ *         "get_organisation",
+ *         parameters = { "organisation" = "expr(object.getParent().getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() === null)")

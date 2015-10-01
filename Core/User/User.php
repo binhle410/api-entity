@@ -20,7 +20,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Table(name="user")
  *
  * @Serializer\XmlRoot("user")
- * @Hateoas\Relation("post", href = @Hateoas\Route(
+ * @Hateoas\Relation("user.post", href = @Hateoas\Route(
  *         "post_user",
  *         parameters = {},
  *         absolute = true
