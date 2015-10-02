@@ -46,17 +46,13 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="position")
  */
-class Position
-{
-
+class Position {
 //    function __construct(User $employee, Organisation $employer) {
 //        $this->employee = $employee;
 //        $employee->getPositions()->add($this);
 //        $this->employer = $employer;
 //        $employer->getPositions()->add($this);
 //    }
-
-
 
     /**
      * @var \AppBundle\Entity\Core\User\User
@@ -79,29 +75,50 @@ class Position
      * @ORM\Column(type="boolean", name="active", options={"default":false})
      */
     private $active;
+
     /**
      * @var bool
      * @ORM\Column(type="boolean", name="handbook_contact", options={"default":false})
      */
     private $handbookContact;
-
     // e.g: Business Development, Telesales
     /** @ORM\Column(length=50, name="title",type="string",nullable=true) */
     private $title;
 
+    /** @ORM\Column(length=50, name="mobile_phone",type="string",nullable=true) */
+    private $mobilephone;
+
+    /** @ORM\Column(length=50, name="office_phone",type="string",nullable=true) */
+    private $officePhone;
+
+    public function getMobilePhone() {
+        return $this->mobilephone;
+    }
+
+    public function setMobilePhone($mobilephone) {
+        $this->mobilephone = $mobilephone;
+        return $this;
+    }
+    public function getOfficePhone() {
+        return $this->mobilephone;
+    }
+
+    public function setOfficePhone($officePhone) {
+        $this->officePhone = $officePhone;
+        return $this;
+    }
+
     /**
      * @return \AppBundle\Entity\Core\User\User
      */
-    public function getEmployee()
-    {
+    public function getEmployee() {
         return $this->employee;
     }
 
     /**
      * @param \AppBundle\Entity\Core\User\User $employee
      */
-    public function setEmployee(User $employee)
-    {
+    public function setEmployee(User $employee) {
         $this->employee = $employee;
         $employee->getPositions()->add($this);
     }
@@ -109,16 +126,14 @@ class Position
     /**
      * @return Organisation
      */
-    public function getEmployer()
-    {
+    public function getEmployer() {
         return $this->employer;
     }
 
     /**
      * @param Organisation $employer
      */
-    public function setEmployer(Organisation $employer)
-    {
+    public function setEmployer(Organisation $employer) {
         $this->employer = $employer;
         $employer->getPositions()->add($this);
     }
@@ -126,50 +141,43 @@ class Position
     /**
      * @return mixed
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
     /**
      * @param mixed $title
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
     }
 
     /**
      * @return boolean
      */
-    public function isActive()
-    {
+    public function isActive() {
         return $this->active;
     }
 
     /**
      * @param boolean $active
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->active = $active;
     }
 
     /**
      * @return boolean
      */
-    public function isHandbookContact()
-    {
+    public function isHandbookContact() {
         return $this->handbookContact;
     }
 
     /**
      * @param boolean $handbookContact
      */
-    public function setHandbookContact($handbookContact)
-    {
+    public function setHandbookContact($handbookContact) {
         $this->handbookContact = $handbookContact;
     }
-
 
 }
