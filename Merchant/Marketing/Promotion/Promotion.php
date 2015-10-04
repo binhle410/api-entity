@@ -12,6 +12,43 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 
 /**
+ *
+ * @Serializer\XmlRoot("promotion")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_promotion",
+ *         parameters = { "promotion" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} }
+ * )
+ * @Hateoas\Relation(
+ *  "promotion.post",
+ *  href= @Hateoas\Route(
+ *         "post_promotion",
+ *         parameters = {},
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation(
+ *  "promotion_type",
+ *  href= @Hateoas\Route(
+ *         "get_promotion_promotion_type",
+ *         parameters = { "promotion" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getType() === null)")
+ * )
+ * @Hateoas\Relation(
+ *  "redemption",
+ *  href= @Hateoas\Route(
+ *         "get_promotion_redemption",
+ *         parameters = { "promotion" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions().count() === null)")
+ * )
  * @ORM\Entity
  * @ORM\Table(name="promotion")
  */

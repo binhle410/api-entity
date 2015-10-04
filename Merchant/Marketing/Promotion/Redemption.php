@@ -12,6 +12,25 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
 /**
+ * @Serializer\XmlRoot("redemption")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_promotion_redemption",
+ *         parameters = { "promotion" = "expr(object.getPromotion().getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} }
+ * )
+ * @Hateoas\Relation(
+ *  "redemption.post",
+ *  href= @Hateoas\Route(
+ *         "post_promotion_redemption",
+ *         parameters = {},
+ *         absolute = true
+ *     )
+ * )
+ * 
  * @ORM\Entity
  * @ORM\Table(name="redemption")
  */
@@ -39,22 +58,6 @@ class Redemption
      * @ORM\JoinColumn(name="id_outlet", referencedColumnName="id")
      */
     private $retailOutlet;
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return User
