@@ -261,6 +261,10 @@ class Organisation
     private $headOfficeNo;
     /**
      * @var string
+     * @ORM\Column(length=120,name="office_address", nullable=true) */
+    private $officeAddress;
+    /**
+     * @var string
      * @ORM\Column(length=120,name="billing_address", nullable=true) */
     private $billingAddress;
     /**
@@ -707,6 +711,23 @@ class Organisation
     {
         $this->benefits = $benefits;
     }
+
+    /**
+     * @return string
+     */
+    public function getOfficeAddress()
+    {
+        return $this->officeAddress;
+    }
+
+    /**
+     * @param string $officeAddress
+     */
+    public function setOfficeAddress($officeAddress)
+    {
+        $this->officeAddress = $officeAddress;
+    }
+
 
 
 }
