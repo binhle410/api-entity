@@ -56,7 +56,8 @@ class Position {
 
     /**
      * @var \AppBundle\Entity\Core\User\User
-     * @ORM\Id @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions",cascade={"persist","merge","remove"})
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_employee", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -64,7 +65,8 @@ class Position {
 
     /**
      * @var \AppBundle\Entity\Organisation\Organisation
-     * @ORM\Id @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation",inversedBy="positions",cascade={"persist","merge","remove"})
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation",inversedBy="positions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_employer", referencedColumnName="id")
      * @Serializer\Exclude
      */

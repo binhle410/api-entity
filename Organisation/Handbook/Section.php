@@ -59,7 +59,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *   exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() == null)")
  * )
  * @ORM\Entity
- * @ORM\Table(name="handbook_section")
+ * @ORM\Table(name="organisation_handbook_section")
  * @Gedmo\Loggable()
  */
 class Section {

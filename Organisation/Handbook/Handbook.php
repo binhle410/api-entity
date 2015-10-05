@@ -51,7 +51,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  * @ORM\Entity
- * @ORM\Table(name="handbook")
+ * @ORM\Table(name="organisation_handbook")
  * @Gedmo\Loggable()
  */
 class Handbook

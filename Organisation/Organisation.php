@@ -249,44 +249,44 @@ class Organisation
     private $name;
     /**
      * @var string
-     * @ORM\Column(length=50) */
+     * @ORM\Column(length=50, nullable=true) */
     private $code;
     /**
      * @var string
-     * @ORM\Column(length=50,name="reg_no") */
+     * @ORM\Column(length=50,name="reg_no", nullable=true) */
     private $regNo;
     /**
      * @var string
-     * @ORM\Column(length=50,name="head_office_no") */
+     * @ORM\Column(length=50,name="head_office_no", nullable=true) */
     private $headOfficeNo;
     /**
      * @var string
-     * @ORM\Column(length=120,name="billing_address") */
+     * @ORM\Column(length=120,name="billing_address", nullable=true) */
     private $billingAddress;
     /**
      * @var string
-     * @ORM\Column(length=50,name="reservation_email") */
+     * @ORM\Column(length=50,name="reservation_email", nullable=true) */
     private $reservationEmail;
     /**
      * @var string
-     * @ORM\Column(length=50,name="user_contact_no") */
+     * @ORM\Column(length=50,name="user_contact_no", nullable=true) */
     private $userContactNo;
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
-     * @ORM\Column(type="datetime", name="client_since") */
+     * @ORM\Column(type="datetime", name="client_since",nullable=true) */
     private $clientSince;
     /**
      * @var string
-     * @ORM\Column(length=120,name="office_hours") */
+     * @ORM\Column(length=120,name="office_hours",nullable=true) */
     private $officeHours;
     /**
      * @var string
-     * @ORM\Column(length=10,name="redemption_password") */
+     * @ORM\Column(length=10,name="redemption_password",nullable=true) */
     private $redemptionPassword;
     /**
      * @var string
-     * @ORM\Column(length=10,name="about_company") */
+     * @ORM\Column(length=10,name="about_company",nullable=true) */
     private $aboutCompany;
 
 
