@@ -46,7 +46,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="position")
  */
-class Position {
+class Position
+{
 //    function __construct(User $employee, Organisation $employer) {
 //        $this->employee = $employee;
 //        $employee->getPositions()->add($this);
@@ -57,7 +58,7 @@ class Position {
     /**
      * @var \AppBundle\Entity\Core\User\User
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions")
      * @ORM\JoinColumn(name="id_employee", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -66,7 +67,7 @@ class Position {
     /**
      * @var \AppBundle\Entity\Organisation\Organisation
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation",inversedBy="positions",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation",inversedBy="positions")
      * @ORM\JoinColumn(name="id_employer", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -88,24 +89,29 @@ class Position {
     private $title;
 
     /** @ORM\Column(length=50, name="mobile_phone",type="string",nullable=true) */
-    private $mobilephone;
+    private $mobilePhone;
 
     /** @ORM\Column(length=50, name="office_phone",type="string",nullable=true) */
     private $officePhone;
 
-    public function getMobilePhone() {
-        return $this->mobilephone;
+    public function getMobilePhone()
+    {
+        return $this->mobilePhone;
     }
 
-    public function setMobilePhone($mobilephone) {
-        $this->mobilephone = $mobilephone;
+    public function setMobilePhone($mobilePhone)
+    {
+        $this->mobilePhone = $mobilePhone;
         return $this;
     }
-    public function getOfficePhone() {
-        return $this->mobilephone;
+
+    public function getOfficePhone()
+    {
+        return $this->officePhone;
     }
 
-    public function setOfficePhone($officePhone) {
+    public function setOfficePhone($officePhone)
+    {
         $this->officePhone = $officePhone;
         return $this;
     }
@@ -113,14 +119,16 @@ class Position {
     /**
      * @return \AppBundle\Entity\Core\User\User
      */
-    public function getEmployee() {
+    public function getEmployee()
+    {
         return $this->employee;
     }
 
     /**
      * @param \AppBundle\Entity\Core\User\User $employee
      */
-    public function setEmployee(User $employee) {
+    public function setEmployee(User $employee)
+    {
         $this->employee = $employee;
         $employee->getPositions()->add($this);
     }
@@ -128,14 +136,16 @@ class Position {
     /**
      * @return Organisation
      */
-    public function getEmployer() {
+    public function getEmployer()
+    {
         return $this->employer;
     }
 
     /**
      * @param Organisation $employer
      */
-    public function setEmployer(Organisation $employer) {
+    public function setEmployer(Organisation $employer)
+    {
         $this->employer = $employer;
         $employer->getPositions()->add($this);
     }
@@ -143,42 +153,48 @@ class Position {
     /**
      * @return mixed
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * @param mixed $title
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
     }
 
     /**
      * @return boolean
      */
-    public function isActive() {
+    public function isActive()
+    {
         return $this->active;
     }
 
     /**
      * @param boolean $active
      */
-    public function setActive($active) {
+    public function setActive($active)
+    {
         $this->active = $active;
     }
 
     /**
      * @return boolean
      */
-    public function isHandbookContact() {
+    public function isHandbookContact()
+    {
         return $this->handbookContact;
     }
 
     /**
      * @param boolean $handbookContact
      */
-    public function setHandbookContact($handbookContact) {
+    public function setHandbookContact($handbookContact)
+    {
         $this->handbookContact = $handbookContact;
     }
 
