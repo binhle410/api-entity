@@ -85,14 +85,29 @@ class Position
      */
     private $handbookContact;
     // e.g: Business Development, Telesales
-    /** @ORM\Column(length=50, name="title",type="string",nullable=true) */
+    /**
+     * @var string
+     * @ORM\Column(length=50, name="title",type="string",nullable=true)
+     */
     private $title;
 
-    /** @ORM\Column(length=50, name="mobile_phone",type="string",nullable=true) */
+    /**
+     * @var string
+     * @ORM\Column(length=50, name="mobile_phone",type="string",nullable=true)
+     */
     private $mobilePhone;
 
-    /** @ORM\Column(length=50, name="office_phone",type="string",nullable=true) */
+    /**
+     * @var string
+     * @ORM\Column(length=50, name="office_phone",type="string",nullable=true)
+     */
     private $officePhone;
+
+    /**
+     * @var string
+     * @ORM\Column(length=50, name="email_address",type="string",nullable=true)
+     */
+    private $emailAddress;
 
     public function getMobilePhone()
     {
@@ -197,5 +212,22 @@ class Position
     {
         $this->handbookContact = $handbookContact;
     }
+
+    /**
+     * @return string
+     */
+    public function getEmailAddress()
+    {
+        return $this->emailAddress;
+    }
+
+    /**
+     * @param string $emailAddress
+     */
+    public function setEmailAddress($emailAddress)
+    {
+        $this->emailAddress = $emailAddress;
+    }
+
 
 }
