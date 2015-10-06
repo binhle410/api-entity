@@ -13,6 +13,39 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 
 /**
+ * @Serializer\XmlRoot("message")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_message",
+ *         parameters = { "message" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
+ * @Hateoas\Relation(
+ *  "message.post",
+ *  href= @Hateoas\Route(
+ *         "post_message",
+ *         parameters = {},
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation("sender",
+ *  href = @Hateoas\Route(
+ *         "get_user",
+ *         parameters = { "username" = "expr(object.getSender().getEmail())"},
+ *         absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation("recipient",
+ *  href = @Hateoas\Route(
+ *         "get_user",
+ *         parameters = { "username" = "expr(object.getRecipient().getEmail())"},
+ *         absolute = true
+ *     )
+ * )
+ * 
  * @ORM\Entity
  * @ORM\Table(name="message")
  */
@@ -31,6 +64,7 @@ class Message
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinColumn(name="id_sender", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $sender;
 
@@ -38,6 +72,7 @@ class Message
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinColumn(name="id_recipient", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $recipient;
 

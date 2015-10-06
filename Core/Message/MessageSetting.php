@@ -1,16 +1,37 @@
 <?php
+
 // src/AppBundle/Entity/Core/Message/MessageSetting.php
 
 namespace AppBundle\Entity\Core\Message;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
+ * @Serializer\XmlRoot("message_setting")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_message_message_setting",
+ *         parameters = { "messageSetting" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
+ * @Hateoas\Relation(
+ *  "message_setting.post",
+ *  href= @Hateoas\Route(
+ *         "post_message_message_setting",
+ *         parameters = {},
+ *         absolute = true
+ *     )
+ * )
  * @ORM\Entity
  * @ORM\Table(name="message_setting")
  */
-class MessageSetting
-{
+class MessageSetting {
+
     /**
      * @var int
      * @ORM\Id
@@ -39,70 +60,60 @@ class MessageSetting
      */
     private $entity;
 
-
     /**
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param int $id
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
     /**
      * @return string
      */
-    public function getTemplate()
-    {
+    public function getTemplate() {
         return $this->template;
     }
 
     /**
      * @param string $template
      */
-    public function setTemplate($template)
-    {
+    public function setTemplate($template) {
         $this->template = $template;
     }
 
     /**
      * @return string
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
     /**
      * @param string $type
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
     }
 
     /**
      * @return string
      */
-    public function getEntity()
-    {
+    public function getEntity() {
         return $this->entity;
     }
 
     /**
      * @param string $entity
      */
-    public function setEntity($entity)
-    {
+    public function setEntity($entity) {
         $this->entity = $entity;
     }
-
 
 }

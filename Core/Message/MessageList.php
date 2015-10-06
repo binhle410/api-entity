@@ -35,10 +35,10 @@ class MessageList
 
     /**
      * @var ArrayCollection User
-     * @ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @JoinTable(name="messages_users",
-     *      joinColumns={@JoinColumn(name="id_message", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="id_recipient", referencedColumnName="id", unique=true)}
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
+     * @ORM\JoinTable(name="messages_users",
+     *      joinColumns={@ORM\JoinColumn(name="id_message", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_recipient", referencedColumnName="id", unique=true)}
      *      )
      */
     private $recipients;
