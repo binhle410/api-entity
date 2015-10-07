@@ -45,7 +45,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     )
  * )
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="message")
  */
@@ -59,6 +59,10 @@ class Message
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    function __construct(){
+        $this->createdAt = new DateTime();
+    }
 
     /**
      * @var User
@@ -77,6 +81,18 @@ class Message
     private $recipient;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="created_at")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="last_sent_at")
+     */
+    private $lastSentAt;
+
+    /**
      * @var boolean
      * @ORM\Column(length=50, name="automated",type="boolean",options={"default":false})
      */
@@ -89,25 +105,31 @@ class Message
      * ... 200 means OK
      * ... 201 when the message is created and sent in one single API call.
      * @var int
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\Column(name="status", type="integer",nullable=true)
      */
     private $status;
 
     /**
      * @var int
-     * @ORM\Column(name="error_code", type="integer")
+     * @ORM\Column(name="error_code", type="integer",nullable=true)
      */
     private $errorCode;
 
     /**
      * @var string
-     * @ORM\Column(name="error_msg", length=120)
+     * @ORM\Column(name="error_msg", length=120,nullable=true)
      */
     private $errorMsg;
 
     /**
      * @var string
-     * @ORM\Column(name="content", length=120)
+     * @ORM\Column(name="subject",length=250,nullable=true)
+     */
+    private $subject;
+
+    /**
+     * @var string
+     * @ORM\Column(name="content", length=12000,nullable=true)
      */
     private $content;
 
@@ -239,6 +261,53 @@ class Message
         $this->status = $status;
     }
 
+    /**
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @param string $subject
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastSentAt()
+    {
+        return $this->lastSentAt;
+    }
+
+    /**
+     * @param \DateTime $lastSentAt
+     */
+    public function setLastSentAt($lastSentAt)
+    {
+        $this->lastSentAt = $lastSentAt;
+    }
 
 
 }

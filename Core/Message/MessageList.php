@@ -19,6 +19,11 @@ class MessageList
      */
     private $id;
 
+    function __construct()
+    {
+        $this->createdAt = new DateTime();
+    }
+
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
@@ -44,6 +49,12 @@ class MessageList
     private $recipients;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="created_at")
+     */
+    private $createdAt;
+
+    /**
      * eg: 100 recipients are still being added and the list is not completed yet.
      * ... 202 to be used with an automated message.
      * A full message list has been accepted but not yet completed sending, if directly posted then an id should be returned
@@ -54,6 +65,13 @@ class MessageList
      * @ORM\Column(name="status", type="integer")
      */
     private $status;
+
+    /**
+     * @var string
+     * @ORM\Column(length=250, name="name",type="string",nullable=true)
+     */
+    private $name;
+
 
     /**
      * @return int
@@ -134,5 +152,38 @@ class MessageList
     {
         $this->setting = $setting;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
 
 }

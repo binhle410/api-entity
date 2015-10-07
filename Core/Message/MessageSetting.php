@@ -13,7 +13,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
- *         "get_message_message_setting",
+ *         "get_messagesetting",
  *         parameters = { "messageSetting" = "expr(object.getId())"},
  *         absolute = true
  *     ),
@@ -22,7 +22,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Hateoas\Relation(
  *  "message_setting.post",
  *  href= @Hateoas\Route(
- *         "post_message_message_setting",
+ *         "post_messagesetting",
  *         parameters = {},
  *         absolute = true
  *     )

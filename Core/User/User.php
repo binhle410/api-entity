@@ -6,6 +6,7 @@
 // config: fos_user.user_class
 namespace AppBundle\Entity\Core\User;
 
+use AppBundle\Entity\Core\Message\MessageBox;
 use AppBundle\Entity\Organisation\Position;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -46,8 +47,14 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->jobs = new ArrayCollection();
     }
+
+
+    /**
+     * @var MessageBox
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Message\MessageBox", mappedBy="user",orphanRemoval=true)
+     **/
+    private $messageBox;
 
     /**
      * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Organisation\Position", mappedBy="employee", orphanRemoval=true)
@@ -191,5 +198,22 @@ class User extends BaseUser
     {
         $this->positions = $positions;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMessageBox()
+    {
+        return $this->messageBox;
+    }
+
+    /**
+     * @param mixed $messageBox
+     */
+    public function setMessageBox($messageBox)
+    {
+        $this->messageBox = $messageBox;
+    }
+
 
 }

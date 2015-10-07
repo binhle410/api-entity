@@ -69,7 +69,7 @@ class Salary
     /**
      * @param Currency $currency
      */
-    public function setCurrency($currency)
+    public function setCurrency(Currency $currency)
     {
         $this->currency = $currency;
     }

@@ -70,7 +70,7 @@ class PromotionOrganisationUsage
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getPromotionUsage()
     {
@@ -78,7 +78,7 @@ class PromotionOrganisationUsage
     }
 
     /**
-     * @param mixed $promotionUsage
+     * @param int $promotionUsage
      */
     public function setPromotionUsage($promotionUsage)
     {

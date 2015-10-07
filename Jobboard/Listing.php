@@ -43,7 +43,6 @@ class Listing
      **/
     private $location;
 
-
     /**
      * @var Salary
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
