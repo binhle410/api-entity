@@ -60,9 +60,18 @@ class Message
      */
     private $id;
 
-    function __construct(){
+    function __construct()
+    {
         $this->createdAt = new DateTime();
     }
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
+     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $owner;
 
     /**
      * @var User
@@ -88,7 +97,7 @@ class Message
 
     /**
      * @var \DateTime
-     * @ORM\Column(type="datetime", name="last_sent_at")
+     * @ORM\Column(type="datetime", name="last_sent_at",nullable=true)
      */
     private $lastSentAt;
 
@@ -129,9 +138,9 @@ class Message
 
     /**
      * @var string
-     * @ORM\Column(name="content", length=12000,nullable=true)
+     * @ORM\Column(name="body", length=12000,nullable=true)
      */
-    private $content;
+    private $body;
 
     /**
      * @return int
@@ -229,21 +238,7 @@ class Message
         $this->errorMsg = $errorMsg;
     }
 
-    /**
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
 
-    /**
-     * @param string $content
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-    }
 
     /**
      * @return int
@@ -307,6 +302,38 @@ class Message
     public function setLastSentAt($lastSentAt)
     {
         $this->lastSentAt = $lastSentAt;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param User $owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param string $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
     }
 
 

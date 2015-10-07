@@ -42,9 +42,15 @@ class MessageSetting {
 
     /**
      * @var string
-     * @ORM\Column(name="template", length=1200)
+     * @ORM\Column(name="subject_template", length=250)
      */
-    private $template;
+    private $subjectTemplate;
+
+    /**
+     * @var string
+     * @ORM\Column(name="body_template", length=1200)
+     */
+    private $bodyTemplate;
 
     /**
      * eg: email
@@ -74,19 +80,6 @@ class MessageSetting {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
-    public function getTemplate() {
-        return $this->template;
-    }
-
-    /**
-     * @param string $template
-     */
-    public function setTemplate($template) {
-        $this->template = $template;
-    }
 
     /**
      * @return string
@@ -115,5 +108,38 @@ class MessageSetting {
     public function setEntity($entity) {
         $this->entity = $entity;
     }
+
+    /**
+     * @return string
+     */
+    public function getSubjectTemplate()
+    {
+        return $this->subjectTemplate;
+    }
+
+    /**
+     * @param string $subjectTemplate
+     */
+    public function setSubjectTemplate($subjectTemplate)
+    {
+        $this->subjectTemplate = $subjectTemplate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBodyTemplate()
+    {
+        return $this->bodyTemplate;
+    }
+
+    /**
+     * @param string $bodyTemplate
+     */
+    public function setBodyTemplate($bodyTemplate)
+    {
+        $this->bodyTemplate = $bodyTemplate;
+    }
+
 
 }
