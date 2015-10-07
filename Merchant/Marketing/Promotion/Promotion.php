@@ -156,14 +156,15 @@ class Promotion
 
     /**
      * @var int
-     * @ORM\Column(name="organisation_limit", type="integer")
+     * @ORM\Column(name="company_limit", type="integer")
      */
-    private $organisationLimit;
+    private $companyLimit;
     /**
      * @var int
      * @ORM\Column(name="user_limit", type="integer")
      */
     private $userLimit;
+
 
     /**
      * @var \DateTime
@@ -364,17 +365,17 @@ class Promotion
     /**
      * @return int
      */
-    public function getOrganisationLimit()
+    public function getCompanyLimit()
     {
-        return $this->organisationLimit;
+        return $this->companyLimit;
     }
 
     /**
-     * @param int $organisationLimit
+     * @param int $companyLimit
      */
-    public function setOrganisationLimit($organisationLimit)
+    public function setCompanyLimit($companyLimit)
     {
-        $this->organisationLimit = $organisationLimit;
+        $this->companyLimit = $companyLimit;
     }
 
     /**

@@ -39,6 +39,12 @@ class Location
     //todo addAddress / removeAddress
 
     /**
+     * @var boolean
+     * @ORM\Column(length=125, type="string",options={"default":true})
+     */
+    private $active;
+
+    /**
      * @var string
      * @ORM\Column(length=125, type="string",nullable=false) */
     private $name;
@@ -100,6 +106,36 @@ class Location
         $this->name = $name;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
 
+    /**
+     * @param ArrayCollection $addresses
+     */
+    public function setAddresses($addresses)
+    {
+        $this->addresses = $addresses;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
 
 }

@@ -32,15 +32,13 @@ class RetailOutlet
      */
     private $id;
 
-
     /**
-     * @var Address
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Location\Address")
-     * @ORM\JoinColumn(name="id_address", referencedColumnName="id")
+     * @var Location
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
+     * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
      * @Serializer\Exclude
      */
-    private $address;
-
+    private $location;
 
     /**
      * @var \AppBundle\Entity\Organisation\Organisation

@@ -23,25 +23,61 @@ class Address
      **/
     private $location;
 
-    /** ORM\Column(length=12, type="string",nullable=true) */
+    /**
+     * @var string
+     * @ORM\Column(length=12, type="string",nullable=true) */
+    private $value;
+
+    /** @ORM\Column(length=12, type="string",nullable=true) */
     private $room;
-    /** ORM\Column(length=12, type="string",nullable=true) */
+    /** @ORM\Column(length=12, type="string",nullable=true) */
     private $level;
-    /** ORM\Column(length=12, type="string",nullable=true) */
+    /** @ORM\Column(length=12, type="string",nullable=true) */
     private $block;
-    /** ORM\Column(length=120, type="string",nullable=true) */
+
+    /** @ORM\Column(length=120, type="string",nullable=true) */
     private $number;
-    /** ORM\Column(length=50, type="string",nullable=true) */
+
+    /**
+     * @var Street
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Street", inversedBy="children")
+     * @ORM\JoinColumn(name="id_street", referencedColumnName="id", onDelete="CASCADE")
+     **/
     private $street;
-    /** ORM\Column(length=50, type="string",nullable=true) */
+
+    /**
+     * @var Ward
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Ward", inversedBy="children")
+     * @ORM\JoinColumn(name="id_ward", referencedColumnName="id", onDelete="CASCADE")
+     **/
     private $ward;
-    /** ORM\Column(length=50, type="string",nullable=true) */
+
+    /**
+     * @var District
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\District", inversedBy="children")
+     * @ORM\JoinColumn(name="id_district", referencedColumnName="id", onDelete="CASCADE")
+     **/
     private $district;
-    /** ORM\Column(length=50, type="string",nullable=true) */
+
+    /**
+     * @var City
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\City", inversedBy="children")
+     * @ORM\JoinColumn(name="id_city", referencedColumnName="id", onDelete="CASCADE")
+     **/
     private $city;
-    /** ORM\Column(length=50, type="string",nullable=true) */
+
+    /**
+     * @var Province
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Province", inversedBy="children")
+     * @ORM\JoinColumn(name="id_province", referencedColumnName="id", onDelete="CASCADE")
+     **/
     private $province;
-    /** ORM\Column(length=50, type="string",nullable=true) */
+
+    /**
+     * @var Country
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Country", inversedBy="children")
+     * @ORM\JoinColumn(name="id_country", referencedColumnName="id", onDelete="CASCADE")
+     **/
     private $country;
 
 }
