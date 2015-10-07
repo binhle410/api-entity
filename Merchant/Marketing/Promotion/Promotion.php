@@ -78,7 +78,6 @@ class Promotion
      **/
     private $business;
 
-
     /**
      * @var PromotionType
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\PromotionType", cascade={"persist","merge","remove"})
@@ -157,15 +156,14 @@ class Promotion
 
     /**
      * @var int
-     * @ORM\Column(name="company_limit", type="integer")
+     * @ORM\Column(name="organisation_limit", type="integer")
      */
-    private $companyLimit;
+    private $organisationLimit;
     /**
      * @var int
      * @ORM\Column(name="user_limit", type="integer")
      */
     private $userLimit;
-
 
     /**
      * @var \DateTime
@@ -366,17 +364,17 @@ class Promotion
     /**
      * @return int
      */
-    public function getCompanyLimit()
+    public function getOrganisationLimit()
     {
-        return $this->companyLimit;
+        return $this->organisationLimit;
     }
 
     /**
-     * @param int $companyLimit
+     * @param int $organisationLimit
      */
-    public function setCompanyLimit($companyLimit)
+    public function setOrganisationLimit($organisationLimit)
     {
-        $this->companyLimit = $companyLimit;
+        $this->organisationLimit = $organisationLimit;
     }
 
     /**

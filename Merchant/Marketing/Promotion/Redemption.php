@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @Serializer\XmlRoot("redemption")
  * @Hateoas\Relation(
@@ -30,7 +31,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     )
  * )
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="redemption")
  */
@@ -58,6 +59,12 @@ class Redemption
      * @ORM\JoinColumn(name="id_outlet", referencedColumnName="id")
      */
     private $retailOutlet;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="redeemed_at")
+     */
+    private $redeemedAt;
 
     /**
      * @return User
@@ -105,6 +112,22 @@ class Redemption
     public function setRetailOutlet($retailOutlet)
     {
         $this->retailOutlet = $retailOutlet;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRedeemedAt()
+    {
+        return $this->redeemedAt;
+    }
+
+    /**
+     * @param \DateTime $redeemedAt
+     */
+    public function setRedeemedAt($redeemedAt)
+    {
+        $this->redeemedAt = $redeemedAt;
     }
 
 
