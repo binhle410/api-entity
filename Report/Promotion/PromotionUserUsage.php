@@ -34,7 +34,7 @@ class PromotionUserUsage
     /**
      * @var int
      */
-    private $promotionUsage;
+    private $redemptionCount;
 
     /**
      * @return int
@@ -71,18 +71,21 @@ class PromotionUserUsage
     /**
      * @return int
      */
-    public function getPromotionUsage()
+    public function getRedemptionCount()
     {
-        return $this->promotionUsage;
+        return $this->redemptionCount;
     }
 
     /**
-     * @param int $promotionUsage
+     * @param int $redemptionCount
      */
-    public function setPromotionUsage($promotionUsage)
+    public function setRedemptionCount($redemptionCount)
     {
-        $this->promotionUsage = $promotionUsage;
+        $this->redemptionCount = $redemptionCount;
     }
+
+
+
 
     /**
      * @return PromotionReport

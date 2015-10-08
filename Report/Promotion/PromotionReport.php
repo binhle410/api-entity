@@ -43,6 +43,7 @@ class PromotionReport
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionOrganisationUsage", mappedBy="promotionReport", orphanRemoval=true,cascade={"persist","merge","remove"})
      */
     private $organisationUsages;
+
     /**
      * @var ArrayCollection PromotionUserUsage
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUserUsage", mappedBy="promotionReport", orphanRemoval=true,cascade={"persist","merge","remove"})

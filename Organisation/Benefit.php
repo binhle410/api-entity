@@ -17,20 +17,21 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class Benefit
 {
 
-    function __construct(Promotion $promotion, Organisation $organisation)
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer",options={"unsigned":true})
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    function __construct()
     {
         $this->beneficiaries = new ArrayCollection();
-
-        $this->promotion = $promotion;
-        $promotion->getBenefits()->add($this);
-
-        $this->organisation = $organisation;
-        $organisation->getBenefits()->add($this);
     }
 
     /**
      * @var Promotion
-     * @ORM\Id @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Merchant\Marketing\Promotion\Promotion", inversedBy="benefits",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Merchant\Marketing\Promotion\Promotion", inversedBy="benefits",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_promotion", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -49,7 +50,7 @@ class Benefit
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinTable(name="beneficiaries",
-     *      joinColumns={@ORM\JoinColumn(name="id_benefit", referencedColumnName="id_promotion")},
+     *      joinColumns={@ORM\JoinColumn(name="id_benefit", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")}
      *      )
      * @Serializer\Exclude
@@ -82,6 +83,7 @@ class Benefit
     public function setPromotion($promotion)
     {
         $this->promotion = $promotion;
+        $promotion->getBenefits()->add($this);
     }
 
     /**
@@ -114,6 +116,24 @@ class Benefit
     public function setOrganisation($organisation)
     {
         $this->organisation = $organisation;
+        $organisation->getBenefits()->add($this);
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 
