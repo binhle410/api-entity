@@ -102,5 +102,85 @@ class Business
         $this->id = $id;
     }
 
+    /**
+     * @return Organisation
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param Organisation $owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPromotions()
+    {
+        return $this->promotions;
+    }
+
+    /**
+     * @param ArrayCollection $promotions
+     */
+    public function setPromotions($promotions)
+    {
+        $this->promotions = $promotions;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRetailOutlets()
+    {
+        return $this->retailOutlets;
+    }
+
+    /**
+     * @param ArrayCollection $retailOutlets
+     */
+    public function setRetailOutlets($retailOutlets)
+    {
+        $this->retailOutlets = $retailOutlets;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMerchantCode()
+    {
+        return $this->merchantCode;
+    }
+
+    /**
+     * @param mixed $merchantCode
+     */
+    public function setMerchantCode($merchantCode)
+    {
+        $this->merchantCode = $merchantCode;
+    }
+
 
 }

@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="retail_outlet")
+ * @ORM\Table(name="business_retail_outlet")
  */
 class RetailOutlet
 {
@@ -41,8 +41,8 @@ class RetailOutlet
     private $location;
 
     /**
-     * @var \AppBundle\Entity\Organisation\Organisation
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation", inversedBy="businesses",cascade={"persist","merge","remove"})
+     * @var Business
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business", inversedBy="retailOutlets",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
      */
     private $business;
@@ -73,6 +73,71 @@ class RetailOutlet
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return Location
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param Location $location
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+        $location->setEntity('organisation.organisation');
+    }
+
+    /**
+     * @return Business
+     */
+    public function getBusiness()
+    {
+        return $this->business;
+    }
+
+    /**
+     * @param Business $business
+     */
+    public function setBusiness($business)
+    {
+        $this->business = $business;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRedemptions()
+    {
+        return $this->redemptions;
+    }
+
+    /**
+     * @param ArrayCollection $redemptions
+     */
+    public function setRedemptions($redemptions)
+    {
+        $this->redemptions = $redemptions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactNo()
+    {
+        return $this->contactNo;
+    }
+
+    /**
+     * @param string $contactNo
+     */
+    public function setContactNo($contactNo)
+    {
+        $this->contactNo = $contactNo;
     }
 
 

@@ -46,6 +46,12 @@ class Location
 
     /**
      * @var string
+     * @ORM\Column(length=125, type="string",nullable=false)
+     */
+    private $entity;
+
+    /**
+     * @var string
      * @ORM\Column(length=125, type="string",nullable=false) */
     private $name;
 
@@ -59,7 +65,7 @@ class Location
     private $geoLng;
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getGeoLng()
     {
@@ -67,7 +73,7 @@ class Location
     }
 
     /**
-     * @param mixed $geoLng
+     * @param float $geoLng
      */
     public function setGeoLng($geoLng)
     {
@@ -136,6 +142,22 @@ class Location
     public function setActive($active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param string $entity
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
     }
 
 }
