@@ -82,6 +82,12 @@ class User extends BaseUser
     protected $groups;
     //TODO implement addGroup, removeGroup
 
+    /**
+     * @var string
+     * @ORM\Column(length=50, name="code",type="string",nullable=true, unique=true)
+     */
+    private $code;
+
     /** @ORM\Column(length=120, name="ssn",type="string",nullable=true) */
     private $ssn;
 
@@ -215,5 +221,20 @@ class User extends BaseUser
         $this->messageBox = $messageBox;
     }
 
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 
 }

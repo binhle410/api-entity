@@ -43,7 +43,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     )
  * )
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
  * @ORM\Table(name="position")
  */
 class Position

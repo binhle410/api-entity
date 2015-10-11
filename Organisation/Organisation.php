@@ -245,12 +245,15 @@ class Organisation
 
     /**
      * @var string
-     * @ORM\Column(length=150) */
-    private $name;
+     * @ORM\Column(length=50, name="code",type="string",nullable=true, unique=true)
+     */
+    private $code;
+
     /**
      * @var string
-     * @ORM\Column(length=50, nullable=true) */
-    private $code;
+     * @ORM\Column(length=150) */
+    private $name;
+
     /**
      * @var string
      * @ORM\Column(length=50,name="reg_no", nullable=true) */
@@ -290,7 +293,7 @@ class Organisation
     private $redemptionPassword;
     /**
      * @var string
-     * @ORM\Column(length=10,name="about_company",nullable=true) */
+     * @ORM\Column(length=2500,name="about_company",nullable=true) */
     private $aboutCompany;
 
 
