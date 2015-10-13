@@ -1,7 +1,7 @@
 <?php
-// src/AppBundle/Entity/Jobboard/Listing.php
+// src/AppBundle/Entity/JobBoard/Listing.php
 
-namespace AppBundle\Entity\Jobboard;
+namespace AppBundle\Entity\JobBoard;
 
 use AppBundle\Entity\Accounting\Payroll\Salary;
 use AppBundle\Entity\Core\Location\Location;
@@ -17,17 +17,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Listing
 {
     /**
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
 
     /**
      * @var User
@@ -59,14 +54,14 @@ class Listing
 
     /**
      * @var JobType
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Jobboard\JobType")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\JobType")
      * @ORM\JoinColumn(name="id_listing_type", referencedColumnName="id")
      */
     private $jobType;
 
     /**
      * @var Visibility
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Jobboard\Visibility")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Visibility")
      * @ORM\JoinColumn(name="id_listing_visibility", referencedColumnName="id")
      */
     private $visibility; // Referenced from Visibility.php
@@ -81,6 +76,12 @@ class Listing
     private $tags;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="expiry_date",type="datetime",nullable=true)
+     */
+    private $expiryDate;
+
+    /**
      * @var string
      * @ORM\Column(length=120, name="title",type="string",nullable=true)
      */
@@ -93,7 +94,7 @@ class Listing
     private $description;
 
 
-    /** @ORM\Column(length=120, name="qr_code_url",type="string",nullable=true) */
+    /** @ORM\Column(length=250, name="qr_code_url",type="string",nullable=true) */
     private $qrCodeURL;
 
     /**
@@ -113,8 +114,6 @@ class Listing
     }
 
 
-    /** @ORM\Column(name="expiry_date",type="datetime",nullable=true) */
-    private $expiryDate;
 
 
     /**
@@ -227,6 +226,70 @@ class Listing
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Salary
+     */
+    public function getSalaryFrom()
+    {
+        return $this->salaryFrom;
+    }
+
+    /**
+     * @param Salary $salaryFrom
+     */
+    public function setSalaryFrom($salaryFrom)
+    {
+        $this->salaryFrom = $salaryFrom;
+    }
+
+    /**
+     * @return Salary
+     */
+    public function getSalaryTo()
+    {
+        return $this->salaryTo;
+    }
+
+    /**
+     * @param Salary $salaryTo
+     */
+    public function setSalaryTo($salaryTo)
+    {
+        $this->salaryTo = $salaryTo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getExpiryDate()
+    {
+        return $this->expiryDate;
+    }
+
+    /**
+     * @param \DateTime $expiryDate
+     */
+    public function setExpiryDate(\DateTime $expiryDate)
+    {
+        $this->expiryDate = $expiryDate;
     }
 
 

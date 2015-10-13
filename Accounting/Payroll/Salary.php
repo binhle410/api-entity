@@ -37,6 +37,7 @@ class Salary
     private $amount;
 
     /**
+     * e.g: hourly, daily, weekly, monthly, yearly
      * @var string
      * @ORM\Column(length=12, name="type",type="string",nullable=true)
      */

@@ -1,6 +1,6 @@
 <?php
-// src/AppBundle/Entity/Jobboard/Status.php
-namespace AppBundle\Entity\Jobboard;
+// src/AppBundle/Entity/JobBoard/Status.php
+namespace AppBundle\Entity\JobBoard;
 
 use AppBundle\Entity\Core\BasicEnum;
 use Doctrine\ORM\Mapping as ORM;
