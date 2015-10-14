@@ -80,8 +80,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_organisation_positions",
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPositions().count() == 0)")
+ *     )
  * )
  * @Hateoas\Relation("positions.post",
  *  href= @Hateoas\Route(
@@ -96,8 +95,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_organisation_sites",
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getSites().count() == 0)")
+ *     )
  * )
  * @Hateoas\Relation(
  *  "children",
@@ -105,8 +103,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_organisation_children",
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getChildren().count() == 0)")
+ *     )
  * )
  * @Hateoas\Relation(
  *  "parent",
@@ -123,8 +120,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_organisation_businesses",
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBusinesses().count() == 0)")
+ *     )
  * )
  */
 class Organisation
