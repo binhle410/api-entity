@@ -30,6 +30,27 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
+ *
+ * @Hateoas\Relation(
+ *  "logo",
+ *  href= @Hateoas\Route(
+ *         "sonata_api_media_media_get_medium",
+ *         parameters = { "id" = "expr(object.getLogo().getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
+ * )
+ *
+ * @Hateoas\Relation(
+ *  "logo_url",
+ *  href= @Hateoas\Route(
+ *         "get_media_url",
+ *         parameters = { "media" = "expr(object.getLogo().getId())"},
+ *         absolute = true
+ *     ),
+*  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
+ * )
+ *
  * @Hateoas\Relation(
  *  "organisation.post",
  *  href= @Hateoas\Route(
@@ -240,6 +261,7 @@ class Organisation
      * @var \Application\Sonata\MediaBundle\Entity\Media
      * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY", orphanRemoval=true)
      * @ORM\JoinColumn(name="id_logo", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $logo;
 
