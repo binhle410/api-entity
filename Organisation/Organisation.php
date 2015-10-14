@@ -34,8 +34,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "logo",
  *  href= @Hateoas\Route(
- *         "sonata_api_media_media_get_medium",
- *         parameters = { "id" = "expr(object.getLogo().getId())"},
+ *         "get_medium",
+ *         parameters = { "medium" = "expr(object.getLogo().getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
