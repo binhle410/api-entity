@@ -38,6 +38,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "medium" = "expr(object.getLogo().getId())"},
  *         absolute = true
  *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
+ * )
+ *
+ * @Hateoas\Relation(
+ *  "medium.post",
+ *  href= @Hateoas\Route(
+ *         "post_medium_medium",
+ *         parameters = { "provider" = "sonata.media.provider.image"},
+ *         absolute = true
+ *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
  * )
  *
@@ -45,10 +56,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  "logo_url",
  *  href= @Hateoas\Route(
  *         "get_media_url",
- *         parameters = { "media" = "expr(object.getLogo().getId())"},
+ *         parameters = { "$medium" = "expr(object.getLogo().getId())"},
  *         absolute = true
  *     ),
-*  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
  * )
  *
  * @Hateoas\Relation(
@@ -140,6 +151,7 @@ class Organisation
         $this->sites = new ArrayCollection();
         $this->children = new ArrayCollection();
     }
+
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\User\User")
@@ -269,49 +281,60 @@ class Organisation
 
     /**
      * @var string
-     * @ORM\Column(length=150) */
+     * @ORM\Column(length=150)
+     */
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(length=50,name="reg_no", nullable=true) */
+     * @ORM\Column(length=50,name="reg_no", nullable=true)
+     */
     private $regNo;
     /**
      * @var string
-     * @ORM\Column(length=50,name="head_office_no", nullable=true) */
+     * @ORM\Column(length=50,name="head_office_no", nullable=true)
+     */
     private $headOfficeNo;
     /**
      * @var string
-     * @ORM\Column(length=120,name="office_address", nullable=true) */
+     * @ORM\Column(length=120,name="office_address", nullable=true)
+     */
     private $officeAddress;
     /**
      * @var string
-     * @ORM\Column(length=120,name="billing_address", nullable=true) */
+     * @ORM\Column(length=120,name="billing_address", nullable=true)
+     */
     private $billingAddress;
     /**
      * @var string
-     * @ORM\Column(length=50,name="reservation_email", nullable=true) */
+     * @ORM\Column(length=50,name="reservation_email", nullable=true)
+     */
     private $reservationEmail;
     /**
      * @var string
-     * @ORM\Column(length=50,name="user_contact_no", nullable=true) */
+     * @ORM\Column(length=50,name="user_contact_no", nullable=true)
+     */
     private $userContactNo;
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
-     * @ORM\Column(type="datetime", name="client_since",nullable=true) */
+     * @ORM\Column(type="datetime", name="client_since",nullable=true)
+     */
     private $clientSince;
     /**
      * @var string
-     * @ORM\Column(length=120,name="office_hours",nullable=true) */
+     * @ORM\Column(length=120,name="office_hours",nullable=true)
+     */
     private $officeHours;
     /**
      * @var string
-     * @ORM\Column(length=10,name="redemption_password",nullable=true) */
+     * @ORM\Column(length=10,name="redemption_password",nullable=true)
+     */
     private $redemptionPassword;
     /**
      * @var string
-     * @ORM\Column(length=2500,name="about_company",nullable=true) */
+     * @ORM\Column(length=2500,name="about_company",nullable=true)
+     */
     private $aboutCompany;
 
 
@@ -748,7 +771,6 @@ class Organisation
     {
         $this->officeAddress = $officeAddress;
     }
-
 
 
 }
