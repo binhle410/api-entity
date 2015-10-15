@@ -43,7 +43,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  *
  * @Hateoas\Relation(
- *  "medium.post",
+ *  "medium.logo.post",
  *  href= @Hateoas\Route(
  *         "post_medium_medium",
  *         parameters = { "provider" = "sonata.media.provider.image"},
@@ -53,7 +53,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  *
  * @Hateoas\Relation(
- *  "medium.post.update",
+ *  "medium.logo.update",
  *  href= @Hateoas\Route(
  *         "post_medium",
  *         parameters = { "medium" = "expr(object.getLogo().getId())"},
