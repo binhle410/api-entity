@@ -37,10 +37,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Redemption
 {
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\Column(type="integer",options={"unsigned":true})
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
      * @var Promotion
-     * @ORM\Id @ORM\ManyToOne(targetEntity="Promotion",inversedBy="redemptions",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="Promotion",inversedBy="redemptions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_promotion", referencedColumnName="id")
      */
     private $promotion;
@@ -130,6 +137,21 @@ class Redemption
         $this->redeemedAt = $redeemedAt;
     }
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
 
 }
