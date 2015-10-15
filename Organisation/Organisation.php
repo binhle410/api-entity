@@ -297,6 +297,36 @@ class Organisation
 
     /**
      * @var string
+     * @ORM\Column(length=250,name="slogan", nullable=true)
+     */
+    private $slogan;
+
+    /**
+     * @var string
+     * @ORM\Column(length=250,name="facebook_link", nullable=true)
+     */
+    private $facebookLink;
+
+    /**
+     * @var string
+     * @ORM\Column(length=250,name="linked_in_link", nullable=true)
+     */
+    private $linkedInLink;
+
+    /**
+     * @var string
+     * @ORM\Column(length=25,name="account_name", nullable=true, unique=true)
+     */
+    private $accountName;
+
+    /**
+     * @var string
+     * @ORM\Column(length=250,name="qr_code", nullable=true)
+     */
+    private $qrCode;
+
+    /**
+     * @var string
      * @ORM\Column(length=50,name="reg_no", nullable=true)
      */
     private $regNo;
@@ -378,6 +408,7 @@ class Organisation
      */
     public function setLocation(Location $location)
     {
+        $location->setEntity(__CLASS__);
         $this->location = $location;
     }
 
@@ -782,5 +813,83 @@ class Organisation
         $this->officeAddress = $officeAddress;
     }
 
+    /**
+     * @return string
+     */
+    public function getSlogan()
+    {
+        return $this->slogan;
+    }
 
+    /**
+     * @param string $slogan
+     */
+    public function setSlogan($slogan)
+    {
+        $this->slogan = $slogan;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookLink()
+    {
+        return $this->facebookLink;
+    }
+
+    /**
+     * @param string $facebookLink
+     */
+    public function setFacebookLink($facebookLink)
+    {
+        $this->facebookLink = $facebookLink;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLinkedInLink()
+    {
+        return $this->linkedInLink;
+    }
+
+    /**
+     * @param string $linkedInLink
+     */
+    public function setLinkedInLink($linkedInLink)
+    {
+        $this->linkedInLink = $linkedInLink;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountName()
+    {
+        return $this->accountName;
+    }
+
+    /**
+     * @param string $accountName
+     */
+    public function setAccountName($accountName)
+    {
+        $this->accountName = $accountName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQrCode()
+    {
+        return $this->qrCode;
+    }
+
+    /**
+     * @param string $qrCode
+     */
+    public function setQrCode($qrCode)
+    {
+        $this->qrCode = $qrCode;
+    }
 }
