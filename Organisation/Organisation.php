@@ -53,6 +53,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  *
  * @Hateoas\Relation(
+ *  "medium.post.update",
+ *  href= @Hateoas\Route(
+ *         "post_medium",
+ *         parameters = { "medium" = "expr(object.getLogo().getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
+ * )
+ *
+ * @Hateoas\Relation(
  *  "logo_url",
  *  href= @Hateoas\Route(
  *         "get_media_url",
