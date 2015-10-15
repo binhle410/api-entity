@@ -56,7 +56,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  "logo_url",
  *  href= @Hateoas\Route(
  *         "get_media_url",
- *         parameters = { "$medium" = "expr(object.getLogo().getId())"},
+ *         parameters = { "medium" = "expr(object.getLogo().getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
