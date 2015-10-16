@@ -164,7 +164,7 @@ class Organisation
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinColumn(name="id_admin", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_admin", referencedColumnName="id", nullable=true)
      * @Serializer\Exclude
      **/
     private $adminUser;
