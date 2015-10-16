@@ -276,7 +276,7 @@ class Organisation
 
     /**
      * @var \Application\Sonata\MediaBundle\Entity\Media
-     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY", orphanRemoval=true)
      * @ORM\JoinColumn(name="id_logo", referencedColumnName="id")
      * @Serializer\Exclude
      */
