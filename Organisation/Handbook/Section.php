@@ -76,6 +76,7 @@ class Section {
     }
 
     /**
+     * @var Handbook
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", inversedBy="sections")
      * @ORM\JoinColumn(name="id_handbook", referencedColumnName="id")
      * @Gedmo\Versioned

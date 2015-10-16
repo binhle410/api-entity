@@ -4,6 +4,7 @@
 
 namespace AppBundle\Entity\Organisation\Handbook;
 
+use AppBundle\Entity\Organisation\Organisation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -72,6 +73,7 @@ class Handbook
     private $version;
 
     /**
+     * @var Organisation
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Organisation", inversedBy="handbook")
      * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
      * @Serializer\Exclude
