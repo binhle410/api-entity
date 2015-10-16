@@ -20,7 +20,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *   attributes = { "method" = {"put","delete"} },
  * )
- * @Hateoas\Relation("section.post",
+ * @Hateoas\Relation("sections.post",
  *  href= @Hateoas\Route(
  *         "post_organisation_handbook_section",
  *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())"},
@@ -107,7 +107,7 @@ class Section {
     /**
      * @var text $description
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="description", type="text", nullable=true)
      * @Gedmo\Versioned
      */
     private $description;
