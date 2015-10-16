@@ -631,7 +631,7 @@ class Organisation
     /**
      * @param User $adminUser
      */
-    public function setAdminUser(User $adminUser)
+    public function setAdminUser(User $adminUser = null)
     {
         $this->adminUser = $adminUser;
     }
