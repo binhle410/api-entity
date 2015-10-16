@@ -48,8 +48,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "post_medium_medium",
  *         parameters = { "provider" = "sonata.media.provider.image"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
+ *     )
  * )
  *
  * @Hateoas\Relation(
