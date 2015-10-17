@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Report\Promotion;
 
+use AppBundle\Entity\Merchant\Marketing\Promotion\Promotion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,45 +9,73 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
+ * @Serializer\XmlRoot("promotion")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_promotion_usage",
+ *         parameters = { "promotion" = "expr(object.getPromotion().getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} }
+ * )
+ *
+ *
  * @ORM\Entity
- * @ORM\Table(name="promotion_report")
+ * @ORM\Table(name="promotion_usage")
  */
-class PromotionReport
+class PromotionUsage
 {
+
+
     /**
-     * @var int
+     * @var Promotion
      * @ORM\Id
-     * @ORM\Column(type="integer",options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\Promotion",inversedBy="usage")
+     * @ORM\JoinColumn(name="id_promotion", referencedColumnName="id")
+     **/
+    private $promotion;
+
+    function __construct()
+    {
+        $this->organisationUsages = new ArrayCollection();
+        $this->userUsages = new ArrayCollection();
+    }
+
 
     /**
      * @var int
-     * @ORM\Column(name="offer_usage", type="integer")
+     * @ORM\Column(name="offer_usage", type="integer",options={"default" = 0})
      */
     private $offerUsage;
+
     /**
      * @var int
-     * @ORM\Column(name="monthly_usage", type="integer")
+     * @ORM\Column(name="weekly_usage", type="integer",options={"default" = 0})
+     */
+    private $weeklyUsage;
+
+    /**
+     * @var int
+     * @ORM\Column(name="monthly_usage", type="integer",options={"default" = 0})
      */
     private $monthlyUsage;
 
     /**
      * @var int
-     * @ORM\Column(name="yearly_usage", type="integer")
+     * @ORM\Column(name="yearly_usage", type="integer",options={"default" = 0})
      */
     private $yearlyUsage;
 
     /**
      * @var ArrayCollection PromotionOrganisationUsage
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionOrganisationUsage", mappedBy="promotionReport", orphanRemoval=true,cascade={"persist","merge","remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionOrganisationUsage", mappedBy="promotionUsage", orphanRemoval=true,cascade={"persist","merge","remove"})
      */
     private $organisationUsages;
 
     /**
      * @var ArrayCollection PromotionUserUsage
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUserUsage", mappedBy="promotionReport", orphanRemoval=true,cascade={"persist","merge","remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUserUsage", mappedBy="promotionUsage", orphanRemoval=true,cascade={"persist","merge","remove"})
      */
     private $userUsages;
 
@@ -131,7 +160,6 @@ class PromotionReport
     }
 
 
-
     /**
      * @return ArrayCollection
      */
@@ -146,6 +174,38 @@ class PromotionReport
     public function setUserUsages(ArrayCollection $userUsages)
     {
         $this->userUsages = $userUsages;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWeeklyUsage()
+    {
+        return $this->weeklyUsage;
+    }
+
+    /**
+     * @param int $weeklyUsage
+     */
+    public function setWeeklyUsage($weeklyUsage)
+    {
+        $this->weeklyUsage = $weeklyUsage;
+    }
+
+    /**
+     * @return Promotion
+     */
+    public function getPromotion()
+    {
+        return $this->promotion;
+    }
+
+    /**
+     * @param Promotion $promotion
+     */
+    public function setPromotion($promotion)
+    {
+        $this->promotion = $promotion;
     }
 
 }

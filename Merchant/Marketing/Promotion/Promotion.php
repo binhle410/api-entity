@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 use AppBundle\Entity\Core\Tag;
 use AppBundle\Entity\Organisation\Business;
 use AppBundle\Entity\Organisation\RetailOutlet;
+use AppBundle\Entity\Report\Promotion\PromotionUsage;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,14 +42,23 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getType() === null)")
  * )
  * @Hateoas\Relation(
- *  "redemption",
+ *  "redemptions",
  *  href= @Hateoas\Route(
- *         "get_promotion_redemption",
+ *         "get_promotion_redemptions",
  *         parameters = { "promotion" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions().count() === null)")
  * )
+ * @Hateoas\Relation(
+ *  "usage",
+ *  href= @Hateoas\Route(
+ *         "get_promotion_usage",
+ *         parameters = { "promotion" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+
  * @ORM\Entity
  * @ORM\Table(name="promotion")
  */
@@ -64,11 +74,20 @@ class Promotion
 
     function __construct()
     {
+        $this->usage = new PromotionUsage();
+
         $this->benefits = new ArrayCollection();
         $this->retailOutlets = new ArrayCollection();
         $this->redemptions = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
+
+    /**
+     * @var PromotionUsage
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUsage", mappedBy="promotion")
+     * @Serializer\Exclude
+     */
+    private $usage;
 
     /**
      * @var Business
@@ -139,29 +158,36 @@ class Promotion
 
     /**
      * @var int
-     * @ORM\Column(name="offer_limit", type="integer")
+     * @ORM\Column(name="offer_limit", type="integer",options={"default" = 0})
      */
     private $offerLimit;
+
     /**
      * @var int
-     * @ORM\Column(name="monthly_limit", type="integer")
+     * @ORM\Column(name="weekly_limit", type="integer",options={"default" = 0})
+     */
+    private $weeklyLimit;
+
+    /**
+     * @var int
+     * @ORM\Column(name="monthly_limit", type="integer",options={"default" = 0})
      */
     private $monthlyLimit;
 
     /**
      * @var int
-     * @ORM\Column(name="yearly_limit", type="integer")
+     * @ORM\Column(name="yearly_limit", type="integer",options={"default" = 0})
      */
     private $yearlyLimit;
 
     /**
      * @var int
-     * @ORM\Column(name="company_limit", type="integer")
+     * @ORM\Column(name="company_limit", type="integer",options={"default" = 0})
      */
     private $companyLimit;
     /**
      * @var int
-     * @ORM\Column(name="user_limit", type="integer")
+     * @ORM\Column(name="user_limit", type="integer",options={"default" = 0})
      */
     private $userLimit;
 
@@ -489,6 +515,40 @@ class Promotion
     {
         $this->redemptions = $redemptions;
     }
+
+    /**
+     * @return PromotionUsage
+     */
+    public function getUsage()
+    {
+        return $this->usage;
+    }
+
+    /**
+     * @param PromotionUsage $usage
+     */
+    public function setUsage($usage)
+    {
+        $this->usage = $usage;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWeeklyLimit()
+    {
+        return $this->weeklyLimit;
+    }
+
+    /**
+     * @param int $weeklyLimit
+     */
+    public function setWeeklyLimit($weeklyLimit)
+    {
+        $this->weeklyLimit = $weeklyLimit;
+    }
+
+
 
 
 }

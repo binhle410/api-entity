@@ -19,11 +19,11 @@ class PromotionOrganisationUsage
     private $id;
 
     /**
-     * @var PromotionReport
-     * @ORM\ManyToOne(targetEntity="PromotionReport", inversedBy="organisationUsages")
-     * @ORM\JoinColumn(name="id_promotion_report", referencedColumnName="id")
+     * @var PromotionUsage
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUsage", inversedBy="organisationUsages")
+     * @ORM\JoinColumn(name="id_promotion_usage", referencedColumnName="id_promotion")
      */
-    private $promotionReport;
+    private $promotionUsage;
 
     /**
      * @var Organisation
@@ -34,6 +34,7 @@ class PromotionOrganisationUsage
 
     /**
      * @var int
+     * @ORM\Column(name="redemption_count", type="integer",options={"default" = 0})
      */
     private $redemptionCount;
 
@@ -85,21 +86,20 @@ class PromotionOrganisationUsage
         $this->redemptionCount = $redemptionCount;
     }
 
-
     /**
-     * @return PromotionReport
+     * @return PromotionUsage
      */
-    public function getPromotionReport()
+    public function getPromotionUsage()
     {
-        return $this->promotionReport;
+        return $this->promotionUsage;
     }
 
     /**
-     * @param PromotionReport $promotionReport
+     * @param PromotionUsage $promotionUsage
      */
-    public function setPromotionReport($promotionReport)
+    public function setPromotionUsage($promotionUsage)
     {
-        $this->promotionReport = $promotionReport;
+        $this->promotionUsage = $promotionUsage;
     }
 
 
