@@ -26,8 +26,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  */
 class PromotionUsage
 {
-
-
     /**
      * @var Promotion
      * @ORM\Id

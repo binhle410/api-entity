@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repositories\Core\User\UserRepository")
  * @ORM\Table(name="user")
  *
  * @Serializer\XmlRoot("user")
