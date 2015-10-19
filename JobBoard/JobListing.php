@@ -7,14 +7,32 @@ use AppBundle\Entity\Accounting\Payroll\Salary;
 use AppBundle\Entity\Core\Location\Location;
 use AppBundle\Entity\Core\Tag;
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Entity\Organisation\Organisation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
+
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="job_listing")
+ *
+ * @Serializer\XmlRoot("joblisting")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting",
+ *         parameters = { "listing" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
+ *
  */
-class Listing
+class JobListing
 {
     /**
      * @var int
@@ -24,12 +42,24 @@ class Listing
      */
     private $id;
 
+    function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
      **/
     private $owner;
+
+    /**
+     * @var Organisation
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Organisation")
+     * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
+     **/
+    private $organisation;
 
     /**
      * @var Location
@@ -112,8 +142,6 @@ class Listing
     {
         $this->location = $location;
     }
-
-
 
 
     /**
@@ -290,6 +318,22 @@ class Listing
     public function setExpiryDate(\DateTime $expiryDate)
     {
         $this->expiryDate = $expiryDate;
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @param Organisation $organisation
+     */
+    public function setOrganisation($organisation)
+    {
+        $this->organisation = $organisation;
     }
 
 

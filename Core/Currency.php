@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Currency
 {
+    const USD = 'USD';
+    const EUR = 'EUR';
+    const SGD = 'SGD';
+    const VND = 'VND';
+    const PHILIPPINE_PESO = 'PHILIPPINE_PESO';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
@@ -75,7 +81,6 @@ class Currency
     {
         $this->id = $id;
     }
-
 
 
 }

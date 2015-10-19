@@ -14,6 +14,7 @@ class Salary
     const DAILY = 'DAILY';
     const WEEKLY = 'WEEKLY';
     const MONTHLY = 'MONTHLY';
+    const YEARLY = 'YEARLY';
 
     /**
      * @var int
@@ -35,6 +36,13 @@ class Salary
      * @ORM\Column(name="amount",type="float", precision=4, scale=2)
      */
     private $amount;
+
+    /**
+     * This var contains the hourly rate in USD currency.
+     * @var int
+     * @ORM\Column(name="converted_amount",type="float", precision=4, scale=2)
+     */
+    private $convertedAmount;
 
     /**
      * e.g: hourly, daily, weekly, monthly, yearly
@@ -106,4 +114,22 @@ class Salary
     {
         $this->type = $type;
     }
+
+    /**
+     * @return int
+     */
+    public function getConvertedAmount()
+    {
+        return $this->convertedAmount;
+    }
+
+    /**
+     * @param int $convertedAmount
+     */
+    public function setConvertedAmount($convertedAmount)
+    {
+        $this->convertedAmount = $convertedAmount;
+    }
+
+
 }
