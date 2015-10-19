@@ -112,6 +112,55 @@ class JobListing
     private $expiryDate;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="interview_deadline",type="datetime",nullable=true)
+     */
+    private $interviewDeadline;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="active", type="boolean", options={"default":false}, nullable=true)
+     */
+    private $active;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="video_interview", type="boolean", options={"default":true}, nullable=true)
+     */
+    private $videoInterview;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="multiple_set", type="boolean", options={"default":true}, nullable=true)
+     */
+    private $multipleSet;
+
+
+    /**
+     * @var int
+     * @ORM\Column(name="number_of_set_questions", type="integer", options={"default":0}, nullable=true)
+     */
+    private $numberOfSetQuestions;
+
+    /**
+     * @var int
+     * @ORM\Column(name="number_of_sets", type="integer", options={"default":0}, nullable=true)
+     */
+    private $numberOfSets;
+
+    /**
+     * @var int
+     * @ORM\Column(name="interview_time_limit", type="integer", options={"default":0}, nullable=true)
+     */
+    private $interviewTimeLimit;
+
+    /**
+     * @var int
+     * @ORM\Column(name="question_reading_time_limit", type="integer", options={"default":0}, nullable=true)
+     */
+    private $questionReadingTimeLimit;
+
+    /**
      * @var string
      * @ORM\Column(length=120, name="title",type="string",nullable=true)
      */
@@ -335,6 +384,135 @@ class JobListing
     {
         $this->organisation = $organisation;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getInterviewDeadline()
+    {
+        return $this->interviewDeadline;
+    }
+
+    /**
+     * @param \DateTime $interviewDeadline
+     */
+    public function setInterviewDeadline($interviewDeadline)
+    {
+        $this->interviewDeadline = $interviewDeadline;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isVideoInterview()
+    {
+        return $this->videoInterview;
+    }
+
+    /**
+     * @param boolean $videoInterview
+     */
+    public function setVideoInterview($videoInterview)
+    {
+        $this->videoInterview = $videoInterview;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isMultipleSet()
+    {
+        return $this->multipleSet;
+    }
+
+    /**
+     * @param boolean $multipleSet
+     */
+    public function setMultipleSet($multipleSet)
+    {
+        $this->multipleSet = $multipleSet;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfSetQuestions()
+    {
+        return $this->numberOfSetQuestions;
+    }
+
+    /**
+     * @param int $numberOfSetQuestions
+     */
+    public function setNumberOfSetQuestions($numberOfSetQuestions)
+    {
+        $this->numberOfSetQuestions = $numberOfSetQuestions;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfSets()
+    {
+        return $this->numberOfSets;
+    }
+
+    /**
+     * @param int $numberOfSets
+     */
+    public function setNumberOfSets($numberOfSets)
+    {
+        $this->numberOfSets = $numberOfSets;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInterviewTimeLimit()
+    {
+        return $this->interviewTimeLimit;
+    }
+
+    /**
+     * @param int $interviewTimeLimit
+     */
+    public function setInterviewTimeLimit($interviewTimeLimit)
+    {
+        $this->interviewTimeLimit = $interviewTimeLimit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuestionReadingTimeLimit()
+    {
+        return $this->questionReadingTimeLimit;
+    }
+
+    /**
+     * @param int $questionReadingTimeLimit
+     */
+    public function setQuestionReadingTimeLimit($questionReadingTimeLimit)
+    {
+        $this->questionReadingTimeLimit = $questionReadingTimeLimit;
+    }
+
 
 
 }
