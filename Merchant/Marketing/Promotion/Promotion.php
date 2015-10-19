@@ -58,7 +58,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     ),
  * )
-
  * @ORM\Entity
  * @ORM\Table(name="promotion")
  */
@@ -74,6 +73,8 @@ class Promotion
 
     function __construct()
     {
+        $this->effectiveFrom = new \DateTime();
+        $this->expireOn = new \DateTime();
         $this->usage = new PromotionUsage();
 
         $this->benefits = new ArrayCollection();
@@ -218,13 +219,13 @@ class Promotion
 
     /**
      * @var float
-     * @ORM\Column(name="discount_amount", precision=2)
+     * @ORM\Column(name="discount_amount", precision=2,options={"default":0})
      */
     private $discountAmount;
 
     /**
      * @var float
-     * @ORM\Column(name="estimated_value", scale=2, precision=5)
+     * @ORM\Column(name="estimated_value", scale=2, precision=5,options={"default":0})
      */
     private $estimatedValue;
 
@@ -547,8 +548,6 @@ class Promotion
     {
         $this->weeklyLimit = $weeklyLimit;
     }
-
-
 
 
 }
