@@ -36,16 +36,58 @@ class JobCandidate
 
     /**
      * @var ArrayCollection User
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
+     * @ORM\JoinTable(name="job_candidates_reviewers",
+     *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_reviewer", referencedColumnName="id", unique=true)}
+     *      )
      */
     private $reviewers;
 
+    public function addReviewer(User $user)
+    {
+        $this->reviewers->add($user);
+    }
+
+    public function removeReviewer(User $user)
+    {
+        $this->reviewers->removeElement($user);
+    }
+
     /**
      * @var ArrayCollection User
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
+     * @ORM\JoinTable(name="job_candidates_observers",
+     *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_observer", referencedColumnName="id", unique=true)}
+     *      )
      */
     private $observers;
 
+    public function addObserver(User $user)
+    {
+        $this->observers->add($user);
+    }
+
+    public function removeObserver(User $user)
+    {
+        $this->observers->removeElement($user);
+    }
+
     /**
      * @var ArrayCollection CandidateFolder
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateFolder",mappedBy="candidates"))
      */
     private $folders;
+
+    public function addFolder(CandidateFolder $folder)
+    {
+        $this->folders->add($folder);
+    }
+
+    public function removeFolder(CandidateFolder $folder)
+    {
+        $this->folders->removeElement($folder);
+    }
+
 }

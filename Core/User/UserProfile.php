@@ -5,6 +5,11 @@ namespace AppBundle\Entity\Core\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="user_profile")
+ */
 class UserProfile
 {
     /**
