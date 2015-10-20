@@ -1,21 +1,23 @@
 <?php
-// src/AppBundle/Entity/JobBoard/Visibility.php
-namespace AppBundle\Entity\JobBoard;
+// src/AppBundle/Entity/JobBoard/Type.php
+namespace AppBundle\Entity\JobBoard\Listing;
 
 use AppBundle\Entity\Core\BasicEnum;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job_listing_visibility")
+ * @ORM\Table(name="job_listing_type")
  */
-class Visibility extends BasicEnum
-{
-    const LISTED = 'LISTED';
-    const UNLISTED = 'UNLISTED';
-    const SECURED = 'SECURED';
+class ListingType extends BasicEnum {
+    const FULL_TIME = 'FULL_TIME';
+    const PART_TIME = 'PART_TIME';
+    const CONTRACT = 'CONTRACT';
+    const AD_HOC = 'AD_HOC';
+    const OJT = 'OJT';
 
     /**
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -29,7 +31,7 @@ class Visibility extends BasicEnum
     private $title;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -37,7 +39,7 @@ class Visibility extends BasicEnum
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {

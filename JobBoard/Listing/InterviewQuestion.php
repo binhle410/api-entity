@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Entity\JobBoard;
+namespace AppBundle\Entity\JobBoard\Listing;
 
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Organisation;
@@ -39,7 +39,7 @@ class InterviewQuestion
 
     /**
      * @var InterviewQuestionSet
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\InterviewQuestionSet",inversedBy="questions")
+     * @ORM\ManyToOne(targetEntity="InterviewQuestionSet",inversedBy="questions")
      * @ORM\JoinColumn(name="id_set", referencedColumnName="id")
      **/
     private $set;

@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Entity\JobBoard;
+namespace AppBundle\Entity\JobBoard\Listing;
 
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Organisation;
@@ -34,10 +34,31 @@ class InterviewQuestionSet
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\InterviewQuestion", mappedBy="set", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="InterviewQuestion", mappedBy="set", orphanRemoval=true)
      * @Serializer\Exclude
      */
     private $questions;
+
+    public function addQuestion(InterviewQuestion $question)
+    {
+        $this->questions->add($question);
+        $question->setSet($this);
+        return $this;
+    }
+
+    public function removeQuestion(InterviewQuestion $question)
+    {
+        $this->questions->removeElement($question);
+        $question->setSet(null);
+        return $this;
+    }
+
+    /**
+     * @var JobListing
+     * @ORM\ManyToOne(targetEntity="JobListing",inversedBy="interviewQuestionSets")
+     * @ORM\JoinColumn(name="id_listing", referencedColumnName="id")
+     */
+    private $listing;
 
     /**
      * @var string
@@ -91,6 +112,22 @@ class InterviewQuestionSet
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return JobListing
+     */
+    public function getListing()
+    {
+        return $this->listing;
+    }
+
+    /**
+     * @param JobListing $listing
+     */
+    public function setListing($listing)
+    {
+        $this->listing = $listing;
     }
 
 

@@ -8,6 +8,7 @@ namespace AppBundle\Entity\Core\User;
 
 use AppBundle\Entity\Core\Message\MessageBox;
 use AppBundle\Entity\Organisation\Position;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Core\User\UserRepository")
@@ -49,7 +51,6 @@ class User extends BaseUser
         parent::__construct();
     }
 
-
     /**
      * @var MessageBox
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Message\MessageBox", mappedBy="user",orphanRemoval=true)
@@ -61,15 +62,41 @@ class User extends BaseUser
      */
     private $positions;
 
+    /** positions are initiated by itself and employers/ees should be set to positions and not
+     * the other way around.
+     */
+    public function addPosition(Position $position)
+    {
+        throw new MethodArgumentNotImplementedException('addPosition', 'position');
+    }
+
     /**
      * @param Position $position
-     * @return Organisation
+     * @return User
      */
     public function removePosition(Position $position)
     {
         $this->positions->removeElement($position);
         $position->setEmployer(null);
         return $this;
+    }
+
+    /**
+     * @var ArrayCollection UserProfile
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\User\UserProfile", mappedBy="user",orphanRemoval=true)
+     */
+    private $profiles;
+
+    public function addProfile(UserProfile $profile)
+    {
+        $this->profiles->add($profile);
+        $profile->setUser($this);
+    }
+
+    public function removeProfile(UserProfile $profile)
+    {
+        $this->profiles->removeElement($profile);
+        $profile->setUser(null);
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 // src/AppBundle/Entity/JobBoard/Listing.php
 
-namespace AppBundle\Entity\JobBoard;
+namespace AppBundle\Entity\JobBoard\Listing;
 
 use AppBundle\Entity\Accounting\Payroll\Salary;
 use AppBundle\Entity\Core\Location\Location;
@@ -84,17 +84,24 @@ class JobListing
 
     /**
      * @var JobType
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\JobType")
+     * @ORM\ManyToOne(targetEntity="ListingType")
      * @ORM\JoinColumn(name="id_listing_type", referencedColumnName="id")
      */
     private $jobType;
 
     /**
      * @var Visibility
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Visibility")
+     * @ORM\ManyToOne(targetEntity="ListingVisibility")
      * @ORM\JoinColumn(name="id_listing_visibility", referencedColumnName="id")
      */
     private $visibility; // Referenced from Visibility.php
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="InterviewQuestionSet", mappedBy="listing", orphanRemoval=true)
+     * @Serializer\Exclude
+     */
+    private $interviewQuestionSets;
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Tag")
@@ -511,6 +518,22 @@ class JobListing
     public function setQuestionReadingTimeLimit($questionReadingTimeLimit)
     {
         $this->questionReadingTimeLimit = $questionReadingTimeLimit;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getInterviewQuestionSets()
+    {
+        return $this->interviewQuestionSets;
+    }
+
+    /**
+     * @param ArrayCollection $interviewQuestionSets
+     */
+    public function setInterviewQuestionSets($interviewQuestionSets)
+    {
+        $this->interviewQuestionSets = $interviewQuestionSets;
     }
 
 
