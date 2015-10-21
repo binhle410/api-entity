@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\Entity\Accounting\Payroll;
 
-use AppBundle\Entity\Core\Currency;
+use AppBundle\Entity\Core\Core\Currency;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,7 +26,7 @@ class Salary
 
     /**
      * @var Currency
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Currency")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Currency")
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id")
      */
     private $currency;

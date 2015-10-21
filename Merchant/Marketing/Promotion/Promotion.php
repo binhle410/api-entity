@@ -35,7 +35,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Hateoas\Relation(
  *  "promotion_type",
  *  href= @Hateoas\Route(
- *         "get_promotion_promotion_type",
+ *         "get_promotion_type",
  *         parameters = { "promotion" = "expr(object.getId())"},
  *         absolute = true
  *     ),
@@ -45,6 +45,16 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  "redemptions",
  *  href= @Hateoas\Route(
  *         "get_promotion_redemptions",
+ *         parameters = { "promotion" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions().count() === null)")
+ * )
+ *
+ * @Hateoas\Relation(
+ *  "tags",
+ *  href= @Hateoas\Route(
+ *         "get_promotion_tags",
  *         parameters = { "promotion" = "expr(object.getId())"},
  *         absolute = true
  *     ),
@@ -75,7 +85,6 @@ class Promotion
     {
         $this->effectiveFrom = new \DateTime();
         $this->expireOn = new \DateTime();
-        $this->usage = new PromotionUsage();
 
         $this->benefits = new ArrayCollection();
         $this->retailOutlets = new ArrayCollection();
@@ -85,14 +94,14 @@ class Promotion
 
     /**
      * @var PromotionUsage
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUsage", mappedBy="promotion")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUsage", mappedBy="promotion", cascade={"merge","persist", "remove"},orphanRemoval=true)
      * @Serializer\Exclude
      */
     private $usage;
 
     /**
      * @var Business
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Business", inversedBy="promotions",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Business", inversedBy="promotions")
      * @ORM\JoinColumn(name="id_business", referencedColumnName="id")
      * @Serializer\Exclude
      **/
@@ -100,7 +109,7 @@ class Promotion
 
     /**
      * @var PromotionType
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\PromotionType", cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\PromotionType")
      * @ORM\JoinColumn(name="id_type", referencedColumnName="id")
      * @Serializer\Exclude
      **/
@@ -132,11 +141,10 @@ class Promotion
      */
     private $redemptions;
 
-
     /**
      * only manytomany relationship is named with plural nouns.
      * @var ArrayCollection Tag
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Tag")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag",cascade={"merge","persist"})
      * @ORM\JoinTable(name="promotions_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_promotion", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
@@ -159,36 +167,36 @@ class Promotion
 
     /**
      * @var int
-     * @ORM\Column(name="offer_limit", type="integer",options={"default" = 0})
+     * @ORM\Column(name="offer_limit", type="integer",options={"default" = 0},nullable=true)
      */
     private $offerLimit;
 
     /**
      * @var int
-     * @ORM\Column(name="weekly_limit", type="integer",options={"default" = 0})
+     * @ORM\Column(name="weekly_limit", type="integer",options={"default" = 0},nullable=true)
      */
     private $weeklyLimit;
 
     /**
      * @var int
-     * @ORM\Column(name="monthly_limit", type="integer",options={"default" = 0})
+     * @ORM\Column(name="monthly_limit", type="integer",options={"default" = 0},nullable=true)
      */
     private $monthlyLimit;
 
     /**
      * @var int
-     * @ORM\Column(name="yearly_limit", type="integer",options={"default" = 0})
+     * @ORM\Column(name="yearly_limit", type="integer",options={"default" = 0},nullable=true)
      */
     private $yearlyLimit;
 
     /**
      * @var int
-     * @ORM\Column(name="organisation_limit", type="integer",options={"default" = 0})
+     * @ORM\Column(name="organisation_limit", type="integer",options={"default" = 0},nullable=true)
      */
     private $organisationLimit;
     /**
      * @var int
-     * @ORM\Column(name="user_limit", type="integer",options={"default" = 0})
+     * @ORM\Column(name="user_limit", type="integer",options={"default" = 0},nullable=true)
      */
     private $userLimit;
 
@@ -219,13 +227,13 @@ class Promotion
 
     /**
      * @var float
-     * @ORM\Column(name="discount_amount", precision=2,options={"default":0})
+     * @ORM\Column(name="discount_amount", precision=2,options={"default":0},nullable=true)
      */
     private $discountAmount;
 
     /**
      * @var float
-     * @ORM\Column(name="estimated_value", scale=2, precision=5,options={"default":0})
+     * @ORM\Column(name="estimated_value", scale=2, precision=5,options={"default":0},nullable=true)
      */
     private $estimatedValue;
 
@@ -288,7 +296,7 @@ class Promotion
     /**
      * @param PromotionType $type
      */
-    public function setType(PromotionType $type)
+    public function setType($type)
     {
         $this->type = $type;
     }
@@ -522,6 +530,9 @@ class Promotion
      */
     public function getUsage()
     {
+        if ($this->usage === null) {
+            $this->usage = new PromotionUsage();
+        }
         return $this->usage;
     }
 

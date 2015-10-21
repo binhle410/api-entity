@@ -4,7 +4,7 @@
 namespace AppBundle\Entity\Organisation;
 
 use AppBundle\Entity\Core\Location\Location;
-use AppBundle\Entity\Core\Tag;
+use AppBundle\Entity\Core\Core\Tag;
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Handbook\Handbook;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -212,7 +212,7 @@ class Organisation
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Site", mappedBy="organisation")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Core\Site", mappedBy="organisation")
      * @Serializer\Exclude
      **/
     private $sites;

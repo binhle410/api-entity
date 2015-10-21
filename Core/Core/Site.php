@@ -1,7 +1,7 @@
 <?php
 // src/AppBundle/Entity/Core/Site.php
 
-namespace AppBundle\Entity\Core;
+namespace AppBundle\Entity\Core\Core;
 
 use Doctrine\ORM\Mapping as ORM;
 

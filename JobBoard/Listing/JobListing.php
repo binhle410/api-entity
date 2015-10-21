@@ -104,7 +104,7 @@ class JobListing
     private $interviewQuestionSets;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Tag")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag")
      * @ORM\JoinTable(name="job_listings_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
@@ -269,7 +269,7 @@ class JobListing
      */
     public function getListingType()
     {
-        return $this->ListingType;
+        return $this->listingType;
     }
 
     /**

@@ -2,7 +2,7 @@
 // src/AppBundle/Entity/JobBoard/Status.php
 namespace AppBundle\Entity\JobBoard\Listing;
 
-use AppBundle\Entity\Core\BasicEnum;
+use AppBundle\Entity\Core\Core\BasicEnum;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

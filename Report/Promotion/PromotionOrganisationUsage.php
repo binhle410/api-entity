@@ -21,7 +21,7 @@ class PromotionOrganisationUsage
     /**
      * @var PromotionUsage
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUsage", inversedBy="organisationUsages")
-     * @ORM\JoinColumn(name="id_promotion_usage", referencedColumnName="id_promotion")
+     * @ORM\JoinColumn(name="id_promotion_usage", referencedColumnName="id")
      */
     private $promotionUsage;
 

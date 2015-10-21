@@ -2,7 +2,7 @@
 // src/AppBundle/Entity/Merchant/Marketing/Promotion/PromotionType.php
 namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 
-use AppBundle\Entity\Core\BasicEnum;
+use AppBundle\Entity\Core\Core\BasicEnum;
 
 
 use Doctrine\ORM\Mapping as ORM;

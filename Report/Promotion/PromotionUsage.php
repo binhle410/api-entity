@@ -27,8 +27,15 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class PromotionUsage
 {
     /**
-     * @var Promotion
+     * @var int
      * @ORM\Id
+     * @ORM\Column(type="integer",options={"unsigned":true})
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var Promotion
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\Promotion",inversedBy="usage")
      * @ORM\JoinColumn(name="id_promotion", referencedColumnName="id")
      **/
