@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="message_list")
+ * @ORM\Table(name="message_recipient_list")
  */
-class MessageList
+class MessageRecipientList
 {
     /**
      * @var int
