@@ -83,14 +83,14 @@ class JobListing
     private $salaryTo;
 
     /**
-     * @var JobType
+     * @var ListingType
      * @ORM\ManyToOne(targetEntity="ListingType")
      * @ORM\JoinColumn(name="id_listing_type", referencedColumnName="id")
      */
-    private $jobType;
+    private $listingType;
 
     /**
-     * @var Visibility
+     * @var ListingVisibility
      * @ORM\ManyToOne(targetEntity="ListingVisibility")
      * @ORM\JoinColumn(name="id_listing_visibility", referencedColumnName="id")
      */
@@ -265,23 +265,23 @@ class JobListing
     }
 
     /**
-     * @return JobType
+     * @return ListingType
      */
-    public function getJobType()
+    public function getListingType()
     {
-        return $this->jobType;
+        return $this->ListingType;
     }
 
     /**
-     * @param JobType $jobType
+     * @param ListingType $ListingType
      */
-    public function setJobType(JobType $jobType)
+    public function setListingType(ListingType $listingType)
     {
-        $this->jobType = $jobType;
+        $this->listingType = $listingType;
     }
 
     /**
-     * @return Visibility
+     * @return ListingVisibility
      */
     public function getVisibility()
     {
@@ -289,9 +289,9 @@ class JobListing
     }
 
     /**
-     * @param Visibility $visibility
+     * @param ListingVisibility $visibility
      */
-    public function setVisibility(Visibility $visibility)
+    public function setVisibility(ListingVisibility $visibility)
     {
         $this->visibility = $visibility;
     }
