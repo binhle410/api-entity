@@ -17,11 +17,11 @@ class Ward
     private $id;
 
     /**
-     * @var Province
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Province", inversedBy="wards")
+     * @var District
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\District", inversedBy="wards")
      * @ORM\JoinColumn(name="id_country", referencedColumnName="id", onDelete="CASCADE")
      **/
-    private $province;
+    private $district;
 
     /**
      * @var string

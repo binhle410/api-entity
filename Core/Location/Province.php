@@ -24,15 +24,83 @@ class Province
     private $country;
 
     /**
-     * @var ArrayCollection Wards
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\Ward", mappedBy="province")
+     * @var ArrayCollection District
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\District", mappedBy="province")
      **/
-    private $wards;
+    private $districts;
 
     /**
      * @var string
      * ORM\Column(length=50, type="string")
      */
     private $name;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param Country $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getDistricts()
+    {
+        return $this->districts;
+    }
+
+    /**
+     * @param ArrayCollection $districts
+     */
+    public function setDistricts($districts)
+    {
+        $this->districts = $districts;
+    }
+
+
 
 }
