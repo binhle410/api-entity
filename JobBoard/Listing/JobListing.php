@@ -87,7 +87,7 @@ class JobListing
      * @ORM\ManyToOne(targetEntity="ListingType")
      * @ORM\JoinColumn(name="id_listing_type", referencedColumnName="id")
      */
-    private $listingType;
+    private $type;
 
     /**
      * @var ListingVisibility
@@ -267,17 +267,17 @@ class JobListing
     /**
      * @return ListingType
      */
-    public function getListingType()
+    public function getType()
     {
-        return $this->listingType;
+        return $this->type;
     }
 
     /**
-     * @param ListingType $ListingType
+     * @param ListingType $type
      */
-    public function setListingType(ListingType $listingType)
+    public function setListingType($type)
     {
-        $this->listingType = $listingType;
+        $this->type = $type;
     }
 
     /**
