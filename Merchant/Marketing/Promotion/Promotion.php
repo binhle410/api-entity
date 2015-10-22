@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 
-use AppBundle\Entity\Core\Tag;
+use AppBundle\Entity\Core\Core\Tag;
 use AppBundle\Entity\Organisation\Business;
 use AppBundle\Entity\Organisation\RetailOutlet;
 use AppBundle\Entity\Report\Promotion\PromotionUsage;
