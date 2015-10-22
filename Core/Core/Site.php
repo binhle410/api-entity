@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="site")
