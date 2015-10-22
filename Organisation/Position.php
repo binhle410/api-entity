@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * @Serializer\XmlRoot("organisation_position")
+ * @Serializer\XmlRoot("position")
  *
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
@@ -44,7 +44,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
- * @ORM\Table(name="position")
+ * @ORM\Table(name="organisation_position")
  */
 class Position
 {
