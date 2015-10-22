@@ -12,7 +12,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="business")
+ * @ORM\Table(name="organisation_business")
  * @Serializer\XmlRoot("business")
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_business",

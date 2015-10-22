@@ -12,7 +12,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="benefit")
+ * @ORM\Table(name="organisation_benefit")
  */
 class Benefit
 {

@@ -13,7 +13,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @Serializer\XmlRoot("redemption")
+ * @Serializer\XmlRoot("promotion_redemption")
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(

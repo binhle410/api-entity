@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="business_retail_outlet")
+ * @ORM\Table(name="organisation_business_retail_outlet")
  */
 class RetailOutlet
 {

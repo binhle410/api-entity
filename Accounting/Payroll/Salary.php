@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="salary")
+ * @ORM\Table(name="accounting_salary")
  */
 class Salary
 {

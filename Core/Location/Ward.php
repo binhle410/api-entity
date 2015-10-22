@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="ward")
+ * @ORM\Table(name="location_ward")
  */
 class Ward
 {
