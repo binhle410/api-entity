@@ -49,7 +49,7 @@ class Benefit
      * only manytomany relationship is named with plural nouns.
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="beneficiaries",
+     * @ORM\JoinTable(name="organisation_beneficiaries",
      *      joinColumns={@ORM\JoinColumn(name="id_benefit", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")}
      *      )
