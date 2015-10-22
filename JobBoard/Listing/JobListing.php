@@ -275,7 +275,7 @@ class JobListing
     /**
      * @param ListingType $type
      */
-    public function setListingType($type)
+    public function setType($type)
     {
         $this->type = $type;
     }
