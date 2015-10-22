@@ -51,6 +51,9 @@ use Hateoas\Configuration\Annotation as Hateoas;
  */
 class Message
 {
+    const EMAIL = 'EMAIL';
+    const APP = 'APP';
+    const SMS = 'SMS';
 
     /**
      * @var int
@@ -62,7 +65,7 @@ class Message
 
     function __construct()
     {
-        $this->createdAt = new DateTime();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -130,6 +133,12 @@ class Message
      */
     private $errorMsg;
 
+    /**
+     * EMAIL, APP, SMS
+     * @var string
+     * @ORM\Column(name="type", length=120,nullable=true)
+     */
+    private $type;
     /**
      * @var string
      * @ORM\Column(name="subject",length=250,nullable=true)
@@ -237,7 +246,6 @@ class Message
     {
         $this->errorMsg = $errorMsg;
     }
-
 
 
     /**
