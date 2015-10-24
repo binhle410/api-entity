@@ -23,7 +23,6 @@ class Tag
 
     function __construct(){
         $this->active = false;
-        $this->businesses = new ArrayCollection();
     }
 
     /**
@@ -33,10 +32,10 @@ class Tag
     private $site;
 
     /**
-     * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="tags")
+     * var ArrayCollection
+     * ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="tags")
      **/
-    private $businesses;
+//    private $businesses;
 
     /**
      * @var bool
@@ -98,21 +97,6 @@ class Tag
         $this->id = $id;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getBusinesses()
-    {
-        return $this->businesses;
-    }
-
-    /**
-     * @param ArrayCollection $businesses
-     */
-    public function setBusinesses($businesses)
-    {
-        $this->businesses = $businesses;
-    }
 
     /**
      * @return boolean

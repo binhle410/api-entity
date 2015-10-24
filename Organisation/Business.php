@@ -16,7 +16,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Serializer\XmlRoot("business")
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_business",
- *         parameters = { "business" = "expr(object.getId())" },
+ *         parameters = { "entity" = "expr(object.getId())" },
  *         absolute = true
  *     )
  * )
@@ -33,9 +33,16 @@ class Business
      */
     private $id;
 
+    function __construct()
+    {
+        $this->tags = new ArrayCollection();
+        $this->promotions = new ArrayCollection();
+        $this->retailOutlets = new ArrayCollection();
+    }
+
     /**
      * @var \AppBundle\Entity\Organisation\Organisation
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation", inversedBy="businesses",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation", inversedBy="businesses")
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
      */
     private $owner;
@@ -63,7 +70,7 @@ class Business
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag", inversedBy="businesses")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag",cascade={"merge","persist"})
      * @ORM\JoinTable(name="businesses_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_business", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}

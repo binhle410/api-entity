@@ -140,6 +140,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_organisation_businesses",
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBusinesses().count() == 0)")
+ * )
+ * @Hateoas\Relation(
+ *  "businesses.post",
+ *  href= @Hateoas\Route(
+ *         "post_business",
+ *         parameters = {},
+ *         absolute = true
  *     )
  * )
  */
@@ -178,7 +187,7 @@ class Organisation
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="owner", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="owner",cascade={"persist","merge","remove"}, orphanRemoval=true)
      * @Serializer\Exclude
      */
     private $businesses;

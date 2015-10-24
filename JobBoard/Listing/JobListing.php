@@ -175,7 +175,7 @@ class JobListing
 
     /**
      * @var string
-     * @ORM\Column(length=250, name="description",type="string",nullable=true)
+     * @ORM\Column(length=2500, name="description",type="string",nullable=true)
      */
     private $description;
 
