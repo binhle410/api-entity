@@ -49,6 +49,8 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->dateAdded = new \DateTime('now');
+        $this->birthday = new \Datetime();
     }
 
     /**
@@ -110,6 +112,18 @@ class User extends BaseUser
     //TODO implement addGroup, removeGroup
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="birthday",type="datetime")
+     */
+    private $birthday;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="date_added",type="datetime")
+     */
+    private $dateAdded;
+
+    /**
      * @var string
      * @ORM\Column(length=50, name="code",type="string",nullable=true, unique=true)
      */
@@ -126,6 +140,19 @@ class User extends BaseUser
 
     /** @ORM\Column(length=120, name="last_name",type="string",nullable=true) */
     private $lastName;
+
+    /**
+     * @var string
+     * @ORM\Column(length=50,name="office_no", nullable=true)
+     */
+    private $officeNo;
+
+    /**
+     * @var string
+     * @ORM\Column(length=50,name="mobile_no", nullable=true)
+     */
+    private $mobileNo;
+
 
     /**
      * @return mixed
@@ -263,5 +290,87 @@ class User extends BaseUser
     {
         $this->code = $code;
     }
+
+    /**
+     * @return string
+     */
+    public function getMobileNo()
+    {
+        return $this->mobileNo;
+    }
+
+    /**
+     * @param string $mobileNo
+     */
+    public function setMobileNo($mobileNo)
+    {
+        $this->mobileNo = $mobileNo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @param \DateTime $birthday
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
+
+    /**
+     * @param \DateTime $dateAdded
+     */
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOfficeNo()
+    {
+        return $this->officeNo;
+    }
+
+    /**
+     * @param string $officeNo
+     */
+    public function setOfficeNo($officeNo)
+    {
+        $this->officeNo = $officeNo;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProfiles()
+    {
+        return $this->profiles;
+    }
+
+    /**
+     * @param ArrayCollection $profiles
+     */
+    public function setProfiles($profiles)
+    {
+        $this->profiles = $profiles;
+    }
+
+
 
 }

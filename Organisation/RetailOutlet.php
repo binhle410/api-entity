@@ -43,7 +43,7 @@ class RetailOutlet
     /**
      * @var Business
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business", inversedBy="retailOutlets",cascade={"persist","merge","remove"})
-     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_business", referencedColumnName="id")
      */
     private $business;
 

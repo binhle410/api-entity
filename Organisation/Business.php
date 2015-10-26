@@ -21,6 +21,27 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     )
  * )
  *
+ * @Hateoas\Relation("owner", href = @Hateoas\Route(
+ *         "get_organisation",
+ *         parameters = { "organisation" = "expr(object.getOwner().getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ * @Hateoas\Relation("promotions", href = @Hateoas\Route(
+ *         "get_business_promotions",
+ *         parameters = { "business" = "expr(object.getOwner().getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ * @Hateoas\Relation("tags", href = @Hateoas\Route(
+ *         "get_business_tags",
+ *         parameters = { "business" = "expr(object.getOwner().getId())" },
+ *         absolute = true
+ *     )
+ * )
+
  *
  */
 class Business
@@ -44,6 +65,7 @@ class Business
      * @var \AppBundle\Entity\Organisation\Organisation
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation", inversedBy="businesses")
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $owner;
 
@@ -75,12 +97,14 @@ class Business
      *      joinColumns={@ORM\JoinColumn(name="id_business", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
+     * @Serializer\Exclude
      */
     private $tags;
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\RetailOutlet", mappedBy="business", orphanRemoval=true)
+     * @Serializer\Exclude
      */
     private $retailOutlets;
 

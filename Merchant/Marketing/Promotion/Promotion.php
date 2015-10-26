@@ -25,7 +25,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  attributes = { "method" = {"put","delete"} }
  * )
  * @Hateoas\Relation(
- *  "promotion.post",
+ *  "self.post",
  *  href= @Hateoas\Route(
  *         "post_promotion",
  *         parameters = {},
