@@ -32,16 +32,25 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         "get_business_promotions",
  *         parameters = { "business" = "expr(object.getOwner().getId())" },
  *         absolute = true
- *     )
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPromotions().count() === 0)")
  * )
  *
  * @Hateoas\Relation("tags", href = @Hateoas\Route(
  *         "get_business_tags",
  *         parameters = { "business" = "expr(object.getOwner().getId())" },
  *         absolute = true
- *     )
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
  * )
-
+ *
+ * @Hateoas\Relation("outlets", href = @Hateoas\Route(
+ *         "get_business_outlets",
+ *         parameters = { "business" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRetailOutlets().count() === 0)")
+ * )
  *
  */
 class Business

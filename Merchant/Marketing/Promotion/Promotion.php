@@ -48,7 +48,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         parameters = { "promotion" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions().count() === null)")
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions().count() === 0)")
  * )
  *
  * @Hateoas\Relation(
@@ -58,7 +58,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         parameters = { "promotion" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions().count() === null)")
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
  * )
  * @Hateoas\Relation(
  *  "usage",
