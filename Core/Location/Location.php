@@ -4,9 +4,24 @@ namespace AppBundle\Entity\Core\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="location")
+ *
+ * @Serializer\XmlRoot("location")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_location",
+ *         parameters = { "location" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
  */
 class Location
 {
@@ -40,7 +55,7 @@ class Location
 
     /**
      * @var boolean
-     * @ORM\Column(length=125, type="string",options={"default":true})
+     * @ORM\Column(length=125, type="string",options={"default":true},nullable=true)
      */
     private $active;
 
@@ -52,16 +67,19 @@ class Location
 
     /**
      * @var string
-     * @ORM\Column(length=125, type="string",nullable=false) */
+     * @ORM\Column(length=125, type="string",nullable=false)
+     */
     private $name;
 
     /**
      * @var float
-     * @ORM\Column(name="latitude ",type="float",nullable=true) */
+     * @ORM\Column(name="latitude ",type="float",nullable=true)
+     */
     private $geoLat;
     /**
      * @var float
-     * @ORM\Column(name="longitude ",type="float",nullable=true) */
+     * @ORM\Column(name="longitude ",type="float",nullable=true)
+     */
     private $geoLng;
 
     /**
@@ -154,6 +172,7 @@ class Location
 
     /**
      * @param string $entity
+     * RetailOutlet, Organisation
      */
     public function setEntity($entity)
     {

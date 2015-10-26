@@ -14,6 +14,38 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="organisation_business_retail_outlet")
+ *
+ * @Hateoas\Relation("self", href = @Hateoas\Route(
+ *         "get_business_outlet",
+ *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ * @Hateoas\Relation("location", href = @Hateoas\Route(
+ *         "get_business_outlet_location",
+ *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
+ * )
+ *
+
+ * @Hateoas\Relation("business", href = @Hateoas\Route(
+ *         "get_business",
+ *         parameters = { "entity" = "expr(object.getBusiness().getId())" },
+ *         absolute = true
+ *     ),
+ * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBusiness() === null)")
+ *)
+
+ * @Hateoas\Relation("redemptions", href = @Hateoas\Route(
+ *         "get_business_outlet_redemptions",
+ *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions() === null)")
+ *)
  */
 class RetailOutlet
 {
@@ -32,9 +64,14 @@ class RetailOutlet
      */
     private $id;
 
+    function __construct()
+    {
+        $this->redemptions = new ArrayCollection();
+    }
+
     /**
      * @var Location
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Location\Location",cascade={"merge","persist"})
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -44,6 +81,7 @@ class RetailOutlet
      * @var Business
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business", inversedBy="retailOutlets",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_business", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $business;
 
@@ -89,7 +127,7 @@ class RetailOutlet
     public function setLocation($location)
     {
         $this->location = $location;
-        $location->setEntity('organisation.organisation');
+        $location->setEntity(__CLASS__);
     }
 
     /**

@@ -278,7 +278,7 @@ class Organisation
 
     /**
      * @var Location
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location",cascade={"merge","persist"})
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
      **/
     private $location;
