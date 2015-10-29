@@ -55,6 +55,11 @@ class Position
 //        $employer->getPositions()->add($this);
 //    }
 
+    function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
     /**
      * @var \AppBundle\Entity\Core\User\User
      * @ORM\Id
@@ -72,6 +77,12 @@ class Position
      * @Serializer\Exclude
      */
     private $employer;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="created_at",nullable=true)
+     */
+    private $createdAt;
 
     /**
      * @var bool

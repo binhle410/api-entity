@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Organisation;
 
 use AppBundle\Entity\Core\Location\Location;
 use AppBundle\Entity\Core\Core\Tag;
+use AppBundle\Entity\Core\Message\Message;
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Handbook\Handbook;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -143,6 +144,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBusinesses().count() == 0)")
  * )
+ *
+ * @Hateoas\Relation(
+ *  "notifications",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_notifications",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getNotifications().count() == 0)")
+ * )
  * @Hateoas\Relation(
  *  "businesses.post",
  *  href= @Hateoas\Route(
@@ -168,6 +179,7 @@ class Organisation
         $this->positions = new ArrayCollection();
         $this->sites = new ArrayCollection();
         $this->children = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
     /**
@@ -184,6 +196,34 @@ class Organisation
      * @Serializer\Exclude
      **/
     private $handbook;
+
+    /**
+     * @var ArrayCollection
+     * -> OneToMany unidirectional
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Message\Message",cascade={"persist","merge","remove"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="organisations_messages",
+     *      joinColumns={@ORM\JoinColumn(name="id_organisation", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_message", referencedColumnName="id", unique=true)}
+     *      )
+     * @Serializer\Exclude
+     */
+    private $notifications;
+
+    /**
+     * @param Message $notification
+     */
+    public function addNotification($notification)
+    {
+        $this->notifications->add($notification);
+    }
+
+    /**
+     * @param Message $notification
+     */
+    public function removeNotification($notification)
+    {
+        $this->notifications->removeElement($notification);
+    }
 
     /**
      * @var ArrayCollection
@@ -900,4 +940,21 @@ class Organisation
     {
         $this->qrCode = $qrCode;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param ArrayCollection $notifications
+     */
+    public function setNotifications($notifications)
+    {
+        $this->notifications = $notifications;
+    }
+
 }

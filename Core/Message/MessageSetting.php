@@ -30,7 +30,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="message_setting")
  */
-class MessageSetting {
+class MessageSetting
+{
 
     /**
      * @var int
@@ -53,30 +54,37 @@ class MessageSetting {
     private $bodyTemplate;
 
     /**
-     * eg: email
+     * Message:CONST TYPE_EMAIL, TYPE_SMS, TYPE_APP
      * @var string
-     * @ORM\Column(name="type", length=12)
+     * @ORM\Column(name="type", length=50)
      */
     private $type;
 
     /**
-     * eg: organisation.position
      * @var string
      * @ORM\Column(name="entity", length=120)
      */
     private $entity;
 
     /**
+     * @var string
+     * @ORM\Column(name="code", length=120)
+     */
+    private $code;
+
+    /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @param int $id
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -84,28 +92,32 @@ class MessageSetting {
     /**
      * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
     /**
      * @param string $type
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
     }
 
     /**
      * @return string
      */
-    public function getEntity() {
+    public function getEntity()
+    {
         return $this->entity;
     }
 
     /**
      * @param string $entity
      */
-    public function setEntity($entity) {
+    public function setEntity($entity)
+    {
         $this->entity = $entity;
     }
 
@@ -139,6 +151,22 @@ class MessageSetting {
     public function setBodyTemplate($bodyTemplate)
     {
         $this->bodyTemplate = $bodyTemplate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
     }
 
 

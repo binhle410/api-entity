@@ -1,8 +1,9 @@
 <?php
 // src/AppBundle/Entity/Core/Message/Message.php
-
 namespace AppBundle\Entity\Core\Message;
 
+use AppBundle\Entity\Core\Core\Push;
+use AppBundle\Entity\Core\Core\Tag;
 use AppBundle\Entity\Core\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
-
 
 /**
  * @Serializer\XmlRoot("message")
@@ -36,14 +36,34 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         "get_user",
  *         parameters = { "username" = "expr(object.getSender().getEmail())"},
  *         absolute = true
- *     )
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getSender() === null)")
  * )
  * @Hateoas\Relation("recipient",
  *  href = @Hateoas\Route(
  *         "get_user",
  *         parameters = { "username" = "expr(object.getRecipient().getEmail())"},
  *         absolute = true
- *     )
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRecipient() === null)")
+ * )
+ *
+ * @Hateoas\Relation("creator",
+ *  href = @Hateoas\Route(
+ *         "get_user",
+ *         parameters = { "username" = "expr(object.getCreator().getEmail())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getCreator() === null)")
+ * )
+ *
+ * @Hateoas\Relation("parent",
+ *  href = @Hateoas\Route(
+ *         "get_message",
+ *         parameters = { "message" = "expr(object.getParent().getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() === null)")
  * )
  *
  * @ORM\Entity
@@ -51,9 +71,11 @@ use Hateoas\Configuration\Annotation as Hateoas;
  */
 class Message
 {
-    const EMAIL = 'EMAIL';
-    const APP = 'APP';
-    const SMS = 'SMS';
+    const TYPE_EMAIL = 'EMAIL';
+    const TYPE_APP = 'APP';
+    const TYPE_SMS = 'SMS';
+
+    const TAG_NOTIFICATION = 'NOTIFICATION';
 
     /**
      * @var int
@@ -66,15 +88,39 @@ class Message
     function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->push = new Push();
     }
+
+    /**
+     * @var Push
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Push")
+     * @ORM\JoinColumn(name="id_push", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $push;
+
+    /**
+     * @var Message
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Message\Message")
+     * @ORM\JoinColumn(name="id_parent", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $parent;
+
+    /**
+     * @var MessageSetting
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Message\MessageList",inversedBy="messages")
+     * @ORM\JoinColumn(name="id_list", referencedColumnName="id")
+     */
+    private $list;
 
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_creator", referencedColumnName="id")
      * @Serializer\Exclude
      */
-    private $owner;
+    private $creator;
 
     /**
      * @var User
@@ -93,8 +139,36 @@ class Message
     private $recipient;
 
     /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag")
+     * @ORM\JoinTable(name="messages_tags",
+     *      joinColumns={@ORM\JoinColumn(name="id_message", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     **/
+    private $tags;
+
+    /**
+     * @param Tag $tag
+     */
+    public function addTag($tag)
+    {
+        $this->tags->add($tag);
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function removeTag($tag)
+    {
+        $this->tags->removeElement($tag);
+        return $this;
+    }
+
+    /**
      * @var \DateTime
-     * @ORM\Column(type="datetime", name="created_at")
+     * @ORM\Column(type="datetime", name="created_at",nullable=true)
      */
     private $createdAt;
 
@@ -106,9 +180,27 @@ class Message
 
     /**
      * @var boolean
-     * @ORM\Column(length=50, name="automated",type="boolean",options={"default":false})
+     * @ORM\Column(name="automated",type="boolean",options={"default":false},nullable=true)
      */
     private $automated;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="read",type="boolean",options={"default":false},nullable=true)
+     */
+    private $read;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="trashed",type="boolean",options={"default":false},nullable=true)
+     */
+    private $trashed;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="archived",type="boolean",options={"default":false},nullable=true)
+     */
+    private $archived;
 
     /**
      * eg: 202 to be used with an automated message.
@@ -120,6 +212,7 @@ class Message
      * @ORM\Column(name="status", type="integer",nullable=true)
      */
     private $status;
+
 
     /**
      * @var int
@@ -136,7 +229,7 @@ class Message
     /**
      * EMAIL, APP, SMS
      * @var string
-     * @ORM\Column(name="type", length=120,nullable=true)
+     * @ORM\Column(name="type", length=50,nullable=true)
      */
     private $type;
     /**
@@ -315,18 +408,19 @@ class Message
     /**
      * @return User
      */
-    public function getOwner()
+    public function getCreator()
     {
-        return $this->owner;
+        return $this->creator;
     }
 
     /**
-     * @param User $owner
+     * @param User $creator
      */
-    public function setOwner($owner)
+    public function setCreator($creator)
     {
-        $this->owner = $owner;
+        $this->creator = $creator;
     }
+
 
     /**
      * @return string
@@ -344,5 +438,132 @@ class Message
         $this->body = $body;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isRead()
+    {
+        return $this->read;
+    }
 
+    /**
+     * @param boolean $read
+     */
+    public function setRead($read)
+    {
+        $this->read = $read;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isTrashed()
+    {
+        return $this->trashed;
+    }
+
+    /**
+     * @param boolean $trashed
+     */
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isArchived()
+    {
+        return $this->archived;
+    }
+
+    /**
+     * @param boolean $archived
+     */
+    public function setArchived($archived)
+    {
+        $this->archived = $archived;
+    }
+
+    /**
+     * @return MessageSetting
+     */
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    /**
+     * @param MessageSetting $list
+     */
+    public function setList($list)
+    {
+        $this->list = $list;
+    }
+
+    /**
+     * @return Message
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param Message $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return Push
+     */
+    public function getPush()
+    {
+        return $this->push;
+    }
+
+    /**
+     * @param Push $push
+     */
+    public function setPush($push)
+    {
+        $this->push = $push;
+    }
 }

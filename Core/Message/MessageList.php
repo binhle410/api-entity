@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="message_recipient_list")
+ * @ORM\Table(name="message_list")
  */
-class MessageRecipientList
+class MessageList
 {
     /**
      * @var int
@@ -21,15 +21,10 @@ class MessageRecipientList
 
     function __construct()
     {
-        $this->createdAt = new DateTime();
+        $this->createdAt = new \DateTime();
+        $this->messages = new ArrayCollection();
     }
 
-    /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinColumn(name="id_sender", referencedColumnName="id")
-     */
-    private $sender;
 
     /**
      * @var MessageSetting
@@ -39,14 +34,26 @@ class MessageRecipientList
     private $setting;
 
     /**
-     * @var ArrayCollection User
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="messages_users",
-     *      joinColumns={@ORM\JoinColumn(name="id_message", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_recipient", referencedColumnName="id", unique=true)}
-     *      )
+     * @var ArrayCollection Message
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Message\Message", mappedBy="list")
      */
-    private $recipients;
+    private $messages;
+
+    /**
+     * @param Message $message
+     */
+    public function addMessage($message){
+        $this->messages->add($message);
+        $message->setList($this);
+    }
+
+    /**
+     * @param Message $message
+     */
+    public function removeMessage($message){
+        $this->messages->removeElement($message);
+        $message->setList(null);
+    }
 
     /**
      * @var \DateTime
@@ -121,21 +128,6 @@ class MessageRecipientList
         $this->sender = $sender;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getRecipients()
-    {
-        return $this->recipients;
-    }
-
-    /**
-     * @param ArrayCollection $recipients
-     */
-    public function setRecipients(ArrayCollection $recipients)
-    {
-        $this->recipients = $recipients;
-    }
 
     /**
      * @return MessageSetting
@@ -183,6 +175,22 @@ class MessageRecipientList
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param ArrayCollection $messages
+     */
+    public function setMessages($messages)
+    {
+        $this->messages = $messages;
     }
 
 

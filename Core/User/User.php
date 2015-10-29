@@ -6,6 +6,7 @@
 // config: fos_user.user_class
 namespace AppBundle\Entity\Core\User;
 
+use AppBundle\Entity\Core\Core\Tag;
 use AppBundle\Entity\Core\Message\MessageBox;
 use AppBundle\Entity\Organisation\Position;
 
@@ -51,15 +52,14 @@ class User extends BaseUser
         parent::__construct();
         $this->dateAdded = new \DateTime('now');
         $this->birthday = new \Datetime();
+        $this->tags = new ArrayCollection();
+        $this->grous = new ArrayCollection();
+
     }
 
-    /**
-     * @var MessageBox
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Message\MessageBox", mappedBy="user",orphanRemoval=true)
-     **/
-    private $messageBox;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Organisation\Position", mappedBy="employee", orphanRemoval=true)
      */
     private $positions;
@@ -102,6 +102,35 @@ class User extends BaseUser
     }
 
     /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag")
+     * @ORM\JoinTable(name="users_tags",
+     *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     **/
+    private $tags;
+
+    /**
+     * @param Tag $tag
+     */
+    public function addTag($tag)
+    {
+        $this->tags->add($tag);
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function removeTag($tag)
+    {
+        $this->tags->removeElement($tag);
+        return $this;
+    }
+
+    /**
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="UserGroup")
      * @ORM\JoinTable(name="user_user_group",
      *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
@@ -113,13 +142,13 @@ class User extends BaseUser
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="birthday",type="datetime")
+     * @ORM\Column(name="birthday",type="datetime",nullable=true)
      */
     private $birthday;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="date_added",type="datetime")
+     * @ORM\Column(name="date_added",type="datetime",nullable=true)
      */
     private $dateAdded;
 
@@ -259,21 +288,6 @@ class User extends BaseUser
         $this->positions = $positions;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMessageBox()
-    {
-        return $this->messageBox;
-    }
-
-    /**
-     * @param mixed $messageBox
-     */
-    public function setMessageBox($messageBox)
-    {
-        $this->messageBox = $messageBox;
-    }
 
     /**
      * @return string
@@ -371,6 +385,37 @@ class User extends BaseUser
         $this->profiles = $profiles;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param ArrayCollection $groups
+     */
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
+    }
 
 
 }
