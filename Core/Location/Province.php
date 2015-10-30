@@ -24,10 +24,10 @@ class Province
     private $country;
 
     /**
-     * @var ArrayCollection District
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\District", mappedBy="province")
+     * @var ArrayCollection City
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\City", mappedBy="province")
      **/
-    private $districts;
+    private $cities;
 
     /**
      * @var string
@@ -88,19 +88,17 @@ class Province
     /**
      * @return ArrayCollection
      */
-    public function getDistricts()
+    public function getCities()
     {
-        return $this->districts;
+        return $this->cities;
     }
 
     /**
-     * @param ArrayCollection $districts
+     * @param ArrayCollection $cities
      */
-    public function setDistricts($districts)
+    public function setCities($cities)
     {
-        $this->districts = $districts;
+        $this->cities = $cities;
     }
-
-
 
 }

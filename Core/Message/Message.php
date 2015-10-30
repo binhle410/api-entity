@@ -66,6 +66,16 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() === null)")
  * )
  *
+
+ * @Hateoas\Relation("push",
+ *  href = @Hateoas\Route(
+ *         "get_push",
+ *         parameters = { "push" = "expr(object.getPush().getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPush() === null)")
+ * )
+ *
  * @ORM\Entity
  * @ORM\Table(name="message")
  */
@@ -87,7 +97,7 @@ class Message
 
     function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTime('now');
         $this->push = new Push();
     }
 

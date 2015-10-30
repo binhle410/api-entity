@@ -16,12 +16,7 @@ class District
      */
     private $id;
 
-    /**
-     * @var Province
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Province", inversedBy="districts")
-     * @ORM\JoinColumn(name="id_country", referencedColumnName="id", onDelete="CASCADE")
-     **/
-    private $province;
+
 
     /**
      * @var ArrayCollection Wards
@@ -34,4 +29,11 @@ class District
      * ORM\Column(length=50, type="string")
      */
     private $name;
+
+    /**
+     * @var City
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\City", inversedBy="districts")
+     * @ORM\JoinColumn(name="id_city", referencedColumnName="id", onDelete="CASCADE")
+     **/
+    private $city;
 }

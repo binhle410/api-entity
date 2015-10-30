@@ -29,11 +29,7 @@ class Address
      * @ORM\Column(length=250, type="string", nullable=true) */
     private $value;
 
-    /**
-     * @var string
-     * @ORM\Column(length=125, type="string", nullable=false)
-     */
-    private $entity;
+
 
     /** @ORM\Column(length=12, type="string",nullable=true) */
     private $room;
@@ -135,21 +131,6 @@ class Address
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    /**
-     * @param string $entity
-     */
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
-    }
 
     /**
      * @return mixed

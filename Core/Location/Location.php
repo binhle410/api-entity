@@ -59,11 +59,6 @@ class Location
      */
     private $active;
 
-    /**
-     * @var string
-     * @ORM\Column(length=125, type="string",nullable=false)
-     */
-    private $entity;
 
     /**
      * @var string
@@ -160,23 +155,6 @@ class Location
     public function setActive($active)
     {
         $this->active = $active;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    /**
-     * @param string $entity
-     * RetailOutlet, Organisation
-     */
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
     }
 
 }
