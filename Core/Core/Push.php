@@ -35,6 +35,12 @@ class Push
 
     /**
      * @var int
+     * @ORM\Column(name="entity_id", type="integer",nullable=true)
+     */
+    private $entityId;
+
+    /**
+     * @var int
      * @ORM\Column(name="total", type="integer",nullable=true,options={"default":0})
      */
     private $total;
@@ -114,5 +120,22 @@ class Push
     {
         $this->total = $total;
     }
+
+    /**
+     * @return int
+     */
+    public function getEntityId()
+    {
+        return $this->entityId;
+    }
+
+    /**
+     * @param int $entityId
+     */
+    public function setEntityId($entityId)
+    {
+        $this->entityId = $entityId;
+    }
+
 
 }

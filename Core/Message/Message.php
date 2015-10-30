@@ -103,8 +103,8 @@ class Message
 
     /**
      * @var Push
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Push")
-     * @ORM\JoinColumn(name="id_push", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Push",cascade={"merge","remove","persist"})
+     * @ORM\JoinColumn(name="id_push", referencedColumnName="id", unique=true)
      * @Serializer\Exclude
      */
     private $push;
@@ -196,7 +196,7 @@ class Message
 
     /**
      * @var boolean
-     * @ORM\Column(name="read",type="boolean",options={"default":false},nullable=true)
+     * @ORM\Column(name="is_read",type="boolean",options={"default":false},nullable=true)
      */
     private $read;
 
@@ -244,13 +244,13 @@ class Message
     private $type;
     /**
      * @var string
-     * @ORM\Column(name="subject",length=250,nullable=true)
+     * @ORM\Column(name="msg_subject",length=250,nullable=true)
      */
     private $subject;
 
     /**
      * @var string
-     * @ORM\Column(name="body", length=12000,nullable=true)
+     * @ORM\Column(name="msg_body", length=12000,nullable=true)
      */
     private $body;
 
