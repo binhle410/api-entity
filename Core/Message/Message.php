@@ -98,7 +98,7 @@ class Message
     function __construct()
     {
         $this->createdAt = new \DateTime('now');
-        $this->push = new Push();
+//        $this->push = new Push();
     }
 
     /**
