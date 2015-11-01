@@ -81,13 +81,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * )
  * @Hateoas\Relation(
- *  "handbook",
+ *  "handbooks",
  *  href= @Hateoas\Route(
- *         "get_organisation_handbook",
- *         parameters = { "organisationId" = "expr(object.getId())","handbook" = "expr(object.getHandbook().getId())" },
+ *         "get_organisation_handbooks",
+ *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbook() === null)")
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbooks().count() == 0)")
  * )
  * @Hateoas\Relation("handbook.post", href = @Hateoas\Route(
  *         "post_organisation_handbook",
@@ -180,6 +180,7 @@ class Organisation
         $this->sites = new ArrayCollection();
         $this->children = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+        $this->handbooks = new ArrayCollection();
     }
 
     /**
@@ -192,10 +193,25 @@ class Organisation
 
     /**
      * @var Handbook
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="organisation", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="organisation", orphanRemoval=true)
      * @Serializer\Exclude
      **/
-    private $handbook;
+    private $handbooks;
+      /**
+     * @param Handbook $handbook
+     */
+    public function addHandbook($handbook)
+    {
+        $this->handbooks->add($handbook);
+    }
+
+    /**
+     * @param Handbook $handbook
+     */
+    public function removeHandbook($handbook)
+    {
+        $this->handbooks->removeElement($handbook);
+    }
 
     /**
      * @var ArrayCollection
@@ -208,6 +224,7 @@ class Organisation
      * @Serializer\Exclude
      */
     private $notifications;
+    
 
     /**
      * @param Message $notification
@@ -495,18 +512,17 @@ class Organisation
     /**
      * @return mixed
      */
-    public function getHandbook()
+    public function getHandbooks()
     {
-        return $this->handbook;
+        return $this->handbooks;
     }
 
     /**
-     * @param Handbook $handbook
+     * @param  $handbooks
      */
-    public function setHandbook(Handbook $handbook)
+    public function setHandbooks($handbooks)
     {
-        $this->handbook = $handbook;
-        $handbook->setOrganisation($this);
+        $this->handbooks = $handbooks;
     }
 
     /**

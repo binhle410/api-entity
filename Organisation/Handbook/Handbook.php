@@ -74,7 +74,7 @@ class Handbook
 
     /**
      * @var Organisation
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organisation\Organisation", inversedBy="handbook")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Organisation", inversedBy="handbook")
      * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
      * @Serializer\Exclude
      * */
