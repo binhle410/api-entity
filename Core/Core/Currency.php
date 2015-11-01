@@ -25,7 +25,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Currency
 {
-    const SYMBOLS = ['USD','EUR','SGD','VND','PHILIPPINE_PESO'];
+//    const SYMBOLS = ['USD','EUR','SGD','VND','PHILIPPINE_PESO'];
 /**
     const USD = 'USD';
     const EUR = 'EUR';
@@ -64,13 +64,13 @@ class Currency
     /**
      * @param string $symbol
      */
-    public function setSymbol($symbol)
-    {
-        if(!in_array($symbol,Currency::SYMBOLS)){
-            throw new \Exception($symbol.' cannot be found');
-        }
-        $this->symbol = $symbol;
-    }
+//    public function setSymbol($symbol)
+//    {
+//        if(!in_array($symbol,Currency::SYMBOLS)){
+//            throw new \Exception($symbol.' cannot be found');
+//        }
+//        $this->symbol = $symbol;
+//    }
 
     /**
      * @return float
