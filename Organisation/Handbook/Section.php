@@ -21,6 +21,13 @@ use Gedmo\Translatable\Translatable;
  *     ),
  *   attributes = { "method" = {"put","delete"} },
  * )
+ * @Hateoas\Relation("translations",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook_section_translations",
+ *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"="expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
  * @Hateoas\Relation("sections.post",
  *  href= @Hateoas\Route(
  *         "post_organisation_handbook_section",
@@ -138,15 +145,6 @@ class Section {
      * this is not a mapped field of entity metadata, just a simple property
      */
     private $locale;
-    private $tranlates;
-
-    public function getTranlates() {
-        return $this->tranlates;
-    }
-
-    public function setTranlates($tranlates) {
-        $this->tranlates = $tranlates;
-    }
 
     public function getLocale() {
         return $this->locale;
