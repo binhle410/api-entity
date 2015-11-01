@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @Serializer\XmlRoot("section")
@@ -94,6 +95,7 @@ class Section {
     /**
      * @var string
      * @ORM\Column(length=50)
+     * @Gedmo\Translatable
      * @Gedmo\Versioned
      */
     private $title;
@@ -109,6 +111,7 @@ class Section {
      * @var text $description
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Gedmo\Translatable
      * @Gedmo\Versioned
      */
     private $description;
@@ -128,6 +131,30 @@ class Section {
      * @Serializer\Exclude
      * */
     private $children;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
+    private $tranlates;
+
+    public function getTranlates() {
+        return $this->tranlates;
+    }
+
+    public function setTranlates($tranlates) {
+        $this->tranlates = $tranlates;
+    }
+
+    public function getLocale() {
+        return $this->locale;
+    }
+
+    public function setLocale($locale) {
+        $this->locale = $locale;
+    }
 
     /**
      * @param Section $section

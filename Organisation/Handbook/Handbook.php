@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @Serializer\XmlRoot("handbook")
@@ -55,8 +56,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Table(name="organisation_handbook")
  * @Gedmo\Loggable()
  */
-class Handbook
-{
+class Handbook {
 
     /**
      * @ORM\Id
@@ -90,6 +90,7 @@ class Handbook
     /**
      * @var string
      * @ORM\Column(length=50)
+     * @Gedmo\Translatable
      */
     private $title;
 
@@ -103,12 +104,35 @@ class Handbook
      * @var text $description
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Gedmo\Translatable
      */
     private $description;
 
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
+    private $tranlates;
 
-    public function addSection(Section $section)
-    {
+    public function getTranlates() {
+        return $this->tranlates;
+    }
+
+    public function setTranlates($tranlates) {
+        $this->tranlates = $tranlates;
+    }
+
+    public function getLocale() {
+        return $this->locale;
+    }
+
+    public function setLocale($locale) {
+        $this->locale = $locale;
+    }
+
+    public function addSection(Section $section) {
         $this->sections->add($section);
         $section->setHandbook($this);
     }
@@ -116,8 +140,7 @@ class Handbook
     /**
      * @param Section $section
      */
-    public function removeChild(Section $section)
-    {
+    public function removeChild(Section $section) {
         $this->children->removeElement($section);
         $section->setHandbook(null);
     }
@@ -125,112 +148,98 @@ class Handbook
     /**
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
     /**
      * @param string $title
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
     }
 
     /**
      * @return int
      */
-    public function getYear()
-    {
+    public function getYear() {
         return $this->year;
     }
 
     /**
      * @param int $year
      */
-    public function setYear($year)
-    {
+    public function setYear($year) {
         $this->year = $year;
     }
 
     /**
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
     /**
      * @param string $description
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
     }
 
     /**
      * @return mixed
      */
-    public function getOrganisation()
-    {
+    public function getOrganisation() {
         return $this->organisation;
     }
 
     /**
      * @param mixed $organisation
      */
-    public function setOrganisation($organisation)
-    {
+    public function setOrganisation($organisation) {
         $this->organisation = $organisation;
     }
 
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getSections()
-    {
+    public function getSections() {
         return $this->sections;
     }
 
     /**
      * @param ArrayCollection $sections
      */
-    public function setSections($sections)
-    {
+    public function setSections($sections) {
         $this->sections = $sections;
     }
 
     /**
      * @return string
      */
-    public function getVersion()
-    {
+    public function getVersion() {
         return $this->version;
     }
 
     /**
      * @param string $version
      */
-    public function setVersion($version)
-    {
+    public function setVersion($version) {
         if ($version !== $this->version) {
             if (!empty($this->getSections())) {
                 foreach ($this->sections as $section) {
