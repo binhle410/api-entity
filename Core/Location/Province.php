@@ -22,7 +22,6 @@ class Province
      * @ORM\JoinColumn(name="id_country", referencedColumnName="id", onDelete="CASCADE")
      **/
     private $country;
-
     /**
      * @var ArrayCollection City
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\City", mappedBy="province")
@@ -31,7 +30,7 @@ class Province
 
     /**
      * @var string
-     * ORM\Column(length=50, type="string")
+     * @ORM\Column(length=50, type="string")
      */
     private $name;
 

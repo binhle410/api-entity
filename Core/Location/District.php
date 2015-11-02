@@ -26,8 +26,9 @@ class District
 
     /**
      * @var string
-     * ORM\Column(length=50, type="string")
+     * @ORM\Column(length=50, type="string")
      */
+
     private $name;
 
     /**
@@ -36,4 +37,70 @@ class District
      * @ORM\JoinColumn(name="id_city", referencedColumnName="id", onDelete="CASCADE")
      **/
     private $city;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return City
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getWards()
+    {
+        return $this->wards;
+    }
+
+    /**
+     * @param ArrayCollection $wards
+     */
+    public function setWards($wards)
+    {
+        $this->wards = $wards;
+    }
+
+
 }
