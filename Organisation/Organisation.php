@@ -103,7 +103,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     )
  * )
- * @Hateoas\Relation("positions.post",
+ * @Hateoas\Relation("position.post",
  *  href= @Hateoas\Route(
  *         "post_organisation_position",
  *          parameters = { "organisationId" = "expr(object.getId())"},
@@ -153,6 +153,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getNotifications().count() == 0)")
+ * )
+ * @Hateoas\Relation(
+ *  "notification.post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_notifications",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
  * )
  * @Hateoas\Relation(
  *  "businesses.post",
@@ -224,7 +232,7 @@ class Organisation
      * @Serializer\Exclude
      */
     private $notifications;
-    
+
 
     /**
      * @param Message $notification

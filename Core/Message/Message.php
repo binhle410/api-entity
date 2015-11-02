@@ -1,5 +1,7 @@
 <?php
+
 // src/AppBundle/Entity/Core/Message/Message.php
+
 namespace AppBundle\Entity\Core\Message;
 
 use AppBundle\Entity\Core\Core\Push;
@@ -7,8 +9,6 @@ use AppBundle\Entity\Core\Core\Tag;
 use AppBundle\Entity\Core\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
-
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 
@@ -66,14 +66,14 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() === null)")
  * )
  *
-
- * @Hateoas\Relation("push",
- *  href = @Hateoas\Route(
- *         "get_push",
- *         parameters = { "push" = "expr(object.getPush().getId())"},
+ *  @Hateoas\Relation(
+ *  "notification.push",
+ *  href= @Hateoas\Route(
+ *         "put_organisation_notification_push",
+ *         parameters = { "organisation" = "expr(object.getPush().getEntityId())","notification" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPush() === null)")
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.isTagNotification() === false)")
  * )
  *
  * @ORM\Entity
@@ -81,10 +81,10 @@ use Hateoas\Configuration\Annotation as Hateoas;
  */
 class Message
 {
+
     const TYPE_EMAIL = 'EMAIL';
     const TYPE_APP = 'APP';
     const TYPE_SMS = 'SMS';
-
     const TAG_NOTIFICATION = 'NOTIFICATION';
 
     /**
@@ -155,8 +155,19 @@ class Message
      *      joinColumns={@ORM\JoinColumn(name="id_message", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
-     **/
+     * */
     private $tags;
+
+    public function isTagNotification()
+    {
+        $tags = $this->getTags();
+        foreach ($tags as $tag) {
+            if ($tag->getName() == self::TAG_NOTIFICATION) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * @param Tag $tag
@@ -223,7 +234,6 @@ class Message
      */
     private $status;
 
-
     /**
      * @var int
      * @ORM\Column(name="error_code", type="integer",nullable=true)
@@ -242,6 +252,7 @@ class Message
      * @ORM\Column(name="type", length=50,nullable=true)
      */
     private $type;
+
     /**
      * @var string
      * @ORM\Column(name="msg_subject",length=250,nullable=true)
@@ -350,7 +361,6 @@ class Message
         $this->errorMsg = $errorMsg;
     }
 
-
     /**
      * @return int
      */
@@ -431,7 +441,6 @@ class Message
         $this->creator = $creator;
     }
 
-
     /**
      * @return string
      */
@@ -463,7 +472,6 @@ class Message
     {
         $this->read = $read;
     }
-
 
     /**
      * @return string
@@ -576,4 +584,5 @@ class Message
     {
         $this->push = $push;
     }
+
 }
