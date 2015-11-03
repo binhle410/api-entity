@@ -89,7 +89,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbooks().count() == 0)")
  * )
- * @Hateoas\Relation("handbook.post", href = @Hateoas\Route(
+ * @Hateoas\Relation("handbooks.post", href = @Hateoas\Route(
  *         "post_organisation_handbook",
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
@@ -103,7 +103,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     )
  * )
- * @Hateoas\Relation("position.post",
+ * @Hateoas\Relation("positions.post",
  *  href= @Hateoas\Route(
  *         "post_organisation_position",
  *          parameters = { "organisationId" = "expr(object.getId())"},
