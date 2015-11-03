@@ -66,16 +66,16 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() === null)")
  * )
  *
- *  @Hateoas\Relation(
+ *  Hateoas\Relation(
  *  "notification.push",
- *  href= @Hateoas\Route(
+ *  href= Hateoas\Route(
  *         "put_organisation_notification_push",
  *         parameters = { "organisation" = "expr(object.getPush().getEntityId())","notification" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.isTagNotification() === false)")
  * )
- * 
+ *
  * @Hateoas\Relation("push",
  *  href = @Hateoas\Route(
  *         "get_push",
@@ -107,6 +107,7 @@ class Message
     function __construct()
     {
         $this->createdAt = new \DateTime('now');
+        $this->tags = new ArrayCollection();
 //        $this->push = new Push();
     }
 
@@ -167,7 +168,7 @@ class Message
      * */
     private $tags;
 
-    public function isTagNotification()
+    public function hasNotificationTag()
     {
         $tags = $this->getTags();
         foreach ($tags as $tag) {
@@ -176,6 +177,20 @@ class Message
             }
         }
         return false;
+    }
+
+    public function addNotificationTag(Tag $notificationTag)
+    {
+        if ($notificationTag->getName() !== self::TAG_NOTIFICATION) {
+            return false;
+        }
+        foreach ($this->tags as $tag) {
+            if ($tag->getName() == self::TAG_NOTIFICATION) {
+                return true;
+            }
+        }
+        $this->tags->add($notificationTag);
+        return true;
     }
 
     /**

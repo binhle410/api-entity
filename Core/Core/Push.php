@@ -34,6 +34,12 @@ class Push
     }
 
     /**
+     * @var boolean
+     * @ORM\Column(name="notification",type="boolean",options={"default":false},nullable=true)
+     */
+    private $notification;
+
+    /**
      * @var int
      * @ORM\Column(name="entity_id", type="integer",nullable=true)
      */
@@ -137,5 +143,19 @@ class Push
         $this->entityId = $entityId;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isNotification()
+    {
+        return $this->notification;
+    }
 
+    /**
+     * @param boolean $notification
+     */
+    public function setNotification($notification)
+    {
+        $this->notification = $notification;
+    }
 }
