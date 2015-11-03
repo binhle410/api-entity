@@ -53,7 +53,7 @@ class User extends BaseUser
         $this->dateAdded = new \DateTime('now');
         $this->birthday = new \Datetime();
         $this->tags = new ArrayCollection();
-        $this->grous = new ArrayCollection();
+        $this->groups = new ArrayCollection();
 
     }
 
