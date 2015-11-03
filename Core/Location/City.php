@@ -27,11 +27,7 @@ class City
      **/
     private $districts;
 
-    /**
-     * @var string
-     * @ORM\Column(length=50, type="string",nullable=true)
-     */
-    private $name;
+
     /**
      * @return Province
      */
@@ -62,37 +58,6 @@ class City
     public function setId($id)
     {
         $this->id = $id;
-    }
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getDistricts()
-    {
-        return $this->districts;
-    }
-
-    /**
-     * @param ArrayCollection $districts
-     */
-    public function setDistricts($districts)
-    {
-        $this->districts = $districts;
     }
 
 }
