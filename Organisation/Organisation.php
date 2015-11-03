@@ -155,7 +155,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getNotifications().count() == 0)")
  * )
  * @Hateoas\Relation(
- *  "notifications.post",
+ *  "notification.post",
  *  href= @Hateoas\Route(
  *         "post_organisation_notifications",
  *         parameters = { "organisation" = "expr(object.getId())"},

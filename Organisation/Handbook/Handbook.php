@@ -120,7 +120,7 @@ class Handbook {
      * this is not a mapped field of entity metadata, just a simple property
      */
     private $locale;
-
+    
     public function getLocale() {
         return $this->locale;
     }
