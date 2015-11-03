@@ -31,7 +31,7 @@ class Province
 
     /**
      * @var string
-     * ORM\Column(length=50, type="string")
+     * @ORM\Column(length=50, type="string")
      */
     private $name;
 

@@ -24,13 +24,13 @@ class Country
 
     /**
      * @var string
-     * ORM\Column(length=50, type="string",nullable=true)
+     * @ORM\Column(length=50, type="string",nullable=true)
      */
     private $code;
 
     /**
      * @var string
-     * ORM\Column(length=50, type="string",nullable=true)
+     * @ORM\Column(length=50, type="string",nullable=true)
      */
     private $name;
 

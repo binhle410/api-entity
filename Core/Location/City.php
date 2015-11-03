@@ -26,7 +26,43 @@ class City
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\City", mappedBy="city")
      **/
     private $districts;
+    /**
+     * @var string
+     * @ORM\Column(length=50, type="string",nullable=true)
+     */
+    private $name;
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getDistricts()
+    {
+        return $this->districts;
+    }
+
+    /**
+     * @param ArrayCollection $districts
+     */
+    public function setDistricts($districts)
+    {
+        $this->districts = $districts;
+    }
 
     /**
      * @return Province
