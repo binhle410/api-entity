@@ -27,7 +27,7 @@ use Gedmo\Translatable\Translatable;
  *         absolute = true
  *     ),
  * )
- * @Hateoas\Relation("handbook.post", href = @Hateoas\Route(
+ * @Hateoas\Relation("self.post", href = @Hateoas\Route(
  *         "post_organisation_handbook",
  *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())"},
  *         absolute = true
