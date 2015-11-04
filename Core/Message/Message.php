@@ -85,6 +85,16 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPush() === null)")
  * )
  *
+
+ * @Hateoas\Relation("tags",
+ *  href = @Hateoas\Route(
+ *         "get_message_tags",
+ *         parameters = { "message" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() == 0)")
+ * )
+ *
  * @ORM\Entity
  * @ORM\Table(name="message")
  */
@@ -165,6 +175,7 @@ class Message
      *      joinColumns={@ORM\JoinColumn(name="id_message", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
+     * @Serializer\Exclude
      * */
     private $tags;
 

@@ -30,6 +30,15 @@ use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
  *         absolute = true
  *     )
  * )
+ *
+ * @Hateoas\Relation("messages", href = @Hateoas\Route(
+ *         "get_user_messages",
+ *         parameters = { "username" = "expr(object.getEmail())" },
+ *         absolute = true
+ *     )
+ * )
+
+ *
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_user",
  *         parameters = { "username" = "expr(object.getEmail())" },
@@ -61,6 +70,7 @@ class User extends BaseUser
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Organisation\Position", mappedBy="employee", orphanRemoval=true)
+     * @Serializer\Exclude
      */
     private $positions;
 
@@ -86,6 +96,7 @@ class User extends BaseUser
     /**
      * @var ArrayCollection UserProfile
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\User\UserProfile", mappedBy="user",orphanRemoval=true)
+     * @Serializer\Exclude
      */
     private $profiles;
 
@@ -108,6 +119,7 @@ class User extends BaseUser
      *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
+     * @Serializer\Exclude
      **/
     private $tags;
 
@@ -136,6 +148,7 @@ class User extends BaseUser
      *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_group", referencedColumnName="id")}
      * )
+     * @Serializer\Exclude
      */
     protected $groups;
     //TODO implement addGroup, removeGroup
