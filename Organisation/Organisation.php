@@ -576,7 +576,7 @@ class Organisation
     /**
      * @param ArrayCollection $positions
      */
-    public function setPositions(ArrayCollection $positions)
+    public function setPositions($positions)
     {
         $this->positions = $positions;
     }
@@ -592,7 +592,7 @@ class Organisation
     /**
      * @param ArrayCollection $businesses
      */
-    public function setBusinesses(ArrayCollection $businesses)
+    public function setBusinesses($businesses)
     {
         $this->businesses = $businesses;
     }
@@ -608,7 +608,7 @@ class Organisation
     /**
      * @param ArrayCollection $sites
      */
-    public function setSites(ArrayCollection $sites)
+    public function setSites($sites)
     {
         $this->sites = $sites;
     }
@@ -624,7 +624,7 @@ class Organisation
     /**
      * @param ArrayCollection $children
      */
-    public function setChildren(ArrayCollection $children)
+    public function setChildren($children)
     {
         $this->children = $children;
     }

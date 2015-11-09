@@ -109,7 +109,7 @@ class Section {
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true,options={"default":true})
      * @Gedmo\Versioned
      */
     private $active = true;

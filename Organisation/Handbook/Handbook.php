@@ -62,7 +62,8 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Table(name="organisation_handbook")
  * @Gedmo\Loggable()
  */
-class Handbook {
+class Handbook
+{
 
     /**
      * @ORM\Id
@@ -70,6 +71,14 @@ class Handbook {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean",nullable=true,options={"default":true})
+     * @Gedmo\Versioned
+     */
+    private $active = true;
 
     /**
      * @var string
@@ -121,15 +130,18 @@ class Handbook {
      */
     private $locale;
 
-    public function getLocale() {
+    public function getLocale()
+    {
         return $this->locale;
     }
 
-    public function setLocale($locale) {
+    public function setLocale($locale)
+    {
         $this->locale = $locale;
     }
 
-    public function addSection(Section $section) {
+    public function addSection(Section $section)
+    {
         $this->sections->add($section);
         $section->setHandbook($this);
     }
@@ -137,7 +149,8 @@ class Handbook {
     /**
      * @param Section $section
      */
-    public function removeChild(Section $section) {
+    public function removeChild(Section $section)
+    {
         $this->children->removeElement($section);
         $section->setHandbook(null);
     }
@@ -145,98 +158,112 @@ class Handbook {
     /**
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * @param string $title
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
     }
 
     /**
      * @return int
      */
-    public function getYear() {
+    public function getYear()
+    {
         return $this->year;
     }
 
     /**
      * @param int $year
      */
-    public function setYear($year) {
+    public function setYear($year)
+    {
         $this->year = $year;
     }
 
     /**
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * @param string $description
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
     /**
      * @return mixed
      */
-    public function getOrganisation() {
+    public function getOrganisation()
+    {
         return $this->organisation;
     }
 
     /**
      * @param mixed $organisation
      */
-    public function setOrganisation($organisation) {
+    public function setOrganisation($organisation)
+    {
         $this->organisation = $organisation;
     }
 
     /**
      * @return mixed
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getSections() {
+    public function getSections()
+    {
         return $this->sections;
     }
 
     /**
      * @param ArrayCollection $sections
      */
-    public function setSections($sections) {
+    public function setSections($sections)
+    {
         $this->sections = $sections;
     }
 
     /**
      * @return string
      */
-    public function getVersion() {
+    public function getVersion()
+    {
         return $this->version;
     }
 
     /**
      * @param string $version
      */
-    public function setVersion($version) {
+    public function setVersion($version)
+    {
         if ($version !== $this->version) {
             if (!empty($this->getSections())) {
                 foreach ($this->sections as $section) {
@@ -247,5 +274,22 @@ class Handbook {
         }
         $this->version = $version;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
 
 }

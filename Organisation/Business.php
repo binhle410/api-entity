@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity\Organisation;
 
+use AppBundle\Entity\Core\Core\Tag;
 use AppBundle\Entity\Merchant\Marketing\Promotion\Promotion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -109,6 +110,26 @@ class Business
      * @Serializer\Exclude
      */
     private $tags;
+
+    /**
+     * @param Tag $tag
+     * @return Business
+     */
+    public function addTag($tag)
+    {
+        $this->tags->add($tag);
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return Business
+     */
+    public function removeTag($tag)
+    {
+        $this->tags->removeElement($tag);
+        return $this;
+    }
 
     /**
      * @var ArrayCollection

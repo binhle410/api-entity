@@ -4,7 +4,9 @@
 
 namespace AppBundle\Entity\Organisation;
 
+use AppBundle\Entity\Core\Core\Tag;
 use AppBundle\Entity\Core\User\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
@@ -15,7 +17,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
  *         "get_organisation_position",
- *          parameters = { "organisationId" = "expr(object.getEmployer().getId())","userId" = "expr(object.getEmployee().getId())"},
+ *          parameters = { "position" = "expr(object.getId())" },
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
@@ -55,6 +57,13 @@ class Position
 //        $employer->getPositions()->add($this);
 //    }
 
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer",options={"unsigned":true})
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
     function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -62,7 +71,6 @@ class Position
 
     /**
      * @var \AppBundle\Entity\Core\User\User
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions")
      * @ORM\JoinColumn(name="id_employee", referencedColumnName="id")
      * @Serializer\Exclude
@@ -71,12 +79,44 @@ class Position
 
     /**
      * @var \AppBundle\Entity\Organisation\Organisation
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation",inversedBy="positions")
      * @ORM\JoinColumn(name="id_employer", referencedColumnName="id")
      * @Serializer\Exclude
      */
     private $employer;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag",cascade={"merge","persist"})
+     * @ORM\JoinTable(name="positions_tags",
+     *      joinColumns={@ORM\JoinColumn(name="id_position", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     * @Serializer\Exclude
+     */
+    private $tags;
+
+    /**
+     * @param Tag $tag
+     * @return Position
+     */
+    public function addTag($tag)
+    {
+        if ($tag->isEmployeeClass() || $tag->isEmployeeFunction()) {
+            $this->tags->add($tag);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return Position
+     */
+    public function removeTag($tag)
+    {
+        $this->tags->removeElement($tag);
+        return $this;
+    }
 
     /**
      * @var \DateTime
@@ -238,6 +278,60 @@ class Position
     public function setEmailAddress($emailAddress)
     {
         $this->emailAddress = $emailAddress;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags($tags)
+    {
+        foreach ($tags as $tag) {
+            if ($tag->isEmployeeClass() || $tag->isEmployeeFunction()) {
+                $this->tags->add($tag);
+            }
+        }
+//        $this->tags = $tags;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 

@@ -1,5 +1,5 @@
 <?php
-// src/AppBundle/Entity/Core/Tag.php
+// src/AppBundle/Entity/Core/Cotr/Tag.php
 namespace AppBundle\Entity\Core\Core;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="tag")
@@ -21,7 +22,8 @@ class Tag
      */
     private $id;
 
-    function __construct(){
+    function __construct()
+    {
         $this->active = false;
     }
 
@@ -42,6 +44,18 @@ class Tag
      * @ORM\Column(name="active", type="boolean",nullable=false,options={"default":false})
      */
     private $active;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="employee_class",type="boolean",nullable=true,options={"default":false})
+     */
+    private $employeeClass = false;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="employee_function",type="boolean",nullable=true,options={"default":false})
+     */
+    private $employeeFunction = false;
 
 
     /** @ORM\Column(length=120, name="name",type="string",nullable=false,unique=true) */
@@ -112,6 +126,38 @@ class Tag
     public function setActive($active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEmployeeClass()
+    {
+        return $this->employeeClass;
+    }
+
+    /**
+     * @param boolean $employeeClass
+     */
+    public function setEmployeeClass($employeeClass)
+    {
+        $this->employeeClass = $employeeClass;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEmployeeFunction()
+    {
+        return $this->employeeFunction;
+    }
+
+    /**
+     * @param boolean $employeeFunction
+     */
+    public function setEmployeeFunction($employeeFunction)
+    {
+        $this->employeeFunction = $employeeFunction;
     }
 
 }

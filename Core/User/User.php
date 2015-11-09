@@ -37,7 +37,6 @@ use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
  *         absolute = true
  *     )
  * )
-
  *
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_user",
@@ -170,6 +169,18 @@ class User extends BaseUser
      * @ORM\Column(length=50, name="code",type="string",nullable=true, unique=true)
      */
     private $code;
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="ip",type="string",nullable=true)
+     */
+    private $ip;
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="session_key",type="string",nullable=true)
+     */
+    private $sessionKey;
 
     /** @ORM\Column(length=120, name="ssn",type="string",nullable=true) */
     private $ssn;
@@ -430,5 +441,36 @@ class User extends BaseUser
         $this->groups = $groups;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param mixed $ip
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSessionKey()
+    {
+        return $this->sessionKey;
+    }
+
+    /**
+     * @param mixed $sessionKey
+     */
+    public function setSessionKey($sessionKey)
+    {
+        $this->sessionKey = $sessionKey;
+    }
 
 }
