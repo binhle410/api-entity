@@ -17,7 +17,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @Hateoas\Relation("self",
  *  href= @Hateoas\Route(
  *         "get_organisation_position",
- *          parameters = { "position" = "expr(object.getId())" },
+ *          parameters = { "organisationId"="expr(object.getEmployer().getId())","position" = "expr(object.getId())" },
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
