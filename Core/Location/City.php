@@ -23,7 +23,7 @@ class City
 
     /**
      * @var ArrayCollection Districts
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\City", mappedBy="city")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\District", mappedBy="city")
      **/
     private $districts;
     /**

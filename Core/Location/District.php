@@ -16,10 +16,9 @@ class District
      */
     private $id;
 
-
     /**
      * @var ArrayCollection Wards
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\Ward", mappedBy="districts")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\Ward", mappedBy="district")
      **/
     private $wards;
 
