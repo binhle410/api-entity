@@ -44,6 +44,14 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     )
  * )
+
+ * @Hateoas\Relation("tags", href = @Hateoas\Route(
+ *         "get_organisation_position_tags",
+ *         parameters = { "organisationId" = "expr(object.getEmployer().getId())","position" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
+ * )
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
  * @ORM\Table(name="organisation_position")
