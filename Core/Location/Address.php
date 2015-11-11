@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="location_address")
+ * @ORM\Table(name="location__address")
  */
 class Address
 {

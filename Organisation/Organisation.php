@@ -4,7 +4,7 @@
 namespace AppBundle\Entity\Organisation;
 
 use AppBundle\Entity\Core\Location\Location;
-use AppBundle\Entity\Core\Core\Tag;
+use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\Message\Message;
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Handbook\Handbook;
@@ -19,7 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @Gedmo\Tree(type="nested")
  * @ORM\Entity
- * @ORM\Table(name="organisation")
+ * @ORM\Table(name="organisation__organisation")
  *
  * @Serializer\XmlRoot("organisation")
  * @Hateoas\Relation(
@@ -225,7 +225,7 @@ class Organisation
      * @var ArrayCollection
      * -> OneToMany unidirectional
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Message\Message",cascade={"persist","merge","remove"}, orphanRemoval=true)
-     * @ORM\JoinTable(name="organisations_messages",
+     * @ORM\JoinTable(name="organisation__organisations_messages",
      *      joinColumns={@ORM\JoinColumn(name="id_organisation", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_message", referencedColumnName="id", unique=true)}
      *      )
@@ -252,7 +252,7 @@ class Organisation
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="owner",cascade={"persist","merge","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business\Business", mappedBy="owner",cascade={"persist","merge","remove"}, orphanRemoval=true)
      * @Serializer\Exclude
      */
     private $businesses;

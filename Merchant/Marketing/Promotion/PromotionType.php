@@ -13,7 +13,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="promotion_type")
+ * @ORM\Table(name="marketing__promotion__type")
  */
 class PromotionType extends BasicEnum
 {

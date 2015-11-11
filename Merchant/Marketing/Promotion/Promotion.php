@@ -1,9 +1,9 @@
 <?php
 namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 
-use AppBundle\Entity\Core\Core\Tag;
-use AppBundle\Entity\Organisation\Business;
-use AppBundle\Entity\Organisation\RetailOutlet;
+use AppBundle\Entity\Core\Classification\Tag;
+use AppBundle\Entity\Organisation\Business\Business;
+use AppBundle\Entity\Organisation\Business\RetailOutlet;
 use AppBundle\Entity\Report\Promotion\PromotionUsage;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -69,7 +69,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  * )
  * @ORM\Entity
- * @ORM\Table(name="promotion")
+ * @ORM\Table(name="marketing__promotion__promotion")
  */
 class Promotion
 {
@@ -101,7 +101,7 @@ class Promotion
 
     /**
      * @var Business
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Business", inversedBy="promotions")
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Business\Business", inversedBy="promotions")
      * @ORM\JoinColumn(name="id_business", referencedColumnName="id")
      * @Serializer\Exclude
      **/
@@ -125,8 +125,8 @@ class Promotion
 
     /**
      * @var ArrayCollection RetailOutlet
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\RetailOutlet")
-     * @ORM\JoinTable(name="promotions_outlets",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business\RetailOutlet")
+     * @ORM\JoinTable(name="marketing__promotion__promotions_retail_outlets",
      *      joinColumns={@ORM\JoinColumn(name="id_promotion", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_outlet", referencedColumnName="id")}
      *      )
@@ -144,8 +144,8 @@ class Promotion
     /**
      * only manytomany relationship is named with plural nouns.
      * @var ArrayCollection Tag
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag",cascade={"merge","persist"})
-     * @ORM\JoinTable(name="promotions_tags",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\JoinTable(name="marketing__promotion__promotions_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_promotion", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )

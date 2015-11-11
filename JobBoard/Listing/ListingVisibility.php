@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job_listing_visibility")
+ * @ORM\Table(name="job__listing__visibility")
  */
 class ListingVisibility extends BasicEnum // Means Application Type (By invitation only / public)
 {

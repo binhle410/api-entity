@@ -4,7 +4,7 @@
 namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 
 use AppBundle\Entity\Core\User\User;
-use AppBundle\Entity\Organisation\RetailOutlet;
+use AppBundle\Entity\Organisation\Business\RetailOutlet;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -66,7 +66,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  *
  * @ORM\Entity
- * @ORM\Table(name="promotion_redemption")
+ * @ORM\Table(name="marketing__promotion__redemption")
  */
 class Redemption
 {
@@ -96,7 +96,7 @@ class Redemption
 
     /**
      * @var RetailOutlet
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\RetailOutlet",inversedBy="redemptions",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business\RetailOutlet",inversedBy="redemptions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_outlet", referencedColumnName="id")
      * @Serializer\Exclude
      */

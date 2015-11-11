@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="location_country")
+ * @ORM\Table(name="location__country")
  */
 class Country
 {

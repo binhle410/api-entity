@@ -10,7 +10,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="site")
+ * @ORM\Table(name="core__site")
  * @Serializer\XmlRoot("site")
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_site",

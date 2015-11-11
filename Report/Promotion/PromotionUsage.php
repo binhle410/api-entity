@@ -22,7 +22,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *
  *
  * @ORM\Entity
- * @ORM\Table(name="promotion_usage")
+ * @ORM\Table(name="report__promotion__usage")
  */
 class PromotionUsage
 {

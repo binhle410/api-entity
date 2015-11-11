@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job_interview_question")
+ * @ORM\Table(name="job__listing__interview_question")
  *
  * @Serializer\XmlRoot("interview-question")
  * Hateoas\Relation(

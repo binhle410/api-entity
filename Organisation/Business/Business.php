@@ -1,9 +1,9 @@
 <?php
 // src/AppBundle/Entity/Organisation/Business.php
 
-namespace AppBundle\Entity\Organisation;
+namespace AppBundle\Entity\Organisation\Business;
 
-use AppBundle\Entity\Core\Core\Tag;
+use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Merchant\Marketing\Promotion\Promotion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,7 +13,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="organisation_business")
+ * @ORM\Table(name="organisation__business__business")
  * @Serializer\XmlRoot("business")
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_business",
@@ -39,7 +39,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *
  * @Hateoas\Relation("tags", href = @Hateoas\Route(
  *         "get_business_tags",
- *         parameters = { "business" = "expr(object.getOwner().getId())" },
+ *         parameters = { "business" = "expr(object.getId())" },
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
@@ -102,8 +102,8 @@ class Business
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag",cascade={"merge","persist"})
-     * @ORM\JoinTable(name="businesses_tags",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\JoinTable(name="organisation__business__businesses_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_business", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
@@ -133,7 +133,7 @@ class Business
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\RetailOutlet", mappedBy="business", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business\RetailOutlet", mappedBy="business", orphanRemoval=true)
      * @Serializer\Exclude
      */
     private $retailOutlets;

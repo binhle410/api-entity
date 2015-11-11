@@ -8,7 +8,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="push")
+ * @ORM\Table(name="core__push")
  * @Serializer\XmlRoot("push")
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_push",

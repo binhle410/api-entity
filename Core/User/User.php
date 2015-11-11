@@ -6,7 +6,7 @@
 // config: fos_user.user_class
 namespace AppBundle\Entity\Core\User;
 
-use AppBundle\Entity\Core\Core\Tag;
+use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\Message\MessageBox;
 use AppBundle\Entity\Organisation\Position;
 
@@ -21,7 +21,7 @@ use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Core\User\UserRepository")
- * @ORM\Table(name="user")
+ * @ORM\Table(name="user__user")
  *
  * @Serializer\XmlRoot("user")
  * @Hateoas\Relation("user.post", href = @Hateoas\Route(
@@ -113,8 +113,8 @@ class User extends BaseUser
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag")
-     * @ORM\JoinTable(name="users_tags",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
+     * @ORM\JoinTable(name="user__users_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
@@ -143,7 +143,7 @@ class User extends BaseUser
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="UserGroup")
-     * @ORM\JoinTable(name="user_user_group",
+     * @ORM\JoinTable(name="user__users_groups",
      *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_group", referencedColumnName="id")}
      * )

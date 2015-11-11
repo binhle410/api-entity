@@ -1,6 +1,6 @@
 <?php
 // src/AppBundle/Entity/Organisation/RetailOutlet.php
-namespace AppBundle\Entity\Organisation;
+namespace AppBundle\Entity\Organisation\Business;
 
 use AppBundle\Entity\Core\Location\Address;
 use AppBundle\Entity\Core\Location\Location;
@@ -13,8 +13,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="organisation_business_retail_outlet")
- *
+ * @ORM\Table(name="organisation__business__retail_outlet")
+ * retail_outlet is abbreviated as outlet in some classes
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_business_outlet",
  *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
@@ -79,7 +79,7 @@ class RetailOutlet
 
     /**
      * @var Business
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business", inversedBy="retailOutlets",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business\Business", inversedBy="retailOutlets",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_business", referencedColumnName="id")
      * @Serializer\Exclude
      */

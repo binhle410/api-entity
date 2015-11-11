@@ -1,6 +1,6 @@
 <?php
-// src/AppBundle/Entity/Core/Cotr/Tag.php
-namespace AppBundle\Entity\Core\Core;
+// src/AppBundle/Entity/Core/Classification/Tag.php
+namespace AppBundle\Entity\Core\Classification;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="tag")
+ * @ORM\Table(name="classification__tag")
  */
 class Tag
 {
@@ -28,14 +28,14 @@ class Tag
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Site")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Site")
      * @ORM\JoinColumn(name="id_site", referencedColumnName="id")
      **/
     private $site;
 
     /**
      * var ArrayCollection
-     * ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business", mappedBy="tags")
+     * ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business\Business", mappedBy="tags")
      **/
 //    private $businesses;
 
@@ -44,6 +44,12 @@ class Tag
      * @ORM\Column(name="active", type="boolean",nullable=false,options={"default":false})
      */
     private $active;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="system",type="boolean",nullable=true,options={"default":false})
+     */
+    private $system = false;
 
     /**
      * @var bool
@@ -159,5 +165,22 @@ class Tag
     {
         $this->employeeFunction = $employeeFunction;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isSystem()
+    {
+        return $this->system;
+    }
+
+    /**
+     * @param boolean $system
+     */
+    public function setSystem($system)
+    {
+        $this->system = $system;
+    }
+
 
 }

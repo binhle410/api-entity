@@ -17,7 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job_candidate")
+ * @ORM\Table(name="job__application__candidate")
  */
 class JobCandidate
 {
@@ -29,6 +29,13 @@ class JobCandidate
      */
     private $id;
 
+    function __construct()
+    {
+        $this->observers = new ArrayCollection();
+        $this->reviewers = new ArrayCollection();
+        $this->folders = new ArrayCollection();
+    }
+
     /**
      * @var JobListing
      */
@@ -37,7 +44,7 @@ class JobCandidate
     /**
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="job_candidates_reviewers",
+     * @ORM\JoinTable(name="job__application__candidates_reviewers",
      *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_reviewer", referencedColumnName="id", unique=true)}
      *      )
@@ -57,7 +64,7 @@ class JobCandidate
     /**
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="job_candidates_observers",
+     * @ORM\JoinTable(name="job__application__candidates_observers",
      *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_observer", referencedColumnName="id", unique=true)}
      *      )
@@ -76,7 +83,11 @@ class JobCandidate
 
     /**
      * @var ArrayCollection CandidateFolder
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateFolder",mappedBy="candidates"))
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateFolder"))
+     * @ORM\JoinTable(name="job__application__candidates_folders",
+     *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_folder", referencedColumnName="id")}
+     *      )
      */
     private $folders;
 
