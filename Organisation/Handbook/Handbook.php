@@ -59,7 +59,7 @@ use Gedmo\Translatable\Translatable;
  * )
  *
  * @ORM\Entity
- * @ORM\Table(name="organisation_handbook")
+ * @ORM\Table(name="organisation__handbook__handbook")
  * @Gedmo\Loggable()
  */
 class Handbook

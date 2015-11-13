@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="message_list")
+ * @ORM\Table(name="message__message_list")
  */
 class MessageList
 {
@@ -25,10 +25,9 @@ class MessageList
         $this->messages = new ArrayCollection();
     }
 
-
     /**
-     * @var MessageSetting
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Message\MessageSetting")
+     * @var MessageTemplate
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Message\MessageTemplate")
      * @ORM\JoinColumn(name="id_setting", referencedColumnName="id")
      */
     private $setting;
@@ -130,7 +129,7 @@ class MessageList
 
 
     /**
-     * @return MessageSetting
+     * @return MessageTemplate
      */
     public function getSetting()
     {
@@ -138,7 +137,7 @@ class MessageList
     }
 
     /**
-     * @param MessageSetting $setting
+     * @param MessageTemplate $setting
      */
     public function setSetting($setting)
     {

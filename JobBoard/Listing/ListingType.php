@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job_listing_type")
+ * @ORM\Table(name="job__listing__type")
  */
 class ListingType extends BasicEnum {
     const FULL_TIME = 'FULL_TIME';

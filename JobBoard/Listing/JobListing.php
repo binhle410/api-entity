@@ -18,7 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job_listing")
+ * @ORM\Table(name="job__listing__listing")
  *
  * @Serializer\XmlRoot("joblisting")
  * @Hateoas\Relation(
@@ -104,8 +104,8 @@ class JobListing
     private $interviewQuestionSets;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag")
-     * @ORM\JoinTable(name="job_listings_tags",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
+     * @ORM\JoinTable(name="job__listing__listings_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )

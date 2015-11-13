@@ -4,7 +4,7 @@
 
 namespace AppBundle\Entity\Organisation;
 
-use AppBundle\Entity\Core\Core\Tag;
+use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -54,7 +54,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
- * @ORM\Table(name="organisation_position")
+ * @ORM\Table(name="organisation__position")
  */
 class Position
 {
@@ -75,6 +75,7 @@ class Position
     function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -95,8 +96,8 @@ class Position
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag",cascade={"merge","persist"})
-     * @ORM\JoinTable(name="positions_tags",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\JoinTable(name="organisation__positions_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_position", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )

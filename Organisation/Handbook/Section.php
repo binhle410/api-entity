@@ -67,7 +67,7 @@ use Gedmo\Translatable\Translatable;
  *   exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getParent() == null)")
  * )
  * @ORM\Entity
- * @ORM\Table(name="organisation_handbook_section")
+ * @ORM\Table(name="organisation__handbook__section")
  * @Gedmo\Loggable()
  */
 class Section {

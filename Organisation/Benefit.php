@@ -12,7 +12,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="organisation_benefit")
+ * @ORM\Table(name="organisation__benefit")
  */
 class Benefit
 {
@@ -49,7 +49,7 @@ class Benefit
      * only manytomany relationship is named with plural nouns.
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="organisation_beneficiaries",
+     * @ORM\JoinTable(name="organisation__benefits_users",
      *      joinColumns={@ORM\JoinColumn(name="id_benefit", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")}
      *      )

@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="location")
+ * @ORM\Table(name="location__location")
  *
  * @Serializer\XmlRoot("location")
  * @Hateoas\Relation(

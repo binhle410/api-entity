@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user_profile")
+ * @ORM\Table(name="user__profile")
  */
 class UserProfile
 {

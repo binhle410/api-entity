@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Entity\Core\Core;
+namespace AppBundle\Entity\Core\Classification;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @Gedmo\Tree(type="nested")
  * @ORM\Entity
- * @ORM\Table(name="category")
+ * @ORM\Table(name="classification__category")
  *
  * @Serializer\XmlRoot("category")
  * @Hateoas\Relation(

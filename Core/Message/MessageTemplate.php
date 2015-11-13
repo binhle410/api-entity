@@ -1,6 +1,6 @@
 <?php
 
-// src/AppBundle/Entity/Core/Message/MessageSetting.php
+// src/AppBundle/Entity/Core/Message/MessageTemplate.php
 
 namespace AppBundle\Entity\Core\Message;
 
@@ -9,28 +9,28 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * @Serializer\XmlRoot("message_setting")
+ * @Serializer\XmlRoot("message_template")
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
- *         "get_messagesetting",
- *         parameters = { "messageSetting" = "expr(object.getId())"},
+ *         "get_messagetemplate",
+ *         parameters = { "template" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
  * @Hateoas\Relation(
- *  "message_setting.post",
+ *  "message_template.post",
  *  href= @Hateoas\Route(
- *         "post_messagesetting",
+ *         "post_messagetemplate",
  *         parameters = {},
  *         absolute = true
  *     )
  * )
  * @ORM\Entity
- * @ORM\Table(name="message_setting")
+ * @ORM\Table(name="message__template")
  */
-class MessageSetting
+class MessageTemplate
 {
 
     /**

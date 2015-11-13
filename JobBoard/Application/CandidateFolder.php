@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job_candidate_folder")
+ * @ORM\Table(name="job__application__folder")
  */
 class CandidateFolder
 {
@@ -19,10 +19,17 @@ class CandidateFolder
      */
     private $id;
 
+    function __construct()
+    {
+        $this->reviewers = new ArrayCollection();
+        $this->observers = new ArrayCollection();
+        $this->candidates = new ArrayCollection();
+    }
+
     /**
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="job_folders_reviewers",
+     * @ORM\JoinTable(name="job__application__folders_reviewers",
      *      joinColumns={@ORM\JoinColumn(name="id_folder", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_reviewer", referencedColumnName="id", unique=true)}
      *      )
@@ -42,7 +49,7 @@ class CandidateFolder
     /**
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="job_folders_observers",
+     * @ORM\JoinTable(name="job__application__folders_observers",
      *      joinColumns={@ORM\JoinColumn(name="id_folder", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_observer", referencedColumnName="id", unique=true)}
      *      )
@@ -61,11 +68,7 @@ class CandidateFolder
 
     /**
      * @var ArrayCollection JobCandidate
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate")
-     * @ORM\JoinTable(name="job_folders_candidates",
-     *      joinColumns={@ORM\JoinColumn(name="id_folder", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id", unique=true)}
-     *      )
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate",mappedBy="folders")
      */
     private $candidates;
 
@@ -83,6 +86,86 @@ class CandidateFolder
      * @var string
      */
     private $title;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getReviewers()
+    {
+        return $this->reviewers;
+    }
+
+    /**
+     * @param ArrayCollection $reviewers
+     */
+    public function setReviewers($reviewers)
+    {
+        $this->reviewers = $reviewers;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getObservers()
+    {
+        return $this->observers;
+    }
+
+    /**
+     * @param ArrayCollection $observers
+     */
+    public function setObservers($observers)
+    {
+        $this->observers = $observers;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCandidates()
+    {
+        return $this->candidates;
+    }
+
+    /**
+     * @param ArrayCollection $candidates
+     */
+    public function setCandidates($candidates)
+    {
+        $this->candidates = $candidates;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
 
 }

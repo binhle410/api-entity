@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="promotion_user_usage")
+ * @ORM\Table(name="report__promotion__user_usage")
  */
 class PromotionUserUsage
 {

@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="currency")
+ * @ORM\Table(name="core__currency")
  *
  * @Serializer\XmlRoot("currency")
  * @Hateoas\Relation(

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user_profile_section")
+ * @ORM\Table(name="user__profile_section")
  */
 class UserProfileSection
 {

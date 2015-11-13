@@ -5,7 +5,7 @@
 namespace AppBundle\Entity\Core\Message;
 
 use AppBundle\Entity\Core\Core\Push;
-use AppBundle\Entity\Core\Core\Tag;
+use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -96,7 +96,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  * @ORM\Entity
- * @ORM\Table(name="message")
+ * @ORM\Table(name="message__message")
  */
 class Message
 {
@@ -104,7 +104,7 @@ class Message
     const TYPE_EMAIL = 'EMAIL';
     const TYPE_APP = 'APP';
     const TYPE_SMS = 'SMS';
-    const TAG_NOTIFICATION = 'NOTIFICATION';
+    const TAG_NOTIFICATION = 'TAG_MESSAGE_NOTIFICATION';
 
     /**
      * @var int
@@ -138,7 +138,7 @@ class Message
     private $parent;
 
     /**
-     * @var MessageSetting
+     * @var MessageTemplate
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Message\MessageList",inversedBy="messages")
      * @ORM\JoinColumn(name="id_list", referencedColumnName="id")
      */
@@ -170,8 +170,8 @@ class Message
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Core\Tag")
-     * @ORM\JoinTable(name="messages_tags",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
+     * @ORM\JoinTable(name="message__messages_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_message", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
@@ -573,7 +573,7 @@ class Message
     }
 
     /**
-     * @return MessageSetting
+     * @return MessageTemplate
      */
     public function getList()
     {
@@ -581,7 +581,7 @@ class Message
     }
 
     /**
-     * @param MessageSetting $list
+     * @param MessageTemplate $list
      */
     public function setList($list)
     {

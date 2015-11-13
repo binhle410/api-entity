@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job_interview_question_set")
+ * @ORM\Table(name="job__listing__interview_question_set")
  *
  * @Serializer\XmlRoot("interview-question-set")
  */
