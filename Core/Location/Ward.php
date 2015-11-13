@@ -3,9 +3,22 @@ namespace AppBundle\Entity\Core\Location;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @ORM\Entity
  * @ORM\Table(name="location_ward")
+ *
+ * @Serializer\XmlRoot("ward")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_ward",
+ *         parameters = { "ward" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
  */
 class Ward
 {

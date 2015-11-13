@@ -1,11 +1,27 @@
 <?php
 namespace AppBundle\Entity\Core\Location;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="location_country")
+ *
+ *
+ * @Serializer\XmlRoot("country")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_country",
+ *         parameters = { "country" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
  */
 class Country
 {

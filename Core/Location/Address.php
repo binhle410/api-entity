@@ -3,13 +3,31 @@ namespace AppBundle\Entity\Core\Location;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @ORM\Entity
  * @ORM\Table(name="location_address")
+ *
+ * @Serializer\XmlRoot("address")
+ * @Hateoas\Relation("self",
+ *  href= @Hateoas\Route(
+ *         "get_address",
+ *         parameters = { "entity" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} }
+ * )
+ *  @Hateoas\Relation("location", href = @Hateoas\Route(
+ *         "get_location",
+ *         parameters = { "location" = "expr(object.getLocation().getId())" },
+ *         absolute = true
+ *     ),
+ * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
+ *)
  */
 class Address
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
@@ -19,7 +37,7 @@ class Address
 
     /**
      * @var Location
-     * @ORM\ManyToOne(targetEntity="Location", inversedBy="addresses")
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="address")
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
      **/
     private $location;
