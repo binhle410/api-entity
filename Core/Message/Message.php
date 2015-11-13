@@ -85,7 +85,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPush() === null)")
  * )
  *
-
  * @Hateoas\Relation("tags",
  *  href = @Hateoas\Route(
  *         "get_message_tags",
@@ -119,6 +118,7 @@ class Message
         $this->createdAt = new \DateTime('now');
         $this->tags = new ArrayCollection();
 //        $this->push = new Push();
+        $this->read = false;
     }
 
     /**
