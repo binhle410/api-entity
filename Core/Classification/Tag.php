@@ -25,10 +25,12 @@ class Tag extends BaseTag
 
     function __construct()
     {
-        $this->active = false;
         $this->slug = "";
+
+        $this->enabled = false;
+
         // for BW only
-        $this->enabled = true;
+        $this->active = $this->enabled;
     }
 
     /**
@@ -123,7 +125,7 @@ class Tag extends BaseTag
      */
     public function isActive()
     {
-        return $this->active;
+        return $this->enabled;
     }
 
     /**
@@ -132,6 +134,7 @@ class Tag extends BaseTag
     public function setActive($active)
     {
         $this->active = $active;
+        $this->enabled = $active;
     }
 
 

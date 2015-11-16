@@ -143,8 +143,18 @@ class Business
      * Integrate with SonataMediaBundle to store app images along with banner images
      */
 
-    /** @ORM\Column(length=10,name="merchant_code") */
+    /**
+     * @var string
+     * @ORM\Column(length=50,name="merchant_code")
+     */
     private $merchantCode;
+
+
+    /**
+     * @var string
+     * @ORM\Column(length=250,name="name")
+     */
+    private $name;
 
 
     /**
@@ -241,6 +251,22 @@ class Business
     public function setMerchantCode($merchantCode)
     {
         $this->merchantCode = $merchantCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
 
