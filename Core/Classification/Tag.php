@@ -26,6 +26,9 @@ class Tag extends BaseTag
     function __construct()
     {
         $this->active = false;
+
+        // for BW only
+        $this->enabled = true;
     }
 
     /**
@@ -46,6 +49,7 @@ class Tag extends BaseTag
      */
     private $active;
 
+
     /**
      * @var bool
      * @ORM\Column(name="system",type="boolean",nullable=true,options={"default":false})
@@ -63,7 +67,6 @@ class Tag extends BaseTag
      * @ORM\Column(name="employee_function",type="boolean",nullable=true,options={"default":false})
      */
     private $employeeFunction = false;
-
 
 
     /**
@@ -115,7 +118,6 @@ class Tag extends BaseTag
         $this->id = $id;
     }
 
-
     /**
      * @return boolean
      */
@@ -131,6 +133,7 @@ class Tag extends BaseTag
     {
         $this->active = $active;
     }
+
 
     /**
      * @return boolean
