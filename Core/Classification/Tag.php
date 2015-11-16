@@ -26,7 +26,7 @@ class Tag extends BaseTag
     function __construct()
     {
         $this->active = false;
-
+        $this->slug = "";
         // for BW only
         $this->enabled = true;
     }
