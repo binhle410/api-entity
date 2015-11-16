@@ -119,6 +119,7 @@ class Message
         $this->tags = new ArrayCollection();
 //        $this->push = new Push();
         $this->read = false;
+        $this->notification = false;
     }
 
     /**
@@ -641,7 +642,6 @@ class Message
     {
         $this->notification = $notification;
     }
-
 
 
 }
