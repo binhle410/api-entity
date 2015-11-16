@@ -3,6 +3,7 @@ namespace AppBundle\Entity\Core\Classification;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Sonata\ClassificationBundle\Entity\BaseCategory;
 use Sonata\MediaBundle\Model\MediaInterface;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -25,7 +26,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  attributes = { "method" = {"put","delete"} },
  * )
  */
-class Category
+class Category extends BaseCategory
 {
     /**
      * @ORM\Id
@@ -73,14 +74,14 @@ class Category
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      * @Serializer\Exclude
      **/
-    private $parent;
+    protected $parent;
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      * @Serializer\Exclude
      **/
-    private $children;
+    protected $children;
 
 
 
@@ -162,38 +163,6 @@ class Category
     public function setRgt($rgt)
     {
         $this->rgt = $rgt;
-    }
-
-    /**
-     * @return Category
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param Category $parent
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * @param ArrayCollection $children
-     */
-    public function setChildren($children)
-    {
-        $this->children = $children;
     }
 
 

@@ -242,6 +242,12 @@ class Message
 
     /**
      * @var boolean
+     * @ORM\Column(name="notification",type="boolean",options={"default":false},nullable=true)
+     */
+    private $notification;
+
+    /**
+     * @var boolean
      * @ORM\Column(name="is_read",type="boolean",options={"default":false},nullable=true)
      */
     private $read;
@@ -619,5 +625,23 @@ class Message
     {
         $this->push = $push;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isNotification()
+    {
+        return $this->notification;
+    }
+
+    /**
+     * @param boolean $notification
+     */
+    public function setNotification($notification)
+    {
+        $this->notification = $notification;
+    }
+
+
 
 }

@@ -8,12 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Sonata\ClassificationBundle\Entity\BaseTag;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="classification__tag")
  */
-class Tag
+class Tag extends BaseTag
 {
     /**
      * @ORM\Id
@@ -63,9 +64,6 @@ class Tag
      */
     private $employeeFunction = false;
 
-
-    /** @ORM\Column(length=120, name="name",type="string",nullable=false,unique=true) */
-    private $name;
 
 
     /**
