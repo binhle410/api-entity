@@ -23,15 +23,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  attributes = { "method" = {"put","delete"} },
  * )
  *
-
- *  @Hateoas\Relation("location", href = @Hateoas\Route(
- *         "get_location",
- *         parameters = { "location" = "expr(object.getLocation().getId())" },
+ * @Hateoas\Relation("addresses", href = @Hateoas\Route(
+ *         "get_location_addresses",
+ *         parameters = { "locationId" = "expr(object.getLocation().getId())" },
  *         absolute = true
  *     ),
- * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
+ * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getAddresses().count() === 0)")
  *)
-
  */
 class Location
 {
