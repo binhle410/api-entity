@@ -39,6 +39,7 @@ class Address
      * @var Location
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="address")
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
+     * @Serializer\Exclude
      **/
     private $location;
 
@@ -63,6 +64,7 @@ class Address
      * @var Street
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Street", inversedBy="children")
      * @ORM\JoinColumn(name="id_street", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
      **/
     private $street;
 
@@ -70,6 +72,8 @@ class Address
      * @var Ward
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Ward", inversedBy="children")
      * @ORM\JoinColumn(name="id_ward", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
+
      **/
     private $ward;
 
@@ -77,6 +81,8 @@ class Address
      * @var District
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\District", inversedBy="children")
      * @ORM\JoinColumn(name="id_district", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
+
      **/
     private $district;
 
@@ -84,6 +90,8 @@ class Address
      * @var City
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\City", inversedBy="children")
      * @ORM\JoinColumn(name="id_city", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
+
      **/
     private $city;
 
@@ -91,6 +99,8 @@ class Address
      * @var Province
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Province", inversedBy="children")
      * @ORM\JoinColumn(name="id_province", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
+
      **/
     private $province;
 
@@ -98,6 +108,8 @@ class Address
      * @var Country
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Country", inversedBy="children")
      * @ORM\JoinColumn(name="id_country", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
+
      **/
     private $country;
 
