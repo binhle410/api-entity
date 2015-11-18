@@ -7,7 +7,6 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @ORM\Entity
-<<<<<<< HEAD
  * @ORM\Table(name="location_address")
  *
  * @Serializer\XmlRoot("address")
@@ -26,9 +25,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
  *)
-=======
- * @ORM\Table(name="location__address")
->>>>>>> origin/master
  */
 class Address
 {

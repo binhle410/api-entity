@@ -22,6 +22,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
+ *
+
+ *  @Hateoas\Relation("location", href = @Hateoas\Route(
+ *         "get_location",
+ *         parameters = { "location" = "expr(object.getLocation().getId())" },
+ *         absolute = true
+ *     ),
+ * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
+ *)
+
  */
 class Location
 {
@@ -49,6 +59,7 @@ class Location
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Address", mappedBy="location")
+     * @Serializer\Exclude
      **/
     private $addresses;
     //todo addAddress / removeAddress
