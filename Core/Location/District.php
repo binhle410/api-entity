@@ -8,8 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @ORM\Entity
-<<<<<<< HEAD
- * @ORM\Table(name="location_district")
+ * @ORM\Table(name="location__district")
  *
  * @Serializer\XmlRoot("district")
  * @Hateoas\Relation(
@@ -21,9 +20,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
-=======
- * @ORM\Table(name="location__district")
->>>>>>> origin/master
  */
 class District
 {

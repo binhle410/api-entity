@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @ORM\Entity
- * @ORM\Table(name="location_city")
+ * @ORM\Table(name="location__city")
  *
  * @Serializer\XmlRoot("city")
  * @Hateoas\Relation(

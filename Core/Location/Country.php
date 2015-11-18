@@ -10,7 +10,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 /**
  * @ORM\Entity
 <<<<<<< HEAD
- * @ORM\Table(name="location_country")
+ * @ORM\Table(name="location__country")
  *
  *
  * @Serializer\XmlRoot("country")
@@ -23,9 +23,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
-=======
- * @ORM\Table(name="location__country")
->>>>>>> origin/master
  */
 class Country
 {
