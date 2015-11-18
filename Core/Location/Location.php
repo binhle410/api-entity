@@ -25,7 +25,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @Hateoas\Relation("addresses", href = @Hateoas\Route(
  *         "get_location_addresses",
- *         parameters = { "locationId" = "expr(object.getLocation().getId())" },
+ *         parameters = { "locationId" = "expr(object.getId())" },
  *         absolute = true
  *     ),
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getAddresses().count() === 0)")
