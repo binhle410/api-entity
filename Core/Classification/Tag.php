@@ -54,6 +54,18 @@ class Tag extends BaseTag
 
     /**
      * @var bool
+     * @ORM\Column(name="business_type",type="boolean",nullable=true,options={"default":false})
+     */
+    private $businessType = false;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="business_category",type="boolean",nullable=true,options={"default":false})
+     */
+    private $businessCategory = false;
+
+    /**
+     * @var bool
      * @ORM\Column(name="system",type="boolean",nullable=true,options={"default":false})
      */
     private $system = false;
@@ -186,5 +198,36 @@ class Tag extends BaseTag
         $this->system = $system;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isBusinessType()
+    {
+        return $this->businessType;
+    }
+
+    /**
+     * @param boolean $businessType
+     */
+    public function setBusinessType($businessType)
+    {
+        $this->businessType = $businessType;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isBusinessCategory()
+    {
+        return $this->businessCategory;
+    }
+
+    /**
+     * @param boolean $businessCategory
+     */
+    public function setBusinessCategory($businessCategory)
+    {
+        $this->businessCategory = $businessCategory;
+    }
 
 }
