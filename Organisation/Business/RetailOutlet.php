@@ -94,8 +94,14 @@ class RetailOutlet
 
     /**
      * @var string
+     * @ORM\Column(name="contact_no",length=25)
      */
     private $contactNo;
+    /**
+     * @var string
+     * @ORM\Column(name="name",length=250)
+     */
+    private $name;
 
     /**
      * @return int
@@ -176,6 +182,22 @@ class RetailOutlet
     public function setContactNo($contactNo)
     {
         $this->contactNo = $contactNo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
 
