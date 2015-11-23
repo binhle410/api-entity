@@ -19,7 +19,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_business_outlet",
  *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
  *         absolute = true
- *     )
+ *     ),
+ *  attributes = { "method" = {"put","delete"} }
  * )
  *
  * @Hateoas\Relation("location", href = @Hateoas\Route(
