@@ -31,7 +31,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
  * )
  *
-
  * @Hateoas\Relation("business", href = @Hateoas\Route(
  *         "get_business",
  *         parameters = { "entity" = "expr(object.getBusiness().getId())" },
@@ -39,7 +38,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBusiness() === null)")
  *)
-
  * @Hateoas\Relation("redemptions", href = @Hateoas\Route(
  *         "get_business_outlet_redemptions",
  *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
@@ -80,7 +78,7 @@ class RetailOutlet
 
     /**
      * @var Business
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business\Business", inversedBy="retailOutlets",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business\Business", inversedBy="retailOutlets",cascade={"persist","merge"})
      * @ORM\JoinColumn(name="id_business", referencedColumnName="id")
      * @Serializer\Exclude
      */
