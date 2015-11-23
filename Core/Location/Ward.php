@@ -19,6 +19,12 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
+ * * @Hateoas\Relation("district", href = @Hateoas\Route(
+ *         "get_ward_district",
+ *         parameters = { "wardId" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *)
  */
 class Ward
 {
@@ -32,7 +38,8 @@ class Ward
     /**
      * @var District
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\District", inversedBy="wards")
-     * @ORM\JoinColumn(name="id_country", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="id_district", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
      **/
     private $district;
 

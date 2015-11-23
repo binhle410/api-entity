@@ -19,6 +19,22 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
+ *
+ * @Hateoas\Relation("province", href = @Hateoas\Route(
+ *         "get_province",
+ *         parameters = { "province" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getProvince() === null)")
+ * )
+ *
+ * @Hateoas\Relation("districts", href = @Hateoas\Route(
+ *         "get_districts",
+ *         parameters = { "district" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getDistricts() === 0)")
+ * )
  */
 class City
 {
@@ -32,12 +48,14 @@ class City
      * @var Province
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Province", inversedBy="cities")
      * @ORM\JoinColumn(name="id_province", referencedColumnName="id", onDelete="CASCADE")
+     * @Serializer\Exclude
      **/
     private $province;
 
     /**
      * @var ArrayCollection Districts
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\District", mappedBy="city")
+     * @Serializer\Exclude
      **/
     private $districts;
     /**

@@ -9,7 +9,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity
-<<<<<<< HEAD
  * @ORM\Table(name="location__country")
  *
  *
@@ -22,6 +21,13 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
+ * )
+ * @Hateoas\Relation("provinces", href = @Hateoas\Route(
+ *         "get_provinces",
+ *         parameters = { "province" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getProvinces() === null)")
  * )
  */
 class Country
@@ -36,6 +42,7 @@ class Country
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Location\Province", mappedBy="country")
+     * @Serializer\Exclude
      **/
     private $provinces;
 

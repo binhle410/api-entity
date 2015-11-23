@@ -18,13 +18,63 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *  attributes = { "method" = {"put","delete"} }
  * )
- *  @Hateoas\Relation("location", href = @Hateoas\Route(
+ *
+ * @Hateoas\Relation("location", href = @Hateoas\Route(
  *         "get_location",
- *         parameters = { "location" = "expr(object.getLocation().getId())" },
+ *         parameters = { "location" = "expr(object.getId())" },
  *         absolute = true
  *     ),
- * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
  *)
+ *
+ * @Hateoas\Relation("province", href = @Hateoas\Route(
+ *         "get_province",
+ *         parameters = { "province" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getProvince() === null)")
+ *)
+ *
+ * * @Hateoas\Relation("district", href = @Hateoas\Route(
+ *         "get_district",
+ *         parameters = { "district" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getDistrict() === null)")
+ *)
+ *
+ ** * @Hateoas\Relation("street", href = @Hateoas\Route(
+ *         "get_street",
+ *         parameters = { "street" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getStreet() === null)")
+ *)
+ *
+ * @Hateoas\Relation("ward", href = @Hateoas\Route(
+ *         "get_ward",
+ *         parameters = { "ward" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getWard() === null)")
+ *)
+ *
+ * @Hateoas\Relation("city", href = @Hateoas\Route(
+ *         "get_city",
+ *         parameters = { "city" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getCity() === null)")
+ *)
+ *
+ * @Hateoas\Relation("country", href = @Hateoas\Route(
+ *         "get_country",
+ *         parameters = { "country" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getCountry() === null)")
+ * )
+ *
  */
 class Address
 {
@@ -73,7 +123,6 @@ class Address
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Ward", inversedBy="children")
      * @ORM\JoinColumn(name="id_ward", referencedColumnName="id", onDelete="CASCADE")
      * @Serializer\Exclude
-
      **/
     private $ward;
 
@@ -82,7 +131,6 @@ class Address
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\District", inversedBy="children")
      * @ORM\JoinColumn(name="id_district", referencedColumnName="id", onDelete="CASCADE")
      * @Serializer\Exclude
-
      **/
     private $district;
 
@@ -91,7 +139,6 @@ class Address
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\City", inversedBy="children")
      * @ORM\JoinColumn(name="id_city", referencedColumnName="id", onDelete="CASCADE")
      * @Serializer\Exclude
-
      **/
     private $city;
 
@@ -100,7 +147,6 @@ class Address
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Province", inversedBy="children")
      * @ORM\JoinColumn(name="id_province", referencedColumnName="id", onDelete="CASCADE")
      * @Serializer\Exclude
-
      **/
     private $province;
 
@@ -109,7 +155,6 @@ class Address
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Country", inversedBy="children")
      * @ORM\JoinColumn(name="id_country", referencedColumnName="id", onDelete="CASCADE")
      * @Serializer\Exclude
-
      **/
     private $country;
 
