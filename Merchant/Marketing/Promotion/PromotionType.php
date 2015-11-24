@@ -24,7 +24,6 @@ class PromotionType extends BasicEnum
     const COMPLIMENTARY = 'COMPLIMENTARY';
     const LOYALTY_OFFERS = 'LOYALTY-OFFERS';
 
-
     /**
      * @var int
      * @ORM\Id
@@ -35,9 +34,15 @@ class PromotionType extends BasicEnum
 
     /**
      * @var string
-     * @ORM\Column(length=25)
+     * @ORM\Column(length=25, nullable=true)
      */
     private $title;
+
+    /**
+     * @var string
+     * @ORM\Column(length=25,nullable=true)
+     */
+    private $code;
 
     /**
      * @return int
@@ -71,4 +76,19 @@ class PromotionType extends BasicEnum
         $this->title = $title;
     }
 
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 }
