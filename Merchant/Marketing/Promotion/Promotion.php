@@ -36,7 +36,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  "promotion_type",
  *  href= @Hateoas\Route(
  *         "get_promotion_type",
- *         parameters = { "promotion" = "expr(object.getId())"},
+ *         parameters = { "type" = "expr(object.getType().getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getType() === null)")
