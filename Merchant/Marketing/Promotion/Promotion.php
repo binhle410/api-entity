@@ -33,7 +33,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     )
  * )
  * @Hateoas\Relation(
- *  "promotion_type",
+ *  "type",
  *  href= @Hateoas\Route(
  *         "get_promotion_type",
  *         parameters = { "type" = "expr(object.getType().getId())"},
