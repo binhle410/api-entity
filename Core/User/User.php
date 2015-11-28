@@ -1,23 +1,22 @@
 <?php
+
 // src/AppBundle/Entity/Core/User/User.php
 // cachced system.user:username:['password' => text, 'roles' => $user->getRoles()]
 // <- ApiKeyAuthenticator:authenticateToken:93
-
 // config: fos_user.user_class
+
 namespace AppBundle\Entity\Core\User;
 
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\Message\MessageBox;
 use AppBundle\Entity\Organisation\Position;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
-
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
+use AppBundle\Entity\Core\User\UserDevice;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Core\User\UserRepository")
@@ -46,8 +45,8 @@ use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
  * attributes = { "method" = {"put","delete"} },
  * )
  */
-class User extends BaseUser
-{
+class User extends BaseUser {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
@@ -55,16 +54,27 @@ class User extends BaseUser
      */
     protected $id;
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->dateAdded = new \DateTime('now');
         $this->birthday = new \Datetime();
         $this->tags = new ArrayCollection();
         $this->groups = new ArrayCollection();
-
     }
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\User\UserDevice", mappedBy="user", orphanRemoval=true)
+     * @Serializer\Exclude
+     */
+    private $userDevices;
+    
+   /**
+     * @return ArrayCollection
+     */
+    public function getUserDevices() {
+        return $this->userDevices;
+    }
 
     /**
      * @var ArrayCollection
@@ -76,8 +86,7 @@ class User extends BaseUser
     /** positions are initiated by itself and employers/ees should be set to positions and not
      * the other way around.
      */
-    public function addPosition(Position $position)
-    {
+    public function addPosition(Position $position) {
         throw new MethodArgumentNotImplementedException('addPosition', 'position');
     }
 
@@ -85,8 +94,7 @@ class User extends BaseUser
      * @param Position $position
      * @return User
      */
-    public function removePosition(Position $position)
-    {
+    public function removePosition(Position $position) {
         $this->positions->removeElement($position);
         $position->setEmployer(null);
         return $this;
@@ -99,14 +107,12 @@ class User extends BaseUser
      */
     private $profiles;
 
-    public function addProfile(UserProfile $profile)
-    {
+    public function addProfile(UserProfile $profile) {
         $this->profiles->add($profile);
         $profile->setUser($this);
     }
 
-    public function removeProfile(UserProfile $profile)
-    {
+    public function removeProfile(UserProfile $profile) {
         $this->profiles->removeElement($profile);
         $profile->setUser(null);
     }
@@ -119,14 +125,13 @@ class User extends BaseUser
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
      * @Serializer\Exclude
-     **/
+     * */
     private $tags;
 
     /**
      * @param Tag $tag
      */
-    public function addTag($tag)
-    {
+    public function addTag($tag) {
         $this->tags->add($tag);
         return $this;
     }
@@ -134,8 +139,7 @@ class User extends BaseUser
     /**
      * @param Tag $tag
      */
-    public function removeTag($tag)
-    {
+    public function removeTag($tag) {
         $this->tags->removeElement($tag);
         return $this;
     }
@@ -206,270 +210,234 @@ class User extends BaseUser
      */
     private $mobileNo;
 
-
     /**
      * @return mixed
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
     /**
      * @param mixed $firstName
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
     }
 
     /**
      * @return mixed
      */
-    public function getMiddleName()
-    {
+    public function getMiddleName() {
         return $this->middleName;
     }
 
     /**
      * @param mixed $middleName
      */
-    public function setMiddleName($middleName)
-    {
+    public function setMiddleName($middleName) {
         $this->middleName = $middleName;
     }
 
     /**
      * @return mixed
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
     /**
      * @param mixed $lastName
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
     }
-
 
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getSites()
-    {
+    public function getSites() {
         return $this->sites;
     }
 
     /**
      * @param ArrayCollection $sites
      */
-    public function setSites(ArrayCollection $sites)
-    {
+    public function setSites(ArrayCollection $sites) {
         $this->sites = $sites;
     }
 
     /**
      * @return mixed
      */
-    public function getSsn()
-    {
+    public function getSsn() {
         return $this->ssn;
     }
 
     /**
      * @param mixed $ssn
      */
-    public function setSsn($ssn)
-    {
+    public function setSsn($ssn) {
         $this->ssn = $ssn;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getPositions()
-    {
+    public function getPositions() {
         return $this->positions;
     }
 
     /**
      * @param ArrayCollection $positions
      */
-    public function setPositions(ArrayCollection $positions)
-    {
+    public function setPositions(ArrayCollection $positions) {
         $this->positions = $positions;
     }
-
 
     /**
      * @return string
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
 
     /**
      * @param string $code
      */
-    public function setCode($code)
-    {
+    public function setCode($code) {
         $this->code = $code;
     }
 
     /**
      * @return string
      */
-    public function getMobileNo()
-    {
+    public function getMobileNo() {
         return $this->mobileNo;
     }
 
     /**
      * @param string $mobileNo
      */
-    public function setMobileNo($mobileNo)
-    {
+    public function setMobileNo($mobileNo) {
         $this->mobileNo = $mobileNo;
     }
 
     /**
      * @return \DateTime
      */
-    public function getBirthday()
-    {
+    public function getBirthday() {
         return $this->birthday;
     }
 
     /**
      * @param \DateTime $birthday
      */
-    public function setBirthday($birthday)
-    {
+    public function setBirthday($birthday) {
         $this->birthday = $birthday;
     }
 
     /**
      * @return \DateTime
      */
-    public function getDateAdded()
-    {
+    public function getDateAdded() {
         return $this->dateAdded;
     }
 
     /**
      * @param \DateTime $dateAdded
      */
-    public function setDateAdded($dateAdded)
-    {
+    public function setDateAdded($dateAdded) {
         $this->dateAdded = $dateAdded;
     }
 
     /**
      * @return string
      */
-    public function getOfficeNo()
-    {
+    public function getOfficeNo() {
         return $this->officeNo;
     }
 
     /**
      * @param string $officeNo
      */
-    public function setOfficeNo($officeNo)
-    {
+    public function setOfficeNo($officeNo) {
         $this->officeNo = $officeNo;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getProfiles()
-    {
+    public function getProfiles() {
         return $this->profiles;
     }
 
     /**
      * @param ArrayCollection $profiles
      */
-    public function setProfiles($profiles)
-    {
+    public function setProfiles($profiles) {
         $this->profiles = $profiles;
     }
 
     /**
      * @return mixed
      */
-    public function getTags()
-    {
+    public function getTags() {
         return $this->tags;
     }
 
     /**
      * @param mixed $tags
      */
-    public function setTags($tags)
-    {
+    public function setTags($tags) {
         $this->tags = $tags;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getGroups()
-    {
+    public function getGroups() {
         return $this->groups;
     }
 
     /**
      * @param ArrayCollection $groups
      */
-    public function setGroups($groups)
-    {
+    public function setGroups($groups) {
         $this->groups = $groups;
     }
 
     /**
      * @return mixed
      */
-    public function getIp()
-    {
+    public function getIp() {
         return $this->ip;
     }
 
     /**
      * @param mixed $ip
      */
-    public function setIp($ip)
-    {
+    public function setIp($ip) {
         $this->ip = $ip;
     }
 
     /**
      * @return mixed
      */
-    public function getSessionKey()
-    {
+    public function getSessionKey() {
         return $this->sessionKey;
     }
 
     /**
      * @param mixed $sessionKey
      */
-    public function setSessionKey($sessionKey)
-    {
+    public function setSessionKey($sessionKey) {
         $this->sessionKey = $sessionKey;
     }
 
