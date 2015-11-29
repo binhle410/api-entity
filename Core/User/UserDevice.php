@@ -3,6 +3,8 @@
 namespace AppBundle\Entity\Core\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use AppBundle\Entity\Core\User\User;
 
 /**
  * UserDevice
@@ -37,8 +39,9 @@ class UserDevice
     private $createdDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="userDevices")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @Serializer\Exclude
      * */
     private $user;
 
@@ -84,7 +87,7 @@ class UserDevice
      * @param User $user
      * @return User
      */
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
 

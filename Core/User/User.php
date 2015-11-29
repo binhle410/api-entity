@@ -60,6 +60,9 @@ class User extends BaseUser {
         $this->birthday = new \Datetime();
         $this->tags = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->profiles = new ArrayCollection();
+        $this->userDevices = new ArrayCollection();
+        $this->positions = new ArrayCollection();
     }
 
     /**
@@ -259,19 +262,19 @@ class User extends BaseUser {
         return $this->id;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getSites() {
-        return $this->sites;
-    }
-
-    /**
-     * @param ArrayCollection $sites
-     */
-    public function setSites(ArrayCollection $sites) {
-        $this->sites = $sites;
-    }
+//    /**
+//     * @return ArrayCollection
+//     */
+//    public function getSites() {
+//        return $this->sites;
+//    }
+//
+//    /**
+//     * @param ArrayCollection $sites
+//     */
+//    public function setSites(ArrayCollection $sites) {
+//        $this->sites = $sites;
+//    }
 
     /**
      * @return mixed
