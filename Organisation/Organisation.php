@@ -1,4 +1,5 @@
 <?php
+
 // src/AppBundle/Entity/Organisation/Organisation.php
 
 namespace AppBundle\Entity\Organisation;
@@ -11,7 +12,6 @@ use AppBundle\Entity\Organisation\Handbook\Handbook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\MediaBundle\Model\MediaInterface;
-
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -31,46 +31,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
- *
- * @Hateoas\Relation(
- *  "logo",
- *  href= @Hateoas\Route(
- *         "get_medium",
- *         parameters = { "medium" = "expr(object.getLogo().getId())"},
- *         absolute = true
- *     ),
- *  attributes = { "method" = {"put","delete"} },
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
- * )
- *
- * @Hateoas\Relation(
- *  "medium.logo.post",
- *  href= @Hateoas\Route(
- *         "post_medium_medium",
- *         parameters = { "provider" = "sonata.media.provider.image"},
- *         absolute = true
- *     )
- * )
- *
- * @Hateoas\Relation(
- *  "medium.logo.update",
- *  href= @Hateoas\Route(
- *         "post_medium",
- *         parameters = { "medium" = "expr(object.getLogo().getId())"},
- *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
- * )
- *
- * @Hateoas\Relation(
- *  "logo_url",
- *  href= @Hateoas\Route(
- *         "get_media_url",
- *         parameters = { "medium" = "expr(object.getLogo().getId())"},
- *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() === null)")
- * )
+
  *
  * @Hateoas\Relation(
  *  "organisation.post",
@@ -162,6 +123,57 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  * )
+ *  @Hateoas\Relation(
+ *  "logo",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_logo",
+ *         parameters = { "organisationId" = "expr(object.getId())","logo"="expr(object.getLogo().getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() == null)")
+ * )
+ *  @Hateoas\Relation(
+ *  "logo.post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_logo",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ *  @Hateoas\Relation(
+ *  "appImage",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_app_image",
+ *         parameters = { "organisationId" = "expr(object.getId())","appImage"="expr(object.getAppImage().getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getAppImage() == null)")
+ * )
+ *  @Hateoas\Relation(
+ *  "appImage.post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_app_image",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ *  @Hateoas\Relation(
+ *  "banners",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_banners",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBanners().count() == 0)")
+ * )
+ *  @Hateoas\Relation(
+ *  "banners.post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_banner",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
  * @Hateoas\Relation(
  *  "businesses.post",
  *  href= @Hateoas\Route(
@@ -171,8 +183,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * )
  */
-class Organisation
-{
+class Organisation {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
@@ -180,8 +192,7 @@ class Organisation
      */
     private $id;
 
-    function __construct()
-    {
+    function __construct() {
         $this->businesses = new ArrayCollection();
         $this->benefits = new ArrayCollection();
         $this->positions = new ArrayCollection();
@@ -189,6 +200,7 @@ class Organisation
         $this->children = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->handbooks = new ArrayCollection();
+        $this->banners = new ArrayCollection();
     }
 
     /**
@@ -196,28 +208,27 @@ class Organisation
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinColumn(name="id_admin", referencedColumnName="id", nullable=true)
      * @Serializer\Exclude
-     **/
+     * */
     private $adminUser;
 
     /**
      * @var Handbook
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="organisation", orphanRemoval=true)
      * @Serializer\Exclude
-     **/
+     * */
     private $handbooks;
-      /**
+
+    /**
      * @param Handbook $handbook
      */
-    public function addHandbook($handbook)
-    {
+    public function addHandbook($handbook) {
         $this->handbooks->add($handbook);
     }
 
     /**
      * @param Handbook $handbook
      */
-    public function removeHandbook($handbook)
-    {
+    public function removeHandbook($handbook) {
         $this->handbooks->removeElement($handbook);
     }
 
@@ -233,20 +244,17 @@ class Organisation
      */
     private $notifications;
 
-
     /**
      * @param Message $notification
      */
-    public function addNotification($notification)
-    {
+    public function addNotification($notification) {
         $this->notifications->add($notification);
     }
 
     /**
      * @param Message $notification
      */
-    public function removeNotification($notification)
-    {
+    public function removeNotification($notification) {
         $this->notifications->removeElement($notification);
     }
 
@@ -264,7 +272,6 @@ class Organisation
      */
     private $benefits;
 
-
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Position", mappedBy="employer", orphanRemoval=true)
@@ -272,13 +279,11 @@ class Organisation
      */
     private $positions;
 
-
     /**
      * @param Position $position
      * @return Organisation
      */
-    public function removePosition(Position $position)
-    {
+    public function removePosition(Position $position) {
         $this->positions->removeElement($position);
         $position->setEmployer(null);
         return $this;
@@ -288,7 +293,7 @@ class Organisation
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Core\Site", mappedBy="organisation")
      * @Serializer\Exclude
-     **/
+     * */
     private $sites;
     //TODO implement addSite, removeSite
 
@@ -330,22 +335,21 @@ class Organisation
      * @ORM\ManyToOne(targetEntity="Organisation", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      * @Serializer\Exclude
-     **/
+     * */
     private $parent;
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Organisation", mappedBy="parent")
      * @Serializer\Exclude
-     **/
+     * */
     private $children;
-
 
     /**
      * @var Location
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location",cascade={"merge","persist"})
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
-     **/
+     * */
     private $location;
 
     /**
@@ -355,6 +359,26 @@ class Organisation
      * @Serializer\Exclude
      */
     private $logo;
+
+    /**
+     * @var \Application\Sonata\MediaBundle\Entity\Media
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
+     * @ORM\JoinColumn(name="id_app_image", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $appImage;
+
+    /**
+     * @var ArrayCollection
+     * -> OneToMany unidirectional
+     * @ORM\ManyToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist","merge","remove"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="organisation__organisations_banners",
+     *      joinColumns={@ORM\JoinColumn(name="id_organisation", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_banner", referencedColumnName="id", unique=true)}
+     *      )
+     * @Serializer\Exclude
+     */
+    private $banners;
 
     /**
      * @var string
@@ -403,84 +427,122 @@ class Organisation
      * @ORM\Column(length=50,name="reg_no", nullable=true)
      */
     private $regNo;
+
     /**
      * @var string
      * @ORM\Column(length=50,name="head_office_no", nullable=true)
      */
     private $headOfficeNo;
+
     /**
      * @var string
      * @ORM\Column(length=120,name="office_address", nullable=true)
      */
     private $officeAddress;
+
     /**
      * @var string
      * @ORM\Column(length=120,name="billing_address", nullable=true)
      */
     private $billingAddress;
+
     /**
      * @var string
      * @ORM\Column(length=50,name="reservation_email", nullable=true)
      */
     private $reservationEmail;
+
     /**
      * @var string
      * @ORM\Column(length=50,name="user_contact_no", nullable=true)
      */
     private $userContactNo;
+
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
      * @ORM\Column(type="datetime", name="client_since",nullable=true)
      */
     private $clientSince;
+
     /**
      * @var string
      * @ORM\Column(length=120,name="office_hours",nullable=true)
      */
     private $officeHours;
+
     /**
      * @var string
      * @ORM\Column(length=10,name="redemption_password",nullable=true)
      */
     private $redemptionPassword;
+
     /**
      * @var string
      * @ORM\Column(length=2500,name="about_company",nullable=true)
      */
     private $aboutCompany;
 
-
     /**
      * @return \Application\Sonata\MediaBundle\Entity\Media
      */
-    public function getLogo()
-    {
+    public function getLogo() {
         return $this->logo;
     }
 
     /**
      * @param \Application\Sonata\MediaBundle\Entity\Media $logo
      */
-    public function setLogo($logo)
-    {
+    public function setLogo($logo) {
         $this->logo = $logo;
     }
+    /**
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getAppImage() {
+        return $this->appImage;
+    }
 
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $appImage
+     */
+    public function setAppImage($appImage) {
+        $this->appImage = $appImage;
+    }
+    /**
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getBanners() {
+        return $this->banners;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $banners
+     */
+    public function setBanners($banners) {
+        $this->banners = $banners;
+        return $this;
+    }
+    public function addBanner($banner){
+        $this->banners->add($banner);
+        return $this;
+    }
+    public function removeBanner($banner){
+        $this->banners->removeElement($banner);
+        return $this;
+    }
 
     /**
      * @return Location
      */
-    public function getLocation()
-    {
+    public function getLocation() {
         return $this->location;
     }
 
     /**
      * @param Location $location
      */
-    public function setLocation(Location $location)
-    {
+    public function setLocation(Location $location) {
         $location->setEntity(__CLASS__);
         $this->location = $location;
     }
@@ -488,496 +550,434 @@ class Organisation
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
     /**
      * @param string $name
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
     }
 
     /**
      * @return mixed
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
 
     /**
      * @param mixed $code
      */
-    public function setCode($code)
-    {
+    public function setCode($code) {
         $this->code = $code;
     }
 
     /**
      * @return mixed
      */
-    public function getHandbooks()
-    {
+    public function getHandbooks() {
         return $this->handbooks;
     }
 
     /**
      * @param  $handbooks
      */
-    public function setHandbooks($handbooks)
-    {
+    public function setHandbooks($handbooks) {
         $this->handbooks = $handbooks;
     }
 
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
     /**
      * @return Organisation
      */
-    public function getParent()
-    {
+    public function getParent() {
         return $this->parent;
     }
 
     /**
      * @param Organisation $parent
      */
-    public function setParent($parent)
-    {
+    public function setParent($parent) {
         $this->parent = $parent;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getPositions()
-    {
+    public function getPositions() {
         return $this->positions;
     }
 
     /**
      * @param ArrayCollection $positions
      */
-    public function setPositions($positions)
-    {
+    public function setPositions($positions) {
         $this->positions = $positions;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getBusinesses()
-    {
+    public function getBusinesses() {
         return $this->businesses;
     }
 
     /**
      * @param ArrayCollection $businesses
      */
-    public function setBusinesses($businesses)
-    {
+    public function setBusinesses($businesses) {
         $this->businesses = $businesses;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getSites()
-    {
+    public function getSites() {
         return $this->sites;
     }
 
     /**
      * @param ArrayCollection $sites
      */
-    public function setSites($sites)
-    {
+    public function setSites($sites) {
         $this->sites = $sites;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getChildren()
-    {
+    public function getChildren() {
         return $this->children;
     }
 
     /**
      * @param ArrayCollection $children
      */
-    public function setChildren($children)
-    {
+    public function setChildren($children) {
         $this->children = $children;
     }
 
     /**
      * @return mixed
      */
-    public function getRoot()
-    {
+    public function getRoot() {
         return $this->root;
     }
 
     /**
      * @param mixed $root
      */
-    public function setRoot($root)
-    {
+    public function setRoot($root) {
         $this->root = $root;
     }
 
     /**
      * @return int
      */
-    public function getLft()
-    {
+    public function getLft() {
         return $this->lft;
     }
 
     /**
      * @param int $lft
      */
-    public function setLft($lft)
-    {
+    public function setLft($lft) {
         $this->lft = $lft;
     }
 
     /**
      * @return int
      */
-    public function getLvl()
-    {
+    public function getLvl() {
         return $this->lvl;
     }
 
     /**
      * @param int $lvl
      */
-    public function setLvl($lvl)
-    {
+    public function setLvl($lvl) {
         $this->lvl = $lvl;
     }
 
     /**
      * @return int
      */
-    public function getRgt()
-    {
+    public function getRgt() {
         return $this->rgt;
     }
 
     /**
      * @param int $rgt
      */
-    public function setRgt($rgt)
-    {
+    public function setRgt($rgt) {
         $this->rgt = $rgt;
     }
 
     /**
      * @return User
      */
-    public function getAdminUser()
-    {
+    public function getAdminUser() {
         return $this->adminUser;
     }
 
     /**
      * @param User $adminUser
      */
-    public function setAdminUser(User $adminUser = null)
-    {
+    public function setAdminUser(User $adminUser = null) {
         $this->adminUser = $adminUser;
     }
 
     /**
      * @return string
      */
-    public function getRegNo()
-    {
+    public function getRegNo() {
         return $this->regNo;
     }
 
     /**
      * @param string $regNo
      */
-    public function setRegNo($regNo)
-    {
+    public function setRegNo($regNo) {
         $this->regNo = $regNo;
     }
 
     /**
      * @return string
      */
-    public function getHeadOfficeNo()
-    {
+    public function getHeadOfficeNo() {
         return $this->headOfficeNo;
     }
 
     /**
      * @param string $headOfficeNo
      */
-    public function setHeadOfficeNo($headOfficeNo)
-    {
+    public function setHeadOfficeNo($headOfficeNo) {
         $this->headOfficeNo = $headOfficeNo;
     }
 
     /**
      * @return string
      */
-    public function getBillingAddress()
-    {
+    public function getBillingAddress() {
         return $this->billingAddress;
     }
 
     /**
      * @param string $billingAddress
      */
-    public function setBillingAddress($billingAddress)
-    {
+    public function setBillingAddress($billingAddress) {
         $this->billingAddress = $billingAddress;
     }
 
     /**
      * @return string
      */
-    public function getReservationEmail()
-    {
+    public function getReservationEmail() {
         return $this->reservationEmail;
     }
 
     /**
      * @param string $reservationEmail
      */
-    public function setReservationEmail($reservationEmail)
-    {
+    public function setReservationEmail($reservationEmail) {
         $this->reservationEmail = $reservationEmail;
     }
 
     /**
      * @return string
      */
-    public function getUserContactNo()
-    {
+    public function getUserContactNo() {
         return $this->userContactNo;
     }
 
     /**
      * @param string $userContactNo
      */
-    public function setUserContactNo($userContactNo)
-    {
+    public function setUserContactNo($userContactNo) {
         $this->userContactNo = $userContactNo;
     }
 
     /**
      * @return \DateTime
      */
-    public function getClientSince()
-    {
+    public function getClientSince() {
         return $this->clientSince;
     }
 
     /**
      * @param \DateTime $clientSince
      */
-    public function setClientSince($clientSince)
-    {
+    public function setClientSince($clientSince) {
         $this->clientSince = $clientSince;
     }
 
     /**
      * @return string
      */
-    public function getOfficeHours()
-    {
+    public function getOfficeHours() {
         return $this->officeHours;
     }
 
     /**
      * @param string $officeHours
      */
-    public function setOfficeHours($officeHours)
-    {
+    public function setOfficeHours($officeHours) {
         $this->officeHours = $officeHours;
     }
 
     /**
      * @return string
      */
-    public function getRedemptionPassword()
-    {
+    public function getRedemptionPassword() {
         return $this->redemptionPassword;
     }
 
     /**
      * @param string $redemptionPassword
      */
-    public function setRedemptionPassword($redemptionPassword)
-    {
+    public function setRedemptionPassword($redemptionPassword) {
         $this->redemptionPassword = $redemptionPassword;
     }
 
     /**
      * @return string
      */
-    public function getAboutCompany()
-    {
+    public function getAboutCompany() {
         return $this->aboutCompany;
     }
 
     /**
      * @param string $aboutCompany
      */
-    public function setAboutCompany($aboutCompany)
-    {
+    public function setAboutCompany($aboutCompany) {
         $this->aboutCompany = $aboutCompany;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getBenefits()
-    {
+    public function getBenefits() {
         return $this->benefits;
     }
 
     /**
      * @param ArrayCollection $benefits
      */
-    public function setBenefits($benefits)
-    {
+    public function setBenefits($benefits) {
         $this->benefits = $benefits;
     }
 
     /**
      * @return string
      */
-    public function getOfficeAddress()
-    {
+    public function getOfficeAddress() {
         return $this->officeAddress;
     }
 
     /**
      * @param string $officeAddress
      */
-    public function setOfficeAddress($officeAddress)
-    {
+    public function setOfficeAddress($officeAddress) {
         $this->officeAddress = $officeAddress;
     }
 
     /**
      * @return string
      */
-    public function getSlogan()
-    {
+    public function getSlogan() {
         return $this->slogan;
     }
 
     /**
      * @param string $slogan
      */
-    public function setSlogan($slogan)
-    {
+    public function setSlogan($slogan) {
         $this->slogan = $slogan;
     }
 
     /**
      * @return string
      */
-    public function getFacebookLink()
-    {
+    public function getFacebookLink() {
         return $this->facebookLink;
     }
 
     /**
      * @param string $facebookLink
      */
-    public function setFacebookLink($facebookLink)
-    {
+    public function setFacebookLink($facebookLink) {
         $this->facebookLink = $facebookLink;
     }
 
     /**
      * @return string
      */
-    public function getLinkedInLink()
-    {
+    public function getLinkedInLink() {
         return $this->linkedInLink;
     }
 
     /**
      * @param string $linkedInLink
      */
-    public function setLinkedInLink($linkedInLink)
-    {
+    public function setLinkedInLink($linkedInLink) {
         $this->linkedInLink = $linkedInLink;
     }
 
     /**
      * @return string
      */
-    public function getAccountName()
-    {
+    public function getAccountName() {
         return $this->accountName;
     }
 
     /**
      * @param string $accountName
      */
-    public function setAccountName($accountName)
-    {
+    public function setAccountName($accountName) {
         $this->accountName = $accountName;
     }
 
     /**
      * @return string
      */
-    public function getQrCode()
-    {
+    public function getQrCode() {
         return $this->qrCode;
     }
 
     /**
      * @param string $qrCode
      */
-    public function setQrCode($qrCode)
-    {
+    public function setQrCode($qrCode) {
         $this->qrCode = $qrCode;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getNotifications()
-    {
+    public function getNotifications() {
         return $this->notifications;
     }
 
     /**
      * @param ArrayCollection $notifications
      */
-    public function setNotifications($notifications)
-    {
+    public function setNotifications($notifications) {
         $this->notifications = $notifications;
     }
 
