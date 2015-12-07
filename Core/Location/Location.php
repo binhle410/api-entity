@@ -66,7 +66,7 @@ class Location
      * @var boolean
      * @ORM\Column(length=125, type="string",options={"default":true},nullable=true)
      */
-    private $active;
+    private $enabled;
 
 
     /**
@@ -153,17 +153,17 @@ class Location
     /**
      * @return boolean
      */
-    public function isActive()
+    public function isEnabled()
     {
-        return $this->active;
+        return $this->enabled;
     }
 
     /**
      * @param boolean $active
      */
-    public function setActive($active)
+    public function setEnabled($enabled)
     {
-        $this->active = $active;
+        $this->enabled = $enabled;
     }
 
 }
