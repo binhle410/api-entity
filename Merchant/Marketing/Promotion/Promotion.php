@@ -125,7 +125,7 @@ class Promotion
 
     /**
      * @var ArrayCollection RetailOutlet
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business\RetailOutlet")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business\RetailOutlet",cascade={"merge","persist"})
      * @ORM\JoinTable(name="marketing__promotion__promotions_retail_outlets",
      *      joinColumns={@ORM\JoinColumn(name="id_promotion", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_outlet", referencedColumnName="id")}
