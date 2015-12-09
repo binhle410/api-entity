@@ -60,6 +60,20 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
  * )
+
+ *
+ * @Hateoas\Relation(
+ *  "retail_outlets",
+ *  href= @Hateoas\Route(
+ *         "get_promotion_participating_outlets",
+ *         parameters = { "promotion" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRetailOutlets().count() === 0)")
+ * )
+ *
+ *
+ *
  * @Hateoas\Relation(
  *  "usage",
  *  href= @Hateoas\Route(
