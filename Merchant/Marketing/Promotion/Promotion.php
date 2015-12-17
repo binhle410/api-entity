@@ -104,6 +104,9 @@ class Promotion
         $this->retailOutlets = new ArrayCollection();
         $this->redemptions = new ArrayCollection();
         $this->tags = new ArrayCollection();
+
+        $this->active = false;
+        $this->includeAllOutlets = true;
     }
 
     /**
@@ -179,6 +182,8 @@ class Promotion
         return $this;
     }
 
+
+
     /**
      * @var int
      * @ORM\Column(name="offer_limit", type="integer",options={"default" = 0},nullable=true)
@@ -231,6 +236,13 @@ class Promotion
      * @ORM\Column(name="active",type="boolean")
      */
     private $active = false;
+
+
+    /**
+     * @var bool
+     * @ORM\Column(name="include_all_outlets",type="boolean")
+     */
+    private $includeAllOutlets = true;
 
     /**
      * @var string
@@ -574,5 +586,19 @@ class Promotion
         $this->weeklyLimit = $weeklyLimit;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isIncludeAllOutlets()
+    {
+        return $this->includeAllOutlets;
+    }
 
+    /**
+     * @param boolean $includeAllOutlets
+     */
+    public function setIncludeAllOutlets($includeAllOutlets)
+    {
+        $this->includeAllOutlets = $includeAllOutlets;
+    }
 }
