@@ -126,8 +126,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  @Hateoas\Relation(
  *  "logo",
  *  href= @Hateoas\Route(
- *         "get_organisation_logo",
- *         parameters = { "organisationId" = "expr(object.getId())","logo"="expr(object.getLogo().getId())"},
+ *         "get_medium",
+ *         parameters = { "medium" = "expr(object.getLogo().getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() == null)")
@@ -143,8 +143,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  @Hateoas\Relation(
  *  "appImage",
  *  href= @Hateoas\Route(
- *         "get_organisation_app_image",
- *         parameters = { "organisationId" = "expr(object.getId())","appImage"="expr(object.getAppImage().getId())"},
+ *         "get_medium",
+ *         parameters = { "medium" = "expr(object.getAppImage().getId())"},
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getAppImage() == null)")
