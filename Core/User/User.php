@@ -173,7 +173,7 @@ class User extends BaseUser {
 
     /**
      * @var string
-     * @ORM\Column(length=50, name="code",type="string",nullable=true, unique=true)
+     * @ORM\Column(length=50, name="code",type="string",nullable=true, unique=false)
      */
     private $code;
 
