@@ -374,7 +374,7 @@ class Organisation {
      * @ORM\ManyToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist","merge","remove"}, orphanRemoval=true)
      * @ORM\JoinTable(name="organisation__organisations_banners",
      *      joinColumns={@ORM\JoinColumn(name="id_organisation", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_banner", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_banner", referencedColumnName="id")}
      *      )
      * @Serializer\Exclude
      */
