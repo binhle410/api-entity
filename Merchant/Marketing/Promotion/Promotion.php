@@ -106,7 +106,7 @@ class Promotion
         $this->tags = new ArrayCollection();
 
         $this->active = false;
-        $this->includeAllOutlets = true;
+        $this->everyOutletIncluded = true;
     }
 
     /**
@@ -240,9 +240,9 @@ class Promotion
 
     /**
      * @var bool
-     * @ORM\Column(name="include_all_outlets",type="boolean")
+     * @ORM\Column(name="every_outlet_included",type="boolean")
      */
-    private $includeAllOutlets = true;
+    private $everyOutletIncluded = true;
 
     /**
      * @var string
@@ -589,16 +589,19 @@ class Promotion
     /**
      * @return boolean
      */
-    public function isIncludeAllOutlets()
+    public function isEveryOutletIncluded()
     {
-        return $this->includeAllOutlets;
+        return $this->everyOutletIncluded;
     }
 
     /**
-     * @param boolean $includeAllOutlets
+     * @param boolean $everyOutletIncluded
      */
-    public function setIncludeAllOutlets($includeAllOutlets)
+    public function setEveryOutletIncluded($everyOutletIncluded)
     {
-        $this->includeAllOutlets = $includeAllOutlets;
+        $this->everyOutletIncluded = $everyOutletIncluded;
     }
+
+
+
 }
