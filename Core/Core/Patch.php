@@ -29,12 +29,12 @@ class Patch
     "remove", "replace", "move", "copy", or "test"; other values are
     errors.  The semantics of each object is defined below. ... (rfc6902)
      */
-    const OP_ADD = 'ADD_OPERATION';
-    const OP_REMOVE = 'REMOVE_OPERATION';
-    const OP_REPLACE = 'REPLACE_OPERATION';
-    const OP_MOVE = 'MOVE_OPERATION';
-    const OP_COPY = 'COPY_OPERATION';
-    const OP_TEST = 'TEST_OPERATION';
+    const ADD = 'add';
+    const REMOVE = 'remove';
+    const REPLACE = 'replace';
+    const MOVE = 'move';
+    const COPY = 'copy';
+    const TEST = 'test';
 
     private $op;
     private $path;
