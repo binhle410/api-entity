@@ -2,7 +2,6 @@
 // src/AppBundle/Entity/Organisation/RetailOutlet.php
 namespace AppBundle\Entity\Organisation\Business;
 
-use AppBundle\Entity\Core\Location\Address;
 use AppBundle\Entity\Core\Location\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
