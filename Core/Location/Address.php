@@ -21,9 +21,10 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *
  * @Hateoas\Relation("location", href = @Hateoas\Route(
  *         "get_location",
- *         parameters = { "location" = "expr(object.getId())" },
+ *         parameters = { "location" = "expr(object.getLocation().getId())" },
  *         absolute = true
  *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
  *)
  *
  * @Hateoas\Relation("province", href = @Hateoas\Route(

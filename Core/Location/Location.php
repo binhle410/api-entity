@@ -71,7 +71,8 @@ class Location
     /**
      * @param Address $address
      */
-    public function addAddress($address){
+    public function addAddress($address)
+    {
         $this->addresses->add($address);
         $address->setLocation($this);
         return $this;
@@ -80,7 +81,8 @@ class Location
     /**
      * @param Address $address
      */
-    public function removeAddress($address){
+    public function removeAddress($address)
+    {
         $this->addresses->removeElement($address);
         $address->setLocation(null);
         return $this;
@@ -171,7 +173,15 @@ class Location
      */
     public function setAddresses($addresses)
     {
-        $this->addresses = $addresses;
+//        $this->addresses = $addresses;
+        if ($addresses === null) {
+            $this->addresses = null;
+        } else {
+            foreach ($addresses as $address) {
+                $this->addAddress($address);
+            }
+        }
+        return $this;
     }
 
     /**
