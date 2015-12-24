@@ -35,8 +35,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "post_location",
  *         parameters = {},
  *         absolute = true
- *     ),
- * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
+ *     )
  * )
  *
  *

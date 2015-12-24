@@ -30,6 +30,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getAddresses().count() === 0)")
  *)
+ *
+ * @Hateoas\Relation("addresses.post", href = @Hateoas\Route(
+ *         "post_address",
+ *         parameters = {   },
+ *         absolute = true
+ *     )
+ *)
  */
 class Location
 {
