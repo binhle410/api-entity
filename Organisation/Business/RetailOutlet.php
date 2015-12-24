@@ -140,7 +140,6 @@ class RetailOutlet
     public function setLocation($location)
     {
         $this->location = $location;
-        $location->setEntity(__CLASS__);
     }
 
     /**
