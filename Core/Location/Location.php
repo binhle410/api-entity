@@ -63,11 +63,28 @@ class Location
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="location")
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="location",cascade={"persist","merge","remove"})
      * @Serializer\Exclude
      **/
     private $addresses;
-    //todo addAddress / removeAddress
+
+    /**
+     * @param Address $address
+     */
+    public function addAddress($address){
+        $this->addresses->add($address);
+        $address->setLocation($this);
+        return $this;
+    }
+
+    /**
+     * @param Address $address
+     */
+    public function removeAddress($address){
+        $this->addresses->removeElement($address);
+        $address->setLocation(null);
+        return $this;
+    }
 
     /**
      * @var boolean
