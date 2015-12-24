@@ -166,7 +166,7 @@ class Location
     }
 
     /**
-     * @param boolean $active
+     * @param boolean $enabled
      */
     public function setEnabled($enabled)
     {
