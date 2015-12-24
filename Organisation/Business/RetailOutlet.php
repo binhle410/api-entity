@@ -30,6 +30,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
  * )
  *
+
+ * @Hateoas\Relation("location.post", href = @Hateoas\Route(
+ *         "post_location",
+ *         parameters = {},
+ *         absolute = true
+ *     ),
+ * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
+ * )
+ *
+ *
  * @Hateoas\Relation("business", href = @Hateoas\Route(
  *         "get_business",
  *         parameters = { "entity" = "expr(object.getBusiness().getId())" },
