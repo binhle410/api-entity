@@ -144,7 +144,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *      )
  * )
  * @Hateoas\Relation(
- *  "appImage",
+ *  "app_image",
  *  href= @Hateoas\Route(
  *         "get_medium",
  *         parameters = { "medium" = "expr(object.getAppImage().getId())"},
@@ -153,7 +153,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getAppImage() == null)")
  * )
  * @Hateoas\Relation(
- *  "appImage.post",
+ *  "app_image.post",
  *  href= @Hateoas\Route(
  *         "post_organisation_app_image",
  *         parameters = { "organisation" = "expr(object.getId())"},
