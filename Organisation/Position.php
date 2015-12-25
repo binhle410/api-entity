@@ -76,6 +76,11 @@ class Position
     {
         $this->createdAt = new \DateTime();
         $this->tags = new ArrayCollection();
+
+        $this->enabled = true;
+
+        // for BW
+        $this->active = $this->enabled;
     }
 
     /**
@@ -135,8 +140,10 @@ class Position
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", name="active", options={"default":false})
+     * @ORM\Column(type="boolean", name="enabled", options={"default":true})
      */
+    private $enabled;
+
     private $active;
 
     /**
@@ -248,7 +255,7 @@ class Position
      */
     public function isActive()
     {
-        return $this->active;
+        return $this->enabled;
     }
 
     /**
@@ -256,7 +263,11 @@ class Position
      */
     public function setActive($active)
     {
+        // for BW
         $this->active = $active;
+
+        // latest
+        $this->enabled = $active;
     }
 
     /**
@@ -344,6 +355,23 @@ class Position
     {
         $this->id = $id;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
 
 
 }

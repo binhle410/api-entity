@@ -30,7 +30,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisation" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "method" = {"put","delete"} },
+ *  attributes = { "methods" =  "expr('abc')" },
  * )
  *
  * @Hateoas\Relation(
@@ -48,13 +48,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbooks().count() == 0)")
+ *  attributes = { "methods" =  "expr('abc')" },
  * )
  * @Hateoas\Relation("handbooks.post", href = @Hateoas\Route(
  *         "post_organisation_handbook",
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
- *     )
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbooks().count() == 0)")
  * )
  * @Hateoas\Relation(
  *  "positions",
@@ -1151,6 +1152,38 @@ class Organisation
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+    /**
+     * @param ArrayCollection $applications
+     */
+    public function setApplications($applications)
+    {
+        $this->applications = $applications;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
     }
 
 
