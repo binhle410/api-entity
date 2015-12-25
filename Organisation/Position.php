@@ -54,7 +54,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
- * @ORM\Table(name="organisation__position")
+ * @ORM\Table(name="organisation__position", uniqueConstraints={@ORM\UniqueConstraint(name="position_unique", columns={"id_employer", "id_employee"})})
  */
 class Position
 {
@@ -145,7 +145,9 @@ class Position
      */
     private $handbookContact;
     // e.g: Business Development, Telesales
+
     /**
+     * @deprecated
      * @var string
      * @ORM\Column(length=50, name="title",type="string",nullable=true)
      */

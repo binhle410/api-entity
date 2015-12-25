@@ -54,6 +54,12 @@ class Tag extends BaseTag
 
     /**
      * @var bool
+     * @ORM\Column(name="industry",type="boolean",nullable=true,options={"default":false})
+     */
+    private $industry = false;
+
+    /**
+     * @var bool
      * @ORM\Column(name="business_type",type="boolean",nullable=true,options={"default":false})
      */
     private $businessType = false;
@@ -228,6 +234,22 @@ class Tag extends BaseTag
     public function setBusinessCategory($businessCategory)
     {
         $this->businessCategory = $businessCategory;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIndustry()
+    {
+        return $this->industry;
+    }
+
+    /**
+     * @param boolean $industry
+     */
+    public function setIndustry($industry)
+    {
+        $this->industry = $industry;
     }
 
 }

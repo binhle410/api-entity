@@ -63,7 +63,7 @@ class Location
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="location",cascade={"persist","merge","remove"})
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="location",cascade={"persist","merge","remove"},orphanRemoval=true)
      * @Serializer\Exclude
      **/
     private $addresses;
