@@ -10,6 +10,7 @@ namespace AppBundle\Entity\Core\User;
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\Message\MessageBox;
 use AppBundle\Entity\Organisation\Position;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,7 +46,7 @@ use AppBundle\Entity\Core\User\UserDevice;
  * attributes = { "method" = {"put","delete"} },
  * )
  */
-class User extends BaseUser
+class User extends BaseUser implements BaseVoterSupportInterface
 {
     const CACHE_NS = 'system.user';
     /**

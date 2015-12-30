@@ -1,9 +1,9 @@
 <?php
-
 // src/AppBundle/Entity/Organisation/Organisation.php
 
 namespace AppBundle\Entity\Organisation;
 
+use AppBundle\Annotations\Core\Pagination;
 use AppBundle\Entity\Core\Location\Location;
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\Message\Message;
@@ -12,6 +12,7 @@ use AppBundle\Entity\Organisation\Application\Application;
 use AppBundle\Entity\Organisation\Handbook\Handbook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sonata\MediaBundle\Model\MediaInterface;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
@@ -30,7 +31,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisation" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "methods" =  "expr('abc')" },
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object === null)"},
  * )
  *
  * @Hateoas\Relation(
@@ -194,6 +195,7 @@ class Organisation
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     private $id;
 
@@ -465,6 +467,7 @@ class Organisation
     /**
      * @var string
      * @ORM\Column(length=50, name="code",type="string",nullable=true, unique=true)
+     * @Security("is_granted('EDIT', _secure_object)")
      */
     private $code;
 
@@ -513,6 +516,7 @@ class Organisation
     /**
      * @var string
      * @ORM\Column(length=50,name="head_office_no", nullable=true)
+     *
      */
     private $headOfficeNo;
 
