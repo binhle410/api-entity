@@ -10,6 +10,7 @@ use AppBundle\Entity\Core\Message\Message;
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Application\Application;
 use AppBundle\Entity\Organisation\Handbook\Handbook;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -188,7 +189,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * )
  */
-class Organisation
+class Organisation implements BaseVoterSupportInterface
 {
 
     /**
