@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity\Core\Core;
 
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -19,7 +20,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     )
  * )
  */
-class Site {
+class Site implements BaseVoterSupportInterface
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
