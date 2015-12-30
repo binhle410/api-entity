@@ -41,7 +41,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Hateoas\Relation("employee",
  *  href = @Hateoas\Route(
  *         "get_user",
- *         parameters = { "username" = "expr(object.getEmployee().getEmail())"},
+ *         parameters = { "username" = "expr(object.getEmployee().getId())"},
  *         absolute = true
  *     )
  * )
