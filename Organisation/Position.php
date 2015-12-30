@@ -87,7 +87,7 @@ class Position
 
     /**
      * @var \AppBundle\Entity\Core\User\User
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions")
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions", fetch="EAGER")
      * @ORM\JoinColumn(name="id_employee", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -95,7 +95,7 @@ class Position
 
     /**
      * @var \AppBundle\Entity\Organisation\Organisation
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation",inversedBy="positions")
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Organisation\Organisation",inversedBy="positions", fetch="EAGER")
      * @ORM\JoinColumn(name="id_employer", referencedColumnName="id")
      * @Serializer\Exclude
      */
