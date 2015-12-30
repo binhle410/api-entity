@@ -16,6 +16,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Intl\Exception\MethodArgumentNotImplementedException;
 use AppBundle\Entity\Core\User\UserDevice;
 
@@ -33,14 +34,14 @@ use AppBundle\Entity\Core\User\UserDevice;
  *
  * @Hateoas\Relation("messages", href = @Hateoas\Route(
  *         "get_user_messages",
- *         parameters = { "username" = "expr(object.getEmail())" },
+ *         parameters = { "username" = "expr(object.getId())" },
  *         absolute = true
  *     )
  * )
  *
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_user",
- *         parameters = { "username" = "expr(object.getEmail())" },
+ *         parameters = { "username" = "expr(object.getId())" },
  *         absolute = true
  *     ),
  * attributes = { "method" = {"put","delete"} },
@@ -55,6 +56,50 @@ class User extends BaseUser implements BaseVoterSupportInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @Security("is_granted('EDIT', _secure_object)")
+     */
+    protected $password;
+
+    /**
+     * @Security("is_granted('EDIT', _secure_object)")
+     */
+    protected $salt;
+    /** special methods */
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param mixed $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+//////////////////////////////////////////////////////////////////////////////////////
 
     public function __construct()
     {
