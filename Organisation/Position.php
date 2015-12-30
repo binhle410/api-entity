@@ -6,6 +6,7 @@ namespace AppBundle\Entity\Organisation;
 
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -57,7 +58,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
  * @ORM\Table(name="organisation__position", uniqueConstraints={@ORM\UniqueConstraint(name="position_unique", columns={"id_employer", "id_employee"})})
  */
-class Position
+class Position implements BaseVoterSupportInterface
 {
 //    function __construct(User $employee, Organisation $employer) {
 //        $this->employee = $employee;
