@@ -2,7 +2,7 @@
 // src/AppBundle/Entity/Core/BasicEnum.php
 namespace AppBundle\Entity\Core\Core;
 
-abstract class BasicEnum implements BaseVoterSupportInterface {
+abstract class BasicEnum {
     private static $constCacheArray = NULL;
 
     private static function getConstants() {
