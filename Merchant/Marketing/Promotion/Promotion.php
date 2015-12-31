@@ -106,7 +106,7 @@ class Promotion implements BaseVoterSupportInterface
         $this->redemptions = new ArrayCollection();
         $this->tags = new ArrayCollection();
 
-        $this->active = false;
+        $this->enabled = false;
         $this->everyOutletIncluded = true;
     }
 
@@ -234,9 +234,9 @@ class Promotion implements BaseVoterSupportInterface
 
     /**
      * @var bool
-     * @ORM\Column(name="active",type="boolean")
+     * @ORM\Column(name="enabled",type="boolean")
      */
-    private $active = false;
+    private $enabled = false;
 
 
     /**
@@ -488,24 +488,9 @@ class Promotion implements BaseVoterSupportInterface
         $this->expireOn = $expireOn;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isActive()
-    {
-        return $this->active;
-    }
 
     /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return mixed
+     * @return Business
      */
     public function getBusiness()
     {
@@ -601,6 +586,22 @@ class Promotion implements BaseVoterSupportInterface
     public function setEveryOutletIncluded($everyOutletIncluded)
     {
         $this->everyOutletIncluded = $everyOutletIncluded;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
     }
 
 

@@ -10,7 +10,7 @@ namespace AppBundle\Entity\Core\Field;
  * ORM\DiscriminatorColumn(name="discr", type="string")
  * ORM\DiscriminatorMap({"integer" = "IntegerField", "title" = "TitleField","location"="LocationField"})
  */
-abstract class Field implements BaseVoterSupportInterface
+abstract class Field
 {
     /**
      * @var int
