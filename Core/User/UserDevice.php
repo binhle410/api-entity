@@ -12,7 +12,7 @@ use AppBundle\Entity\Core\User\User;
  * @ORM\Table(name="user__device")
  * @ORM\Entity()
  */
-class UserDevice
+class UserDevice implements BaseVoterSupportInterface
 {
 
     /**

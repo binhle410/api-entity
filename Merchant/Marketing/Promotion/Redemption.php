@@ -68,7 +68,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="marketing__promotion__redemption")
  */
-class Redemption
+class Redemption implements BaseVoterSupportInterface
 {
     /**
      * @var int

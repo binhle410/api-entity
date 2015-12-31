@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * ORM\Entity
  * ORM\Table(name="core__patch_request")
  */
-class PatchRequest
+class PatchRequest implements BaseVoterSupportInterface
 {
     /**
      * ORM\Id

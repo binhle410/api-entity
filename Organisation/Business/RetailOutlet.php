@@ -54,7 +54,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions() === null)")
  *)
  */
-class RetailOutlet
+class RetailOutlet implements BaseVoterSupportInterface
 {
     /**
      * slide 23

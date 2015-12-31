@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="organisation__application__application")
  */
-class Application
+class Application implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

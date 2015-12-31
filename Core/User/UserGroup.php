@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="user__group")
  */
-class UserGroup extends BaseGroup
+class UserGroup extends BaseGroup implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

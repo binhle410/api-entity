@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="report__promotion__organisation_usage")
  */
-class PromotionOrganisationUsage
+class PromotionOrganisationUsage implements BaseVoterSupportInterface
 {
     /**
      * @var int

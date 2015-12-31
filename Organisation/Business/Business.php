@@ -54,7 +54,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  */
-class Business
+class Business implements BaseVoterSupportInterface
 {
     /**
      * @var int

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="user__profile")
  */
-class UserProfile
+class UserProfile implements BaseVoterSupportInterface
 {
     /**
      * @var int

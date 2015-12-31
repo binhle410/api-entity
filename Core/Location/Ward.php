@@ -26,7 +26,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *)
  */
-class Ward
+class Ward implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

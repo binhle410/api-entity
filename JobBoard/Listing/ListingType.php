@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="job__listing__type")
  */
-class ListingType extends BasicEnum {
+class ListingType extends BasicEnum implements BaseVoterSupportInterface {
     const FULL_TIME = 'FULL_TIME';
     const PART_TIME = 'PART_TIME';
     const CONTRACT = 'CONTRACT';

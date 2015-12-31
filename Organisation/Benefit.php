@@ -14,7 +14,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="organisation__benefit")
  */
-class Benefit
+class Benefit implements BaseVoterSupportInterface
 {
 
     /**

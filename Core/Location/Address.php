@@ -77,7 +77,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  */
-class Address
+class Address implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

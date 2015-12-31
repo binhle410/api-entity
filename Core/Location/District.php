@@ -38,7 +38,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *)
  *
  */
-class District
+class District implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

@@ -20,7 +20,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  attributes = { "method" = {"put","delete"} },
  * )
  */
-class Street
+class Street implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

@@ -26,7 +26,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  attributes = { "method" = {"put","delete"} },
  * )
  */
-class Category extends BaseCategory
+class Category  extends BaseCategory implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

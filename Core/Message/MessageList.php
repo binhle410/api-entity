@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="message__message_list")
  */
-class MessageList
+class MessageList implements BaseVoterSupportInterface
 {
     /**
      * @var int

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="job__application__folder")
  */
-class CandidateFolder
+class CandidateFolder implements BaseVoterSupportInterface
 {
     /**
      * @var int

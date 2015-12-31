@@ -38,7 +38,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  *)
  */
-class Location
+class Location implements BaseVoterSupportInterface
 {
     /**
      * @var int

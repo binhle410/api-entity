@@ -9,7 +9,7 @@ use AppBundle\Entity\Core\Location\Location;
  * ORM\Entity
  * ORM\Table(name="field_location")
  */
-class LocationField extends Field
+class LocationField extends Field implements BaseVoterSupportInterface
 {
     /**
      * @var Location

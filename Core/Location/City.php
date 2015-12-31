@@ -36,7 +36,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getDistricts() === 0)")
  * )
  */
-class City
+class City implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

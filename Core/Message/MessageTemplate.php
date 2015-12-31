@@ -30,7 +30,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="message__template")
  */
-class MessageTemplate
+class MessageTemplate implements BaseVoterSupportInterface
 {
 
     /**

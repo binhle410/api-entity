@@ -32,7 +32,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  *
  */
-class JobListing
+class JobListing implements BaseVoterSupportInterface
 {
     /**
      * @var int

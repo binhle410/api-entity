@@ -17,7 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @Serializer\XmlRoot("interview-question-set")
  */
-class InterviewQuestionSet
+class InterviewQuestionSet implements BaseVoterSupportInterface
 {
     /**
      * @var int

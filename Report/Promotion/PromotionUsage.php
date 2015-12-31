@@ -24,7 +24,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="report__promotion__usage")
  */
-class PromotionUsage
+class PromotionUsage implements BaseVoterSupportInterface
 {
     /**
      * @var int

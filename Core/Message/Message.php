@@ -97,7 +97,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="message__message")
  */
-class Message
+class Message implements BaseVoterSupportInterface
 {
 
     const TYPE_EMAIL = 'EMAIL';

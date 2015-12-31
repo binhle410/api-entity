@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="job__listing__status")
  */
-class ListingStatus extends BasicEnum
+class ListingStatus extends BasicEnum implements BaseVoterSupportInterface
 {
     const ACTIVE = 'ACTIVE';
     const PENDING = 'PENDING';

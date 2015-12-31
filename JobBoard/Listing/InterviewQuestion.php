@@ -27,7 +27,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  *
  */
-class InterviewQuestion
+class InterviewQuestion implements BaseVoterSupportInterface
 {
     /**
      * @var int

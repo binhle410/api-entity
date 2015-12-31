@@ -23,7 +23,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  *
  */
-class Currency
+class Currency implements BaseVoterSupportInterface
 {
 //    const SYMBOLS = ['USD','EUR','SGD','VND','PHILIPPINE_PESO'];
 /**

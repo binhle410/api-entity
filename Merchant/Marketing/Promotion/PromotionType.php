@@ -15,7 +15,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="marketing__promotion__type")
  */
-class PromotionType extends BasicEnum
+class PromotionType extends BasicEnum implements BaseVoterSupportInterface
 {
     const ONE_FOR_ONE = 'ONE-FOR-ONE';
     const DISCOUNT = 'DISCOUNT';

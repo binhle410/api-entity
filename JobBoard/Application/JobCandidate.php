@@ -19,7 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="job__application__candidate")
  */
-class JobCandidate
+class JobCandidate implements BaseVoterSupportInterface
 {
     /**
      * @var int

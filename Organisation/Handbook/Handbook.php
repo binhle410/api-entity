@@ -62,7 +62,7 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Table(name="organisation__handbook__handbook")
  * @Gedmo\Loggable()
  */
-class Handbook
+class Handbook implements BaseVoterSupportInterface
 {
 
     /**

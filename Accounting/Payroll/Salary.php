@@ -2,13 +2,14 @@
 namespace AppBundle\Entity\Accounting\Payroll;
 
 use AppBundle\Entity\Core\Core\Currency;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="accounting__payroll__salary")
  */
-class Salary
+class Salary implements BaseVoterSupportInterface
 {
     const HOURLY = 'HOURLY';
     const DAILY = 'DAILY';

@@ -17,7 +17,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     )
  * )
  */
-class Push
+class Push implements BaseVoterSupportInterface
 {
     /**
      * @ORM\Id

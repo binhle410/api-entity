@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="job__listing__visibility")
  */
-class ListingVisibility extends BasicEnum // Means Application Type (By invitation only / public)
+class ListingVisibility extends BasicEnum implements BaseVoterSupportInterface // Means Application Type (By invitation only / public)
 {
     const LISTED = 'LISTED';
     const UNLISTED = 'UNLISTED';
