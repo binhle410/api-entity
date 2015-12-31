@@ -2,6 +2,7 @@
 // src/AppBundle/Entity/Core/Classification/Tag.php
 namespace AppBundle\Entity\Core\Classification;
 
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

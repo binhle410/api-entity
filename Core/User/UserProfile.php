@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Core\User;
 
 
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

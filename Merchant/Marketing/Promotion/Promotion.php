@@ -5,6 +5,7 @@ use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Organisation\Business\Business;
 use AppBundle\Entity\Organisation\Business\RetailOutlet;
 use AppBundle\Entity\Report\Promotion\PromotionUsage;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

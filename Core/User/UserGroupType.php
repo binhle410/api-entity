@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Core\User;
 
 use AppBundle\Entity\Core\Core\BasicEnum;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 
 abstract class UserGroupType extends BasicEnum implements BaseVoterSupportInterface
 {

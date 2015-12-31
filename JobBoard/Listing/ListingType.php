@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\JobBoard\Listing;
 
 use AppBundle\Entity\Core\Core\BasicEnum;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

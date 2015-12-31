@@ -7,6 +7,7 @@ use AppBundle\Entity\Core\Tag;
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\JobBoard\Listing\JobListing;
 use AppBundle\Entity\Organisation\Organisation;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

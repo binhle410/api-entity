@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Core\Core;
 
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;

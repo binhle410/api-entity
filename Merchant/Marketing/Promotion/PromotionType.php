@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 use AppBundle\Entity\Core\Core\BasicEnum;
 
 
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;

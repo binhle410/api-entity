@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Organisation\Business;
 
 use AppBundle\Entity\Core\Location\Location;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

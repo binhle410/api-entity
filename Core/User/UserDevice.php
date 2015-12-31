@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Core\User;
 
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use AppBundle\Entity\Core\User\User;

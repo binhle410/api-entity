@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Merchant\Marketing\Promotion;
 
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Business\RetailOutlet;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 

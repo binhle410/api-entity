@@ -7,6 +7,7 @@ namespace AppBundle\Entity\Core\Message;
 use AppBundle\Entity\Core\Core\Push;
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;

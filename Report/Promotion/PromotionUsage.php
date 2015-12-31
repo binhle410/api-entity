@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Report\Promotion;
 
 use AppBundle\Entity\Merchant\Marketing\Promotion\Promotion;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

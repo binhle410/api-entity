@@ -3,6 +3,7 @@ namespace AppBundle\Entity\Organisation;
 
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Merchant\Marketing\Promotion\Promotion;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

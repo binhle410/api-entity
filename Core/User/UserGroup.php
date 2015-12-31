@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Core\User;
 
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 

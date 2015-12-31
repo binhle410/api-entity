@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Report\Promotion;
 
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

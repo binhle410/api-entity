@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Core\Message;
 
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Core\User\User;
 use Doctrine\Common\Collections\ArrayCollection;

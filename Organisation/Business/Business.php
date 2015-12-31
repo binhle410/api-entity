@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Organisation\Business;
 
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Merchant\Marketing\Promotion\Promotion;
+use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
