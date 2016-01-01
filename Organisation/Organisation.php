@@ -143,7 +143,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *      exclusion = @Hateoas\Exclusion(
- *          excludeIf = "expr(not is_granted(['EDIT',object]))"
+ *          excludeIf = "expr(not is_granted('EDIT',object))"
  *      )
  * )
  * @Hateoas\Relation(
