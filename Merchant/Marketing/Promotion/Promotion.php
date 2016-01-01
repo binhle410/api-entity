@@ -6,6 +6,7 @@ use AppBundle\Entity\Organisation\Business\Business;
 use AppBundle\Entity\Organisation\Business\RetailOutlet;
 use AppBundle\Entity\Report\Promotion\PromotionUsage;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -86,7 +87,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * @ORM\Entity
  * @ORM\Table(name="marketing__promotion__promotion")
  */
-class Promotion implements BaseVoterSupportInterface
+class Promotion implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
     /**
      * @var int
