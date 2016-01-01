@@ -235,9 +235,9 @@ class Promotion implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var bool
-     * @ORM\Column(name="enabled",type="boolean")
+     * @ORM\Column(name="enabled",type="boolean", options={"default":false})
      */
-    private $enabled = false;
+    private $enabled;
 
 
     /**

@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Organisation\Business;
 
 use AppBundle\Entity\Core\Location\Location;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,7 +32,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLocation() === null)")
  * )
  *
-
  * @Hateoas\Relation("location.post", href = @Hateoas\Route(
  *         "post_location",
  *         parameters = {},
@@ -55,7 +55,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions() === null)")
  *)
  */
-class RetailOutlet implements BaseVoterSupportInterface
+class RetailOutlet implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
     /**
      * slide 23
@@ -75,6 +75,7 @@ class RetailOutlet implements BaseVoterSupportInterface
     function __construct()
     {
         $this->redemptions = new ArrayCollection();
+        $this->enabled = true;
     }
 
     /**
@@ -99,6 +100,12 @@ class RetailOutlet implements BaseVoterSupportInterface
      * @Serializer\Exclude
      */
     private $redemptions;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="enabled",type="boolean", options={"default":true})
+     */
+    private $enabled;
 
     /**
      * @var string
@@ -205,6 +212,22 @@ class RetailOutlet implements BaseVoterSupportInterface
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
     }
 
 
