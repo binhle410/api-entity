@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Core\Classification;
 
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,7 +16,7 @@ use Sonata\ClassificationBundle\Entity\BaseTag;
  * @ORM\Entity
  * @ORM\Table(name="classification__tag")
  */
-class Tag extends BaseTag implements BaseVoterSupportInterface
+class Tag extends BaseTag implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
     /**
      * @ORM\Id
@@ -24,14 +25,36 @@ class Tag extends BaseTag implements BaseVoterSupportInterface
      */
     private $id;
 
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $slug;
+
+    /**
+     * @var \DateTime
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime
+     */
+    protected $updatedAt;
+
+    /**
+     * @var bool
+     */
+    protected $enabled;
+
     function __construct()
     {
         $this->slug = "";
 
         $this->enabled = false;
-
-        // for BW only
-        $this->active = $this->enabled;
     }
 
     /**
@@ -45,12 +68,6 @@ class Tag extends BaseTag implements BaseVoterSupportInterface
      * ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Business\Business", mappedBy="tags")
      **/
 //    private $businesses;
-
-    /**
-     * @var bool
-     * @ORM\Column(name="active", type="boolean",nullable=false,options={"default":false})
-     */
-    private $active;
 
 
     /**
@@ -109,23 +126,6 @@ class Tag extends BaseTag implements BaseVoterSupportInterface
     /**
      * @return mixed
      */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
@@ -138,24 +138,6 @@ class Tag extends BaseTag implements BaseVoterSupportInterface
     {
         $this->id = $id;
     }
-
-    /**
-     * @return boolean
-     */
-    public function isActive()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-        $this->enabled = $active;
-    }
-
 
     /**
      * @return boolean
