@@ -113,10 +113,10 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean",nullable=true,options={"default":true})
+     * @ORM\Column(type="boolean",name="enabled",nullable=true,options={"default":true})
      * @Gedmo\Versioned
      */
-    private $active = true;
+    private $enabled = true;
 
     /**
      * @var text $description
@@ -202,17 +202,17 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @return boolean
      */
-    public function isActive()
+    public function isEnabled()
     {
-        return $this->active;
+        return $this->enabled;
     }
 
     /**
      * @param boolean $active
      */
-    public function setActive($active)
+    public function setEnabled($enabled)
     {
-        $this->active = $active;
+        $this->enabled = $enabled;
     }
 
     /**
