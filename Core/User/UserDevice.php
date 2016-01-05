@@ -17,7 +17,7 @@ class UserDevice implements BaseVoterSupportInterface
 {
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id

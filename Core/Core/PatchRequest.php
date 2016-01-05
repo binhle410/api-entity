@@ -1,4 +1,4 @@
-<?php
+?php
 namespace AppBundle\Entity\Core\Core;
 
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;

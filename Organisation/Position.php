@@ -52,7 +52,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *         parameters = { "organisationId" = "expr(object.getEmployer().getId())","position" = "expr(object.getId())" },
  *         absolute = true
  *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
+
  * )
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
@@ -60,6 +60,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class Position implements BaseVoterSupportInterface
 {
+//*  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
 //    function __construct(User $employee, Organisation $employer) {
 //        $this->employee = $employee;
 //        $employee->getPositions()->add($this);
