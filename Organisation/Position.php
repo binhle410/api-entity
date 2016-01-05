@@ -147,8 +147,6 @@ class Position implements BaseVoterSupportInterface
      */
     private $enabled;
 
-    private $active;
-
     /**
      * @var bool
      * @ORM\Column(type="boolean", name="handbook_contact", options={"default":false})
@@ -251,26 +249,6 @@ class Position implements BaseVoterSupportInterface
     public function setTitle($title)
     {
         $this->title = $title;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isActive()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @param boolean $active
-     */
-    public function setActive($active)
-    {
-        // for BW
-        $this->active = $active;
-
-        // latest
-        $this->enabled = $active;
     }
 
     /**
