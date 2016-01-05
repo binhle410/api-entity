@@ -6,6 +6,7 @@ namespace AppBundle\Entity\Organisation\Handbook;
 
 use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -63,7 +64,7 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Table(name="organisation__handbook__handbook")
  * @Gedmo\Loggable()
  */
-class Handbook implements BaseVoterSupportInterface
+class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
 
     /**
