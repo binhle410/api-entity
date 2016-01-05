@@ -134,6 +134,37 @@ class Business implements BaseVoterSupportInterface
 
     /**
      * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\JoinTable(name="organisation__business__businesses_types",
+     *      joinColumns={@ORM\JoinColumn(name="id_business", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     * @Serializer\Exclude
+     */
+    private $types;
+
+    /**
+     * @param Tag $tag
+     * @return Business
+     */
+    public function addType($type)
+    {
+        $this->type->add($type);
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return Business
+     */
+    public function removeType($type)
+    {
+        $this->type->removeElement($type);
+        return $this;
+    }
+
+    /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business\RetailOutlet", mappedBy="business", orphanRemoval=true)
      * @Serializer\Exclude
      */
@@ -268,6 +299,22 @@ class Business implements BaseVoterSupportInterface
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTypes()
+    {
+        return $this->types;
+    }
+
+    /**
+     * @param ArrayCollection $types
+     */
+    public function setTypes($types)
+    {
+        $this->types = $types;
     }
 
 
