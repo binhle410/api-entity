@@ -434,7 +434,7 @@ class Organisation implements BaseVoterSupportInterface
 
     /**
      * @var \Application\Sonata\MediaBundle\Entity\Media
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY", inversedBy="logoOrganisation")
      * @ORM\JoinColumn(name="id_logo", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -442,7 +442,7 @@ class Organisation implements BaseVoterSupportInterface
 
     /**
      * @var \Application\Sonata\MediaBundle\Entity\Media
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY", inversedBy="appImageOrganisation")
      * @ORM\JoinColumn(name="id_app_image", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -451,7 +451,7 @@ class Organisation implements BaseVoterSupportInterface
     /**
      * @var ArrayCollection
      * -> OneToMany unidirectional
-     * @ORM\ManyToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist","merge"})
+     * @ORM\ManyToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist","merge"}, inversedBy="bannerOrganisations")
      * @ORM\JoinTable(name="organisation__organisations_banners",
      *      joinColumns={@ORM\JoinColumn(name="id_organisation", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_banner", referencedColumnName="id")}
@@ -585,6 +585,7 @@ class Organisation implements BaseVoterSupportInterface
     public function setLogo($logo)
     {
         $this->logo = $logo;
+        $logo->setLogoOrganisation($this);
     }
 
     /**
@@ -601,6 +602,7 @@ class Organisation implements BaseVoterSupportInterface
     public function setAppImage($appImage)
     {
         $this->appImage = $appImage;
+
     }
 
     /**
