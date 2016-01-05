@@ -44,14 +44,14 @@ use Gedmo\Translatable\Translatable;
  *         absolute = true
  *     ),
  * )
- *  @Hateoas\Relation("handbook",
+ * @Hateoas\Relation("handbook",
  *  href = @Hateoas\Route(
  *         "get_organisation_handbook",
  *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())" },
  *         absolute = true
  *     )
  * )
- *  @Hateoas\Relation("children",
+ * @Hateoas\Relation("children",
  *  href = @Hateoas\Route(
  *         "get_organisation_handbook_section_children",
  *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"= "expr(object.getId())"},
@@ -59,7 +59,7 @@ use Gedmo\Translatable\Translatable;
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getChildren().count() == 0)")
  * )
- *  @Hateoas\Relation("parent",
+ * @Hateoas\Relation("parent",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook_section",
  *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","section"="expr(object.getParent().getId())"},
@@ -71,7 +71,8 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Table(name="organisation__handbook__section")
  * @Gedmo\Loggable()
  */
-class Section implements BaseVoterSupportInterface {
+class Section implements BaseVoterSupportInterface
+{
 
     /**
      * @ORM\Id
@@ -80,7 +81,8 @@ class Section implements BaseVoterSupportInterface {
      */
     private $id;
 
-    function __construct() {
+    function __construct()
+    {
         $this->children = new ArrayCollection();
     }
 
@@ -147,11 +149,13 @@ class Section implements BaseVoterSupportInterface {
      */
     private $locale;
 
-    public function getLocale() {
+    public function getLocale()
+    {
         return $this->locale;
     }
 
-    public function setLocale($locale) {
+    public function setLocale($locale)
+    {
         $this->locale = $locale;
     }
 
@@ -159,7 +163,8 @@ class Section implements BaseVoterSupportInterface {
      * @param Section $section
      * @return $this
      */
-    public function addChild(Section $section) {
+    public function addChild(Section $section)
+    {
         $this->children->add($section);
         $section->setParent($this);
         return $this;
@@ -170,7 +175,8 @@ class Section implements BaseVoterSupportInterface {
      *
      * @param Section $child
      */
-    public function removeChild(Section $child) {
+    public function removeChild(Section $child)
+    {
         $this->children->removeElement($child);
         $child->setParent(null);
         return $this;
@@ -179,70 +185,80 @@ class Section implements BaseVoterSupportInterface {
     /**
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * @param string $title
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
     }
 
     /**
      * @return boolean
      */
-    public function isActive() {
+    public function isActive()
+    {
         return $this->active;
     }
 
     /**
      * @param boolean $active
      */
-    public function setActive($active) {
+    public function setActive($active)
+    {
         $this->active = $active;
     }
 
     /**
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * @param string $description
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
     /**
      * @return Organisation
      */
-    public function getParent() {
+    public function getParent()
+    {
         return $this->parent;
     }
 
     /**
      * @param Organisation $parent
      */
-    public function setParent($parent) {
+    public function setParent($parent)
+    {
         $this->parent = $parent;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getChildren() {
+    public function getChildren()
+    {
         return $this->children;
     }
 
     /**
      * @return mixed
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -251,35 +267,40 @@ class Section implements BaseVoterSupportInterface {
      *
      * @return boolean
      */
-    public function getActive() {
+    public function getActive()
+    {
         return $this->active;
     }
 
     /**
      * @return string
      */
-    public function getVersion() {
+    public function getVersion()
+    {
         return $this->version;
     }
 
     /**
      * @param string $version
      */
-    public function setVersion($version) {
+    public function setVersion($version)
+    {
         $this->version = $version;
     }
 
     /**
-     * @return mixed
+     * @return Handbook
      */
-    public function getHandbook() {
+    public function getHandbook()
+    {
         return $this->handbook;
     }
 
     /**
-     * @param mixed $handbook
+     * @param Handbook $handbook
      */
-    public function setHandbook($handbook) {
+    public function setHandbook($handbook)
+    {
         $this->handbook = $handbook;
     }
 
