@@ -39,6 +39,7 @@ class JobCandidate implements BaseVoterSupportInterface
 
     /**
      * @var JobListing
+     *
      */
     private $listing;
 

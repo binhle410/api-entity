@@ -105,6 +105,12 @@ class JobListing implements BaseVoterSupportInterface
     private $interviewQuestionSets;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing")
+     */
+    private $candidates;
+
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
      * @ORM\JoinTable(name="job__listing__listings_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
@@ -536,7 +542,6 @@ class JobListing implements BaseVoterSupportInterface
     {
         $this->interviewQuestionSets = $interviewQuestionSets;
     }
-
 
 
 }
