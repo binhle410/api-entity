@@ -76,6 +76,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
 
     /**
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -119,7 +120,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $enabled = true;
 
     /**
-     * @var text $description
+     * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      * @Gedmo\Translatable
@@ -263,6 +264,11 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        return $this->id=$id;
+    }
+
     /**
      * Get active
      *
@@ -304,5 +310,6 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->handbook = $handbook;
     }
+
 
 }
