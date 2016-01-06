@@ -7,6 +7,7 @@ use AppBundle\Entity\Accounting\Payroll\Salary;
 use AppBundle\Entity\Core\Location\Location;
 use AppBundle\Entity\Core\Tag;
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Entity\JobBoard\Application\JobCandidate;
 use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
