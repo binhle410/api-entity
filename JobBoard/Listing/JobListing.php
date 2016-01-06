@@ -109,6 +109,17 @@ class JobListing implements BaseVoterSupportInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing")
      */
     private $candidates;
+    public function addCandidate(JobCandidate $candidate)
+    {
+        $this->candidates->add($candidate);
+        return $this;
+    }
+
+    public function removeCandidate(JobCandidate $candidate)
+    {
+        $this->candidates->removeElement($candidate);
+        return $this;
+    }
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
@@ -541,6 +552,22 @@ class JobListing implements BaseVoterSupportInterface
     public function setInterviewQuestionSets($interviewQuestionSets)
     {
         $this->interviewQuestionSets = $interviewQuestionSets;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCandidates()
+    {
+        return $this->candidates;
+    }
+
+    /**
+     * @param ArrayCollection $candidates
+     */
+    public function setCandidates($candidates)
+    {
+        $this->candidates = $candidates;
     }
 
 

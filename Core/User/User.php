@@ -9,6 +9,7 @@ namespace AppBundle\Entity\Core\User;
 
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\Message\MessageBox;
+use AppBundle\Entity\JobBoard\Application\JobCandidate;
 use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
@@ -100,6 +101,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     {
         $this->salt = $salt;
     }
+
 //////////////////////////////////////////////////////////////////////////////////////
 
     public function __construct()
@@ -172,6 +174,24 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     {
         $this->profiles->removeElement($profile);
         $profile->setUser(null);
+    }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing")
+     */
+    private $candidates;
+
+    public function addCandidate(JobCandidate $candidate)
+    {
+        $this->candidates->add($candidate);
+        return $this;
+    }
+
+    public function removeCandidate(JobCandidate $candidate)
+    {
+        $this->candidates->removeElement($candidate);
+        return $this;
     }
 
     /**
@@ -529,6 +549,22 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     public function setSessionKey($sessionKey)
     {
         $this->sessionKey = $sessionKey;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCandidates()
+    {
+        return $this->candidates;
+    }
+
+    /**
+     * @param ArrayCollection $candidates
+     */
+    public function setCandidates($candidates)
+    {
+        $this->candidates = $candidates;
     }
 
 }
