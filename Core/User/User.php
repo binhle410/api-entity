@@ -39,6 +39,13 @@ use AppBundle\Entity\Core\User\UserDevice;
  *     )
  * )
  *
+ * @Hateoas\Relation("devices", href = @Hateoas\Route(
+ *         "get_user_devices",
+ *         parameters = { "userId" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
  * @Hateoas\Relation("self", href = @Hateoas\Route(
  *         "get_user",
  *         parameters = { "username" = "expr(object.getId())" },
