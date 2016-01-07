@@ -39,8 +39,17 @@ class JobCandidate implements BaseVoterSupportInterface
 
     /**
      * @var JobListing
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Listing\JobListing", inversedBy="candidates")
+     * @ORM\JoinColumn(name="id_listing", referencedColumnName="id")
      */
     private $listing;
+
+    /**
+     * @var JobListing
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     */
+    private $user;
 
     /**
      * @var ArrayCollection User

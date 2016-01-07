@@ -7,6 +7,7 @@ use AppBundle\Entity\Accounting\Payroll\Salary;
 use AppBundle\Entity\Core\Location\Location;
 use AppBundle\Entity\Core\Tag;
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Entity\JobBoard\Application\JobCandidate;
 use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -103,6 +104,23 @@ class JobListing implements BaseVoterSupportInterface
      * @Serializer\Exclude
      */
     private $interviewQuestionSets;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing")
+     */
+    private $candidates;
+    public function addCandidate(JobCandidate $candidate)
+    {
+        $this->candidates->add($candidate);
+        return $this;
+    }
+
+    public function removeCandidate(JobCandidate $candidate)
+    {
+        $this->candidates->removeElement($candidate);
+        return $this;
+    }
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
@@ -537,6 +555,21 @@ class JobListing implements BaseVoterSupportInterface
         $this->interviewQuestionSets = $interviewQuestionSets;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getCandidates()
+    {
+        return $this->candidates;
+    }
+
+    /**
+     * @param ArrayCollection $candidates
+     */
+    public function setCandidates($candidates)
+    {
+        $this->candidates = $candidates;
+    }
 
 
 }

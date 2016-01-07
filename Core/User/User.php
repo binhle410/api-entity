@@ -9,8 +9,10 @@ namespace AppBundle\Entity\Core\User;
 
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\Message\MessageBox;
+use AppBundle\Entity\JobBoard\Application\JobCandidate;
 use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -54,7 +56,7 @@ use AppBundle\Entity\Core\User\UserDevice;
  * attributes = { "method" = {"put","delete"} },
  * )
  */
-class User extends BaseUser implements BaseVoterSupportInterface
+class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
     const CACHE_NS = 'system.user';
     /**
@@ -106,6 +108,7 @@ class User extends BaseUser implements BaseVoterSupportInterface
     {
         $this->salt = $salt;
     }
+
 //////////////////////////////////////////////////////////////////////////////////////
 
     public function __construct()
@@ -178,6 +181,24 @@ class User extends BaseUser implements BaseVoterSupportInterface
     {
         $this->profiles->removeElement($profile);
         $profile->setUser(null);
+    }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing")
+     */
+    private $candidates;
+
+    public function addCandidate(JobCandidate $candidate)
+    {
+        $this->candidates->add($candidate);
+        return $this;
+    }
+
+    public function removeCandidate(JobCandidate $candidate)
+    {
+        $this->candidates->removeElement($candidate);
+        return $this;
     }
 
     /**
@@ -535,6 +556,22 @@ class User extends BaseUser implements BaseVoterSupportInterface
     public function setSessionKey($sessionKey)
     {
         $this->sessionKey = $sessionKey;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCandidates()
+    {
+        return $this->candidates;
+    }
+
+    /**
+     * @param ArrayCollection $candidates
+     */
+    public function setCandidates($candidates)
+    {
+        $this->candidates = $candidates;
     }
 
 }
