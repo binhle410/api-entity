@@ -51,6 +51,24 @@ class JobCandidate implements BaseVoterSupportInterface
      */
     private $user;
 
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateInterview", mappedBy="candidate")
+     */
+    private $interviews;
+    public function addInterview(CandidateInterview $interviews)
+    {
+        $this->interviews->add($interviews);
+        return $this;
+    }
+
+    public function removeInterview(CandidateInterview $interviews)
+    {
+        $this->interviews->removeElement($interviews);
+        return $this;
+    }
+
     /**
      * @var ArrayCollection User
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
@@ -110,5 +128,118 @@ class JobCandidate implements BaseVoterSupportInterface
     {
         $this->folders->removeElement($folder);
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return JobListing
+     */
+    public function getListing()
+    {
+        return $this->listing;
+    }
+
+    /**
+     * @param JobListing $listing
+     */
+    public function setListing($listing)
+    {
+        $this->listing = $listing;
+    }
+
+    /**
+     * @return JobListing
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param JobListing $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getInterviews()
+    {
+        return $this->interviews;
+    }
+
+    /**
+     * @param ArrayCollection $interviews
+     */
+    public function setInterviews($interviews)
+    {
+        $this->interviews = $interviews;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getReviewers()
+    {
+        return $this->reviewers;
+    }
+
+    /**
+     * @param ArrayCollection $reviewers
+     */
+    public function setReviewers($reviewers)
+    {
+        $this->reviewers = $reviewers;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getObservers()
+    {
+        return $this->observers;
+    }
+
+    /**
+     * @param ArrayCollection $observers
+     */
+    public function setObservers($observers)
+    {
+        $this->observers = $observers;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
+
+    /**
+     * @param ArrayCollection $folders
+     */
+    public function setFolders($folders)
+    {
+        $this->folders = $folders;
+    }
+
 
 }

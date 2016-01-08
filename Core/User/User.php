@@ -262,6 +262,12 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
 
     /**
      * @var string
+     * @ORM\Column(length=50, name="four_digit_pin",type="string",nullable=true, unique=false)
+     */
+    private $fourDigitPin;
+
+    /**
+     * @var string
      * @ORM\Column(length=120, name="ip",type="string",nullable=true)
      */
     private $ip;
@@ -573,5 +579,23 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     {
         $this->candidates = $candidates;
     }
+
+    /**
+     * @return string
+     */
+    public function getFourDigitPin()
+    {
+        return $this->fourDigitPin;
+    }
+
+    /**
+     * @param string $fourDigitPin
+     */
+    public function setFourDigitPin($fourDigitPin)
+    {
+        $this->fourDigitPin = $fourDigitPin;
+    }
+
+
 
 }
