@@ -52,9 +52,9 @@ class JobListing implements BaseVoterSupportInterface
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_creator", referencedColumnName="id")
      **/
-    private $owner;
+    private $creator;
 
     /**
      * @var Organisation
@@ -218,22 +218,6 @@ class JobListing implements BaseVoterSupportInterface
         $this->location = $location;
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function getOwner()
-    {
-        return $this->owner;
-    }
-
-    /**
-     * @param mixed $owner
-     */
-    public function setOwner($owner)
-    {
-        $this->owner = $owner;
-    }
 
     /**
      * @return mixed
@@ -570,6 +554,23 @@ class JobListing implements BaseVoterSupportInterface
     {
         $this->candidates = $candidates;
     }
+
+    /**
+     * @return User
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param User $creator
+     */
+    public function setCreator($creator)
+    {
+        $this->creator = $creator;
+    }
+
 
 
 }
