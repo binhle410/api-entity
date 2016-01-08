@@ -70,6 +70,7 @@ class Business implements BaseVoterSupportInterface
         $this->tags = new ArrayCollection();
         $this->promotions = new ArrayCollection();
         $this->retailOutlets = new ArrayCollection();
+        $this->enabled = true;
     }
 
     /**
@@ -171,9 +172,17 @@ class Business implements BaseVoterSupportInterface
     private $retailOutlets;
 
     /**
-     *
-     * Integrate with SonataMediaBundle to store app images along with banner images
+     * @var bool
+     * @ORM\Column(name="enabled",type="boolean", options={"default":true})
      */
+    private $enabled;
+
+
+    /**
+     * @var string
+     * @ORM\Column(length=2500,name="about",nullable=true)
+     */
+    private $about;
 
     /**
      * @var string
@@ -316,6 +325,39 @@ class Business implements BaseVoterSupportInterface
     {
         $this->types = $types;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbout()
+    {
+        return $this->about;
+    }
+
+    /**
+     * @param string $about
+     */
+    public function setAbout($about)
+    {
+        $this->about = $about;
+    }
+
 
 
 }

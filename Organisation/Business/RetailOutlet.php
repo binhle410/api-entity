@@ -17,8 +17,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="organisation__business__retail_outlet")
  * retail_outlet is abbreviated as outlet in some classes
  * @Hateoas\Relation("self", href = @Hateoas\Route(
- *         "get_business_outlet",
- *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
+ *         "get_retailoutlet",
+ *         parameters = { "outlet" = "expr(object.getId())" },
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} }
@@ -38,6 +38,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     )
  * )
+
+ *
+ * @Hateoas\Relation("promotions", href = @Hateoas\Route(
+ *         "get_retailoutlet_promotions",
+ *         parameters = { "outlet" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ *)
  *
  *
  * @Hateoas\Relation("business", href = @Hateoas\Route(

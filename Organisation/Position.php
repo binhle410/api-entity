@@ -47,13 +47,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *         absolute = true
  *     )
  * )
-
  * @Hateoas\Relation("tags", href = @Hateoas\Route(
  *         "get_organisation_position_tags",
  *         parameters = { "organisationId" = "expr(object.getEmployer().getId())","position" = "expr(object.getId())" },
  *         absolute = true
  *     ),
-
  * )
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
@@ -69,12 +67,13 @@ class Position implements BaseVoterSupportInterface
 //        $employer->getPositions()->add($this);
 //    }
 
+    //Security("is_granted('VIEW', object)")
     /**
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Security("is_granted('VIEW', object)")
+     *
      */
     private $id;
 
@@ -82,11 +81,7 @@ class Position implements BaseVoterSupportInterface
     {
         $this->createdAt = new \DateTime();
         $this->tags = new ArrayCollection();
-
         $this->enabled = true;
-
-        // for BW
-        $this->active = $this->enabled;
     }
 
     /**
@@ -143,6 +138,12 @@ class Position implements BaseVoterSupportInterface
      * @ORM\Column(type="datetime", name="created_at",nullable=true)
      */
     private $createdAt;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="benefit_app_accessible", options={"default":true})
+     */
+    private $benefitAppAccessible;
 
     /**
      * @var bool
@@ -356,6 +357,20 @@ class Position implements BaseVoterSupportInterface
         $this->enabled = $enabled;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isBenefitAppAccessible()
+    {
+        return $this->benefitAppAccessible;
+    }
 
+    /**
+     * @param boolean $benefitAppAccessible
+     */
+    public function setBenefitAppAccessible($benefitAppAccessible)
+    {
+        $this->benefitAppAccessible = $benefitAppAccessible;
+    }
 
 }

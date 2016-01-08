@@ -62,7 +62,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
  * )
-
  *
  * @Hateoas\Relation(
  *  "retail_outlets",
@@ -186,7 +185,6 @@ class Promotion implements BaseVoterSupportInterface, ListVoterSupportInterface
     }
 
 
-
     /**
      * @var int
      * @ORM\Column(name="offer_limit", type="integer",options={"default" = 0},nullable=true)
@@ -243,9 +241,9 @@ class Promotion implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var bool
-     * @ORM\Column(name="every_outlet_included",type="boolean")
+     * @ORM\Column(name="every_outlet_included",type="boolean",options={"default":true})
      */
-    private $everyOutletIncluded = true;
+    private $everyOutletIncluded;
 
     /**
      * @var string
@@ -603,7 +601,6 @@ class Promotion implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->enabled = $enabled;
     }
-
 
 
 }
