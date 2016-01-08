@@ -59,7 +59,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
  * @ORM\Table(name="organisation__position", uniqueConstraints={@ORM\UniqueConstraint(name="position_unique", columns={"id_employer", "id_employee"})})
  */
-class Position implements BaseVoterSupportInterface, ListVoterSupportInterface
+class Position implements BaseVoterSupportInterface
 {
 //*  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getTags().count() === 0)")
 //    function __construct(User $employee, Organisation $employer) {
@@ -70,6 +70,7 @@ class Position implements BaseVoterSupportInterface, ListVoterSupportInterface
 //    }
 
     /**
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
