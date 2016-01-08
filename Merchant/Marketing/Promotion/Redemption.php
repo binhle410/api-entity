@@ -33,7 +33,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * )
  *
-
  * @Hateoas\Relation(
  *  "promotion",
  *  href= @Hateoas\Route(
@@ -44,7 +43,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPromotion() === null)")
  * )
  *
-
  * @Hateoas\Relation(
  *  "retail_outlet",
  *  href= @Hateoas\Route(
@@ -55,7 +53,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRetailOutlet() === null)")
  * )
  *
-
  * @Hateoas\Relation(
  *  "user",
  *  href= @Hateoas\Route(
@@ -81,7 +78,7 @@ class Redemption implements BaseVoterSupportInterface
 
     /**
      * @var Promotion
-     * @ORM\ManyToOne(targetEntity="Promotion",inversedBy="redemptions",cascade={"persist","merge","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\Promotion",inversedBy="redemptions",cascade={"persist","merge","remove"})
      * @ORM\JoinColumn(name="id_promotion", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -108,6 +105,19 @@ class Redemption implements BaseVoterSupportInterface
      * @ORM\Column(type="datetime", name="redeemed_at")
      */
     private $redeemedAt;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="user_pin")
+     */
+    private $userPIN;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="merchant_pin")
+     */
+    private $merchantPIN;
+
 
     /**
      * @return User
@@ -187,6 +197,38 @@ class Redemption implements BaseVoterSupportInterface
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserPIN()
+    {
+        return $this->userPIN;
+    }
+
+    /**
+     * @param string $userPIN
+     */
+    public function setUserPIN($userPIN)
+    {
+        $this->userPIN = $userPIN;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMerchantPIN()
+    {
+        return $this->merchantPIN;
+    }
+
+    /**
+     * @param string $merchantPIN
+     */
+    public function setMerchantPIN($merchantPIN)
+    {
+        $this->merchantPIN = $merchantPIN;
     }
 
 
