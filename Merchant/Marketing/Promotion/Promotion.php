@@ -99,6 +99,7 @@ class Promotion implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     function __construct()
     {
+        $this->setUsage(new PromotionUsage());
         $this->effectiveFrom = new \DateTime();
         $this->expireOn = new \DateTime();
 
@@ -543,9 +544,6 @@ class Promotion implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     public function getUsage()
     {
-        if ($this->usage === null) {
-            $this->usage = new PromotionUsage();
-        }
         return $this->usage;
     }
 
@@ -554,6 +552,7 @@ class Promotion implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     public function setUsage($usage)
     {
+        $usage->setPromotion($this);
         $this->usage = $usage;
     }
 

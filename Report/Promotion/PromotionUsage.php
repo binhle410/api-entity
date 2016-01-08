@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
+ * TODO Link for promotion, orgUsage and userUsage
  * @Serializer\XmlRoot("promotion")
  * @Hateoas\Relation(
  *  "self",
@@ -39,6 +40,7 @@ class PromotionUsage implements BaseVoterSupportInterface
      * @var Promotion
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\Promotion",inversedBy="usage")
      * @ORM\JoinColumn(name="id_promotion", referencedColumnName="id")
+     * @Serializer\Exclude()
      **/
     private $promotion;
 
@@ -46,12 +48,17 @@ class PromotionUsage implements BaseVoterSupportInterface
     {
         $this->organisationUsages = new ArrayCollection();
         $this->userUsages = new ArrayCollection();
+        $this->offerUsage = 0;
+        $this->weeklyUsage = 0;
+        $this->monthlyUsage = 0;
+        $this->yearlyUsage = 0;
     }
 
 
     /**
      * @var int
      * @ORM\Column(name="offer_usage", type="integer",options={"default" = 0})
+     *
      */
     private $offerUsage;
 
@@ -76,12 +83,14 @@ class PromotionUsage implements BaseVoterSupportInterface
     /**
      * @var ArrayCollection PromotionOrganisationUsage
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionOrganisationUsage", mappedBy="promotionUsage", orphanRemoval=true,cascade={"persist","merge","remove"})
+     * @Serializer\Exclude()
      */
     private $organisationUsages;
 
     /**
      * @var ArrayCollection PromotionUserUsage
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionUserUsage", mappedBy="promotionUsage", orphanRemoval=true,cascade={"persist","merge","remove"})
+     * @Serializer\Exclude()
      */
     private $userUsages;
 
