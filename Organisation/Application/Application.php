@@ -1,5 +1,6 @@
 <?php
 namespace AppBundle\Entity\Organisation\Application;
+
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,12 +9,15 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="organisation__application__application")
  */
 class Application implements BaseVoterSupportInterface
 {
+    const BENEFIT = 'BENEFIT';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
