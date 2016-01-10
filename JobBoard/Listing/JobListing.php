@@ -47,6 +47,7 @@ class JobListing implements BaseVoterSupportInterface
     function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->enabled = false;
     }
 
     /**
@@ -145,9 +146,9 @@ class JobListing implements BaseVoterSupportInterface
 
     /**
      * @var bool
-     * @ORM\Column(name="active", type="boolean", options={"default":false}, nullable=true)
+     * @ORM\Column(name="enabled", type="boolean", options={"default":false}, nullable=true)
      */
-    private $active;
+    private $enabled;
 
     /**
      * @var bool
@@ -414,18 +415,20 @@ class JobListing implements BaseVoterSupportInterface
     /**
      * @return boolean
      */
-    public function isActive()
+    public function isEnabled()
     {
-        return $this->active;
+        return $this->enabled;
     }
 
     /**
-     * @param boolean $active
+     * @param boolean $enabled
      */
-    public function setActive($active)
+    public function setEnabled($enabled)
     {
-        $this->active = $active;
+        $this->enabled = $enabled;
     }
+
+
 
     /**
      * @return boolean

@@ -19,19 +19,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
- *         "get_jobcandidates",
- *         parameters = {},
+ *         "get_jobcandidate",
+ *         parameters = {"candidate" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
- * )
- * @Hateoas\Relation(
- *  "jobcandidate.post",
- *  href= @Hateoas\Route(
- *         "post_jobcandidate",
- *         parameters = {},
- *         absolute = true
- *     )
  * )
  */
 class JobCandidate implements BaseVoterSupportInterface {
