@@ -55,12 +55,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBusiness() === null)")
  *)
- * @Hateoas\Relation("redemptions", href = @Hateoas\Route(
- *         "get_business_outlet_redemptions",
- *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
- *         absolute = true
- *     )
- *)
  */
 class RetailOutlet implements BaseVoterSupportInterface, ListVoterSupportInterface
 {

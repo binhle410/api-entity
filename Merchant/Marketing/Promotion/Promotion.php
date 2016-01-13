@@ -49,9 +49,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         "get_promotion_redemptions",
  *         parameters = { "promotion" = "expr(object.getId())"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions().count() === 0)")
- * )
+ *     )
+ *)
  *
  * @Hateoas\Relation(
  *  "tags",
