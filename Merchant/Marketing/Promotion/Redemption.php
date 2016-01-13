@@ -92,7 +92,7 @@ class Redemption implements BaseVoterSupportInterface
 
     /**
      * @var User
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\User\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * @Serializer\Exclude
      **/
@@ -161,6 +161,7 @@ class Redemption implements BaseVoterSupportInterface
     public function setPromotion($promotion)
     {
         $this->promotion = $promotion;
+        $promotion->getRedemptions()->add($this);
     }
 
     /**
@@ -177,6 +178,7 @@ class Redemption implements BaseVoterSupportInterface
     public function setRetailOutlet($retailOutlet)
     {
         $this->retailOutlet = $retailOutlet;
+        $retailOutlet->getRedemptions()->add($this);
     }
 
     /**
