@@ -76,6 +76,12 @@ class Redemption implements BaseVoterSupportInterface
      */
     private $id;
 
+    function __construct()
+    {
+        $this->redeemedAt = new \DateTime();
+        $this->code = strtoupper(chr(rand(64, 90)) . base_convert(uniqid(), 10, 32));
+    }
+
     /**
      * @var Promotion
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Merchant\Marketing\Promotion\Promotion",inversedBy="redemptions",cascade={"persist","merge","remove"})
@@ -105,6 +111,12 @@ class Redemption implements BaseVoterSupportInterface
      * @ORM\Column(type="datetime", name="redeemed_at")
      */
     private $redeemedAt;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="code", unique=true)
+     */
+    private $code;
 
     /**
      * @var string

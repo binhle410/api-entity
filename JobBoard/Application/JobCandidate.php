@@ -24,6 +24,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
+ *
  * )
  */
 class JobCandidate implements BaseVoterSupportInterface {
@@ -40,12 +41,14 @@ class JobCandidate implements BaseVoterSupportInterface {
         $this->observers = new ArrayCollection();
         $this->reviewers = new ArrayCollection();
         $this->folders = new ArrayCollection();
+        $this->interviews = new ArrayCollection();
     }
 
     /**
      * @var JobListing
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Listing\JobListing", inversedBy="candidates")
      * @ORM\JoinColumn(name="id_listing", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $listing;
 
@@ -53,12 +56,14 @@ class JobCandidate implements BaseVoterSupportInterface {
      * @var JobListing
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates")
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $user;
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateInterview", mappedBy="candidate")
+     * @Serializer\Exclude
      */
     private $interviews;
 
@@ -79,6 +84,7 @@ class JobCandidate implements BaseVoterSupportInterface {
      *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_reviewer", referencedColumnName="id", unique=true)}
      *      )
+     * @Serializer\Exclude
      */
     private $reviewers;
 
@@ -97,6 +103,7 @@ class JobCandidate implements BaseVoterSupportInterface {
      *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_observer", referencedColumnName="id", unique=true)}
      *      )
+     * @Serializer\Exclude
      */
     private $observers;
 
@@ -115,6 +122,7 @@ class JobCandidate implements BaseVoterSupportInterface {
      *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_folder", referencedColumnName="id")}
      *      )
+     * @Serializer\Exclude
      */
     private $folders;
 
