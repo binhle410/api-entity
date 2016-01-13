@@ -24,14 +24,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} }
  * )
- * @Hateoas\Relation(
- *  "self.post",
- *  href= @Hateoas\Route(
- *         "post_promotion_redemption",
- *         parameters = {"promotionId"="expr(object.getPromotion().getId())"},
- *         absolute = true
- *     )
- * )
  *
  * @Hateoas\Relation(
  *  "promotion",
