@@ -59,8 +59,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_business_outlet_redemptions",
  *         parameters = { "businessId" = "expr(object.getBusiness().getId())","outlet" = "expr(object.getId())" },
  *         absolute = true
- *     ),
- * exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getRedemptions() === null)")
+ *     )
  *)
  */
 class RetailOutlet implements BaseVoterSupportInterface, ListVoterSupportInterface
