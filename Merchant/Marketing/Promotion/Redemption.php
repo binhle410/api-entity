@@ -98,6 +98,15 @@ class Redemption implements BaseVoterSupportInterface
      **/
     private $user;
 
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Organisation")
+     * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
+     * @Serializer\Exclude
+     **/
+    private $organisation;
+
     /**
      * @var RetailOutlet
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Business\RetailOutlet",inversedBy="redemptions",cascade={"persist","merge","remove"})
@@ -243,6 +252,38 @@ class Redemption implements BaseVoterSupportInterface
     public function setMerchantPIN($merchantPIN)
     {
         $this->merchantPIN = $merchantPIN;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @param User $organisation
+     */
+    public function setOrganisation($organisation)
+    {
+        $this->organisation = $organisation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
     }
 
 

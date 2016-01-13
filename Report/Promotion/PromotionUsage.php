@@ -52,8 +52,8 @@ class PromotionUsage implements BaseVoterSupportInterface
         $this->weeklyUsage = 0;
         $this->monthlyUsage = 0;
         $this->yearlyUsage = 0;
+        $this->lastUpdated = new \DateTime();
     }
-
 
     /**
      * @var int
@@ -81,11 +81,24 @@ class PromotionUsage implements BaseVoterSupportInterface
     private $yearlyUsage;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="last_updated", type="datetime")
+     */
+    private $lastUpdated;
+
+    /**
      * @var ArrayCollection PromotionOrganisationUsage
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Report\Promotion\PromotionOrganisationUsage", mappedBy="promotionUsage", orphanRemoval=true,cascade={"persist","merge","remove"})
      * @Serializer\Exclude()
      */
     private $organisationUsages;
+
+    public function addOrganisationUsage(PromotionOrganisationUsage $usage)
+    {
+        $this->organisationUsages->add($usage);
+        $usage->setPromotionUsage($this);
+
+    }
 
     /**
      * @var ArrayCollection PromotionUserUsage
@@ -93,6 +106,12 @@ class PromotionUsage implements BaseVoterSupportInterface
      * @Serializer\Exclude()
      */
     private $userUsages;
+
+    public function addUserUsage(PromotionUserUsage $usage)
+    {
+        $this->userUsages->add($usage);
+        $usage->setPromotionUsage($this);
+    }
 
     /**
      * @return int
@@ -221,6 +240,22 @@ class PromotionUsage implements BaseVoterSupportInterface
     public function setPromotion($promotion)
     {
         $this->promotion = $promotion;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastUpdated()
+    {
+        return $this->lastUpdated;
+    }
+
+    /**
+     * @param \DateTime $lastUpdated
+     */
+    public function setLastUpdated($lastUpdated)
+    {
+        $this->lastUpdated = $lastUpdated;
     }
 
 }
