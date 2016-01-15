@@ -13,6 +13,7 @@ use AppBundle\Entity\JobBoard\Application\JobCandidate;
 use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
+use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -130,6 +131,15 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
         $this->positions = new ArrayCollection();
     }
 
+
+    /**
+     * @var Gallery
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"merge","persist","remove"},orphanRemoval=true)
+     * @ORM\JoinColumn(name="id_gallery", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $gallery;
+
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\User\UserDevice", mappedBy="user", orphanRemoval=true)
@@ -207,6 +217,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
         $this->candidates->removeElement($candidate);
         return $this;
     }
+
 
     /**
      * @var ArrayCollection
@@ -603,6 +614,20 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
         $this->fourDigitPin = $fourDigitPin;
     }
 
+    /**
+     * @return Gallery
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
 
+    /**
+     * @param Gallery $gallery
+     */
+    public function setGallery($gallery)
+    {
+        $this->gallery = $gallery;
+    }
 
 }

@@ -50,7 +50,7 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
      * @ORM\Column(name="lft", type="integer")
      * @Serializer\Exclude
      */
-    private $lft;
+    private $left;
 
     /**
      * @var integer
@@ -58,7 +58,7 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
      * @ORM\Column(name="lvl", type="integer")
      * @Serializer\Exclude
      */
-    private $lvl;
+    private $level;
 
     /**
      * @var integer
@@ -66,7 +66,7 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
      * @ORM\Column(name="rgt", type="integer")
      * @Serializer\Exclude
      */
-    private $rgt;
+    private $right;
 
     /**
      * @var Category
@@ -83,8 +83,6 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
      * @Serializer\Exclude
      **/
     protected $children;
-
-
 
     /**
      * @return mixed
@@ -121,50 +119,51 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
     /**
      * @return int
      */
-    public function getLft()
+    public function getLeft()
     {
-        return $this->lft;
+        return $this->left;
     }
 
     /**
-     * @param int $lft
+     * @param int $left
      */
-    public function setLft($lft)
+    public function setLeft($left)
     {
-        $this->lft = $lft;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLvl()
-    {
-        return $this->lvl;
-    }
-
-    /**
-     * @param int $lvl
-     */
-    public function setLvl($lvl)
-    {
-        $this->lvl = $lvl;
+        $this->left = $left;
     }
 
     /**
      * @return int
      */
-    public function getRgt()
+    public function getLevel()
     {
-        return $this->rgt;
+        return $this->level;
     }
 
     /**
-     * @param int $rgt
+     * @param int $level
      */
-    public function setRgt($rgt)
+    public function setLevel($level)
     {
-        $this->rgt = $rgt;
+        $this->level = $level;
     }
+
+    /**
+     * @return int
+     */
+    public function getRight()
+    {
+        return $this->right;
+    }
+
+    /**
+     * @param int $right
+     */
+    public function setRight($right)
+    {
+        $this->right = $right;
+    }
+
 
 
 }
