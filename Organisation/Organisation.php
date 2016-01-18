@@ -585,7 +585,9 @@ class Organisation implements BaseVoterSupportInterface
     public function setLogo($logo)
     {
         $this->logo = $logo;
-        $logo->setLogoOrganisation($this);
+        if ($logo !== null) {
+            $logo->setLogoOrganisation($this);
+        }
     }
 
     /**
