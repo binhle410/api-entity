@@ -81,7 +81,7 @@ class RetailOutlet implements BaseVoterSupportInterface, ListVoterSupportInterfa
 
     /**
      * @var Location
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location",cascade={"merge","persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
      * @Serializer\Exclude
      */

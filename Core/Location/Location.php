@@ -62,6 +62,7 @@ class Location implements BaseVoterSupportInterface
         $this->addresses = new ArrayCollection();
     }
 
+    // reverse to RetailOutlet, Organisation, JobListing
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Address", mappedBy="location",cascade={"persist","merge","remove"},orphanRemoval=true)
