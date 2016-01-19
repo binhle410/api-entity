@@ -82,6 +82,7 @@ class Position implements BaseVoterSupportInterface
         $this->createdAt = new \DateTime();
         $this->tags = new ArrayCollection();
         $this->enabled = true;
+        $this->benefitAppAccessible = true;
     }
 
     /**
@@ -141,7 +142,7 @@ class Position implements BaseVoterSupportInterface
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", name="benefit_app_accessible", options={"default":true})
+     * @ORM\Column(type="boolean", name="benefit_app_accessible", nullable=true, options={"default":true})
      */
     private $benefitAppAccessible;
 
