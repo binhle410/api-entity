@@ -86,6 +86,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->enabled = true;
     }
 
     /**
