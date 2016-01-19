@@ -33,6 +33,18 @@ class PromotionType extends BasicEnum implements BaseVoterSupportInterface
      */
     private $id;
 
+    function __construct()
+    {
+        $this->enabled = true;
+    }
+
+    /**
+     * @var bool
+     * @ORM\Column(name="enabled",type="boolean", options={"default":true})
+     */
+    private $enabled;
+
+
     /**
      * @var string
      * @ORM\Column(length=25, nullable=true)
@@ -92,4 +104,22 @@ class PromotionType extends BasicEnum implements BaseVoterSupportInterface
     {
         $this->code = $code;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+
 }
