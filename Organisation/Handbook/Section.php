@@ -269,15 +269,6 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
         return $this->id=$id;
     }
 
-    /**
-     * Get active
-     *
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
 
     /**
      * @return string

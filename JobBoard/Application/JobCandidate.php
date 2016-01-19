@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="job__application__candidate")
- * 
+ *
  * @Serializer\XmlRoot("jobcandidate")
  * @Hateoas\Relation(
  *  "self",
@@ -24,10 +24,30 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
+ * )
  *
+ * @Hateoas\Relation(
+ *  "job_listing",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting",
+ *         parameters = {"listing" = "expr(object.getListing().getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
+ *
+ * @Hateoas\Relation(
+ *  "user",
+ *  href= @Hateoas\Route(
+ *         "get_user",
+ *         parameters = {"username" = "expr(object.getUser().getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
  * )
  */
-class JobCandidate implements BaseVoterSupportInterface {
+class JobCandidate implements BaseVoterSupportInterface
+{
 
     /**
      * @var int
@@ -37,7 +57,8 @@ class JobCandidate implements BaseVoterSupportInterface {
      */
     private $id;
 
-    function __construct() {
+    function __construct()
+    {
         $this->observers = new ArrayCollection();
         $this->reviewers = new ArrayCollection();
         $this->folders = new ArrayCollection();
@@ -67,12 +88,14 @@ class JobCandidate implements BaseVoterSupportInterface {
      */
     private $interviews;
 
-    public function addInterview(CandidateInterview $interviews) {
+    public function addInterview(CandidateInterview $interviews)
+    {
         $this->interviews->add($interviews);
         return $this;
     }
 
-    public function removeInterview(CandidateInterview $interviews) {
+    public function removeInterview(CandidateInterview $interviews)
+    {
         $this->interviews->removeElement($interviews);
         return $this;
     }
@@ -88,11 +111,13 @@ class JobCandidate implements BaseVoterSupportInterface {
      */
     private $reviewers;
 
-    public function addReviewer(User $user) {
+    public function addReviewer(User $user)
+    {
         $this->reviewers->add($user);
     }
 
-    public function removeReviewer(User $user) {
+    public function removeReviewer(User $user)
+    {
         $this->reviewers->removeElement($user);
     }
 
@@ -107,11 +132,13 @@ class JobCandidate implements BaseVoterSupportInterface {
      */
     private $observers;
 
-    public function addObserver(User $user) {
+    public function addObserver(User $user)
+    {
         $this->observers->add($user);
     }
 
-    public function removeObserver(User $user) {
+    public function removeObserver(User $user)
+    {
         $this->observers->removeElement($user);
     }
 
@@ -126,110 +153,149 @@ class JobCandidate implements BaseVoterSupportInterface {
      */
     private $folders;
 
-    public function addFolder(CandidateFolder $folder) {
+    public function addFolder(CandidateFolder $folder)
+    {
         $this->folders->add($folder);
     }
 
-    public function removeFolder(CandidateFolder $folder) {
+    public function removeFolder(CandidateFolder $folder)
+    {
         $this->folders->removeElement($folder);
     }
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="enabled", options={"default":false})
+     */
+    private $enabled;
+
+    /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @param int $id
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
     /**
      * @return JobListing
      */
-    public function getListing() {
+    public function getListing()
+    {
         return $this->listing;
     }
 
     /**
      * @param JobListing $listing
      */
-    public function setListing($listing) {
+    public function setListing($listing)
+    {
         $this->listing = $listing;
     }
 
     /**
      * @return JobListing
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
     /**
      * @param JobListing $user
      */
-    public function setUser($user) {
+    public function setUser($user)
+    {
         $this->user = $user;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getInterviews() {
+    public function getInterviews()
+    {
         return $this->interviews;
     }
 
     /**
      * @param ArrayCollection $interviews
      */
-    public function setInterviews($interviews) {
+    public function setInterviews($interviews)
+    {
         $this->interviews = $interviews;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getReviewers() {
+    public function getReviewers()
+    {
         return $this->reviewers;
     }
 
     /**
      * @param ArrayCollection $reviewers
      */
-    public function setReviewers($reviewers) {
+    public function setReviewers($reviewers)
+    {
         $this->reviewers = $reviewers;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getObservers() {
+    public function getObservers()
+    {
         return $this->observers;
     }
 
     /**
      * @param ArrayCollection $observers
      */
-    public function setObservers($observers) {
+    public function setObservers($observers)
+    {
         $this->observers = $observers;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getFolders() {
+    public function getFolders()
+    {
         return $this->folders;
     }
 
     /**
      * @param ArrayCollection $folders
      */
-    public function setFolders($folders) {
+    public function setFolders($folders)
+    {
         $this->folders = $folders;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
 
 }
