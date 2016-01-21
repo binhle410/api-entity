@@ -47,7 +47,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  *
- * @Hateoas\Relation("tags", href = @Hateoas\Route(
+ * @Hateoas\Relation("types", href = @Hateoas\Route(
  *         "get_business_types",
  *         parameters = { "business" = "expr(object.getId())" },
  *         absolute = true
