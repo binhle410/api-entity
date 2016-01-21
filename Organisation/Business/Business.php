@@ -76,6 +76,7 @@ class Business implements BaseVoterSupportInterface
     function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->types = new ArrayCollection();
         $this->promotions = new ArrayCollection();
         $this->retailOutlets = new ArrayCollection();
         $this->enabled = true;
