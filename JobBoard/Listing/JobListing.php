@@ -22,7 +22,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="job__listing__listing")
  *
- * @Serializer\XmlRoot("joblisting")
+ * @Serializer\XmlRoot("job_listing")
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
@@ -32,6 +32,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
+
+ *
  *
  */
 class JobListing implements BaseVoterSupportInterface
