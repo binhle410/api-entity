@@ -56,6 +56,7 @@ class JobListing implements BaseVoterSupportInterface
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
      * @ORM\JoinColumn(name="id_creator", referencedColumnName="id")
+     * @Serializer\Exclude
      **/
     private $creator;
 
@@ -63,6 +64,7 @@ class JobListing implements BaseVoterSupportInterface
      * @var Organisation
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Organisation")
      * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
+     * @Serializer\Exclude
      **/
     private $organisation;
 
@@ -70,6 +72,7 @@ class JobListing implements BaseVoterSupportInterface
      * @var Location
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
+     * @Serializer\Exclude
      **/
     private $location;
 
@@ -77,6 +80,7 @@ class JobListing implements BaseVoterSupportInterface
      * @var Salary
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
      * @ORM\JoinColumn(name="id_salary_from", referencedColumnName="id")
+     * @Serializer\Exclude
      **/
     private $salaryFrom;
 
@@ -84,6 +88,7 @@ class JobListing implements BaseVoterSupportInterface
      * @var Salary
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
      * @ORM\JoinColumn(name="id_salary_to", referencedColumnName="id")
+     * @Serializer\Exclude
      **/
     private $salaryTo;
 
@@ -91,6 +96,7 @@ class JobListing implements BaseVoterSupportInterface
      * @var ListingType
      * @ORM\ManyToOne(targetEntity="ListingType")
      * @ORM\JoinColumn(name="id_listing_type", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $type;
 
@@ -98,6 +104,7 @@ class JobListing implements BaseVoterSupportInterface
      * @var ListingVisibility
      * @ORM\ManyToOne(targetEntity="ListingVisibility")
      * @ORM\JoinColumn(name="id_listing_visibility", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $visibility; // Referenced from Visibility.php
 
@@ -111,6 +118,7 @@ class JobListing implements BaseVoterSupportInterface
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing")
+     * @Serializer\Exclude
      */
     private $candidates;
     public function addCandidate(JobCandidate $candidate)
@@ -131,6 +139,7 @@ class JobListing implements BaseVoterSupportInterface
      *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
      *      )
+     * @Serializer\Exclude
      **/
     private $tags;
 
