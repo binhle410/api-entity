@@ -42,6 +42,22 @@ use AppBundle\Entity\Core\User\UserDevice;
  *     )
  * )
  *
+ *
+ * @Hateoas\Relation("gallery", href = @Hateoas\Route(
+ *         "get_user_gallery",
+ *         parameters = { "username" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ * @Hateoas\Relation("introduction_videos", href = @Hateoas\Route(
+ *         "get_user_videos",
+ *         parameters = { "username" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ *
  * @Hateoas\Relation("job_candidates", href = @Hateoas\Route(
  *         "get_user_job_candidates",
  *         parameters = { "userId" = "expr(object.getId())" },
