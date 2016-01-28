@@ -4,10 +4,32 @@ namespace AppBundle\Entity\Accounting\Payroll;
 use AppBundle\Entity\Core\Core\Currency;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
-
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
+use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="accounting__payroll__salary")
+ *
+ * @Serializer\XmlRoot("salary")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_salary",
+ *         parameters = { "salary" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
+ * @Hateoas\Relation(
+ *  "currency",
+ *  href= @Hateoas\Route(
+ *         "get_currency",
+ *         parameters = { "entity" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
  */
 class Salary implements BaseVoterSupportInterface
 {
@@ -29,6 +51,7 @@ class Salary implements BaseVoterSupportInterface
      * @var Currency
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Currency")
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $currency;
 
@@ -79,7 +102,7 @@ class Salary implements BaseVoterSupportInterface
     /**
      * @param Currency $currency
      */
-    public function setCurrency(Currency $currency)
+    public function setCurrency($currency)
     {
         $this->currency = $currency;
     }

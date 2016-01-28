@@ -5,10 +5,16 @@ namespace AppBundle\Entity\JobBoard\Listing;
 use AppBundle\Entity\Core\Core\BasicEnum;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="job__listing__type")
+ *
+ * @Serializer\XmlRoot("ListingType")
+ *
  */
 class ListingType extends BasicEnum implements BaseVoterSupportInterface {
     const FULL_TIME = 'FULL_TIME';
