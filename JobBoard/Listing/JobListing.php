@@ -63,7 +63,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  "salaryFrom",
  *  href= @Hateoas\Route(
  *         "get_salary",
- *         parameters = { "location" = "expr(object.getSalaryFrom().getId())"},
+ *         parameters = { "salary" = "expr(object.getSalaryFrom().getId())"},
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
@@ -72,7 +72,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  "salaryTo",
  *  href= @Hateoas\Route(
  *         "get_salary",
- *         parameters = { "location" = "expr(object.getSalaryTo().getId())"},
+ *         parameters = { "salary" = "expr(object.getSalaryTo().getId())"},
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
