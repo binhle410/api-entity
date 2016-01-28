@@ -105,12 +105,12 @@ class Location implements BaseVoterSupportInterface
 
     /**
      * @var float
-     * @ORM\Column(name="latitude ",type="float",nullable=true)
+     * @ORM\Column(name="latitude ",type="float",nullable=false)
      */
     private $geoLat;
     /**
      * @var float
-     * @ORM\Column(name="longitude ",type="float",nullable=true)
+     * @ORM\Column(name="longitude ",type="float",nullable=false)
      */
     private $geoLng;
 

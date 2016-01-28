@@ -135,6 +135,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() == null)")
  * )
+ *
  * @Hateoas\Relation(
  *  "logo.post",
  *  href= @Hateoas\Route(

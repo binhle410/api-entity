@@ -40,6 +40,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *         absolute = true
  *     ),
  * )
+ *
+ * @Hateoas\Relation("redemptions",
+ *  href = @Hateoas\Route(
+ *         "get_position_redemptions",
+ *         parameters = { "username" = "expr(object.getEmployee().getId())"},
+ *         absolute = true
+ *     )
+ * )
+ *
  * @Hateoas\Relation("employee",
  *  href = @Hateoas\Route(
  *         "get_user",
