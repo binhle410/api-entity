@@ -59,7 +59,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  *      exclusion = @Hateoas\Exclusion(
- *          excludeIf = "expr(object.getLocation() === null))"
+ *          excludeIf = "expr(object.getLocation() === null)"
  *      )
  * )
  * @Hateoas\Relation(
@@ -71,7 +71,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  *      exclusion = @Hateoas\Exclusion(
- *          excludeIf = "expr(object.getSalaryFrom() === null))"
+ *          excludeIf = "expr(object.getSalaryFrom() === null)"
  *      )
  * )
  *  * @Hateoas\Relation(
@@ -83,7 +83,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  *      exclusion = @Hateoas\Exclusion(
- *          excludeIf = "expr(object.getSalaryTo() === null))"
+ *          excludeIf = "expr(object.getSalaryTo() === null)"
  *      )
  * )
  */
