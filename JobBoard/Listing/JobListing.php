@@ -58,6 +58,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
+ *      exclusion = @Hateoas\Exclusion(
+ *          excludeIf = "expr(object.getLocation() === null))"
+ *      )
  * )
  * @Hateoas\Relation(
  *  "salaryFrom",
