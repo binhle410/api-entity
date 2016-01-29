@@ -67,6 +67,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
+ *      exclusion = @Hateoas\Exclusion(
+ *          excludeIf = "expr(object.getSalaryFrom() === null))"
+ *      )
  * )
  *  * @Hateoas\Relation(
  *  "salaryTo",
@@ -76,6 +79,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
+ *      exclusion = @Hateoas\Exclusion(
+ *          excludeIf = "expr(object.getSalaryTo() === null))"
+ *      )
  * )
  */
 class JobListing implements BaseVoterSupportInterface
