@@ -470,7 +470,7 @@ class Organisation implements BaseVoterSupportInterface
     /**
      * @var string
      * @ORM\Column(length=50, name="code",type="string",nullable=true, unique=true)
-     * @Security("is_granted('EDIT', _secure_object)")
+     * @Security("is_granted('OPERATOR', _secure_object)")
      */
     private $code;
 
