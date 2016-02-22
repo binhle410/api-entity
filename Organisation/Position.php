@@ -113,6 +113,71 @@ class Position implements BaseVoterSupportInterface
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\JoinTable(name="organisation__positions_classes",
+     *      joinColumns={@ORM\JoinColumn(name="id_position", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     * @Serializer\Exclude
+     */
+    private $employeeClasses;
+    /**
+     * @param Tag $tag
+     * @return Position
+     */
+    public function addEmployeeClass($tag)
+    {
+        if ($tag->isEmployeeClass()) {
+            $this->employeeClasses->add($tag);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return Position
+     */
+    public function removeEmployeeClass($tag)
+    {
+        $this->employeeClasses->removeElement($tag);
+        return $this;
+    }
+
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\JoinTable(name="organisation__positions_functions",
+     *      joinColumns={@ORM\JoinColumn(name="id_position", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     * @Serializer\Exclude
+     */
+    private $employeeFunctions;
+    /**
+     * @param Tag $tag
+     * @return Position
+     */
+    public function addEmployeeFunction($tag)
+    {
+        if ($tag->isEmployeeFunction()) {
+            $this->employeeFunctions->add($tag);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return Position
+     */
+    public function removeEmployeeFunction($tag)
+    {
+        $this->employeeFunctions->removeElement($tag);
+        return $this;
+    }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
      * @ORM\JoinTable(name="organisation__positions_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_position", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
