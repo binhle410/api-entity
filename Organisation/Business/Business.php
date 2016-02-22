@@ -33,7 +33,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *
  * @Hateoas\Relation("promotions", href = @Hateoas\Route(
  *         "get_business_promotions",
- *         parameters = { "business" = "expr(object.getOwner().getId())" },
+ *         parameters = { "business" = "expr(object.getId())" },
  *         absolute = true
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getPromotions().count() === 0)")
