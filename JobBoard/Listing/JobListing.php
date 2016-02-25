@@ -198,6 +198,8 @@ class JobListing implements BaseVoterSupportInterface
     private $expiryDate;
 
     /**
+     * This value is then copied to individual CandidateInterview objects and
+     * this is where to hold the actual value of interviewDeadline
      * @var \DateTime
      * @ORM\Column(name="interview_deadline",type="datetime",nullable=true)
      */
@@ -235,6 +237,7 @@ class JobListing implements BaseVoterSupportInterface
     private $numberOfSets;
 
     /**
+     * Time limit in seconds
      * @var int
      * @ORM\Column(name="interview_time_limit", type="integer", options={"default":0}, nullable=true)
      */
@@ -251,6 +254,13 @@ class JobListing implements BaseVoterSupportInterface
      * @ORM\Column(length=120, name="title",type="string",nullable=true)
      */
     private $title;
+
+
+    /**
+     * @var string
+     * @ORM\Column(length=2500, name="role",type="string",nullable=true)
+     */
+    private $role;
 
     /**
      * @var string
@@ -631,6 +641,22 @@ class JobListing implements BaseVoterSupportInterface
     public function setCreator($creator)
     {
         $this->creator = $creator;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
 

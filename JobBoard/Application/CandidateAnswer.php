@@ -1,9 +1,9 @@
 <?php
 namespace AppBundle\Entity\JobBoard\Application;
 
+use AppBundle\Entity\JobBoard\Listing\InterviewQuestion;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -11,9 +11,9 @@ use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
- * @ORM\Table(name="job__application__interview")
+ * @ORM\Table(name="job__application__answer")
  */
-class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportInterface
+class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
     /**
      * @var int
@@ -24,24 +24,20 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     private $id;
 
     /**
-     * @var JobCandidate
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", inversedBy="interviews")
-     * @ORM\JoinColumn(name="id_candidate", referencedColumnName="id")
+     * @var CandidateInterview
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateInterview", inversedBy="answers")
+     * @ORM\JoinColumn(name="id_interview", referencedColumnName="id")
      * @Serializer\Exclude
      */
-    private $candidate;
+    private $interview;
 
     /**
-     * @var ArrayCollection CandidateAnswer
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateAnswer", mappedBy="interview")
+     * @var InterviewQuestion
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestion")
+     * @ORM\JoinColumn(name="id_question", referencedColumnName="id")
      * @Serializer\Exclude
      */
-    private $answers;
-
-    /**
-     * @var \DateTime
-     */
-    private $deadline;
+    private $question;
 
 
     /**
@@ -77,19 +73,19 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     }
 
     /**
-     * @return \DateTime
+     * @return InterviewQuestion
      */
-    public function getDeadline()
+    public function getQuestion()
     {
-        return $this->deadline;
+        return $this->question;
     }
 
     /**
-     * @param \DateTime $deadline
+     * @param InterviewQuestion $question
      */
-    public function setDeadline($deadline)
+    public function setQuestion($question)
     {
-        $this->deadline = $deadline;
+        $this->question = $question;
     }
 
 

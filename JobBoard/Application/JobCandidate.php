@@ -101,8 +101,8 @@ class JobCandidate implements BaseVoterSupportInterface
     }
 
     /**
-     * @var ArrayCollection User
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
+     * @var ArrayCollection CandidateReviewer
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateReviewer")
      * @ORM\JoinTable(name="job__application__candidates_reviewers",
      *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_reviewer", referencedColumnName="id", unique=true)}
@@ -111,14 +111,24 @@ class JobCandidate implements BaseVoterSupportInterface
      */
     private $reviewers;
 
-    public function addReviewer(User $user)
+    /**
+     * @param CandidateReviewer $reviewer
+     * @return $this
+     */
+    public function addReviewer($reviewer)
     {
-        $this->reviewers->add($user);
+        $this->reviewers->add($reviewer);
+        return $this;
     }
 
-    public function removeReviewer(User $user)
+    /**
+     * @param CandidateReviewer $reviewer
+     * @return $this
+     */
+    public function removeReviewer($reviewer)
     {
-        $this->reviewers->removeElement($user);
+        $this->reviewers->removeElement($reviewer);
+        return $this;
     }
 
     /**

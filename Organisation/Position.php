@@ -63,6 +63,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *     ),
  * )
  *
+ *
+ * @Hateoas\Relation("employee_classes", href = @Hateoas\Route(
+ *         "get_organisation_position_employee_classes",
+ *         parameters = { "organisationId" = "expr(object.getEmployer().getId())","position" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation("employee_functions", href = @Hateoas\Route(
+ *         "get_organisation_position_employee_functions",
+ *         parameters = { "organisationId" = "expr(object.getEmployer().getId())","position" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ * )
+ *
+ *
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\PositionRepository")
  * @ORM\Table(name="organisation__position", uniqueConstraints={@ORM\UniqueConstraint(name="position_unique", columns={"id_employer", "id_employee"})})
  */

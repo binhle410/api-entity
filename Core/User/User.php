@@ -91,7 +91,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     protected $id;
 
     /**
-     * @Security("is_granted('EDIT', _secure_object)")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     protected $password;
 
