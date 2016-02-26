@@ -32,7 +32,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
- *  @Hateoas\Relation(
+ * @Hateoas\Relation(
  *  "creator",
  *  href= @Hateoas\Route(
  *         "get_user",
@@ -89,6 +89,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class JobListing implements BaseVoterSupportInterface
 {
+    const VISIBILITY_LISTED = 'LISTED';
+    const VISIBILITY_UNLISTED = 'UNLISTED';
+    const VISIBILITY_SECURED = 'SECURED';
+
+    const STATUS_ACTIVE = 'ACTIVE';
+    const STATUS_PENDING = 'PENDING';
+    const STATUS_EXPIRED = 'EXPIRED';
+    const STATUS_DRAFT = 'DRAFT';
+
     /**
      * @var int
      * @ORM\Id
@@ -150,12 +159,6 @@ class JobListing implements BaseVoterSupportInterface
      */
     private $type;
 
-    /**
-     * @var ListingVisibility
-     * @ORM\ManyToOne(targetEntity="ListingVisibility")
-     * @ORM\JoinColumn(name="id_listing_visibility", referencedColumnName="id")
-     */
-    private $visibility; // Referenced from Visibility.php
 
     /**
      * @var ArrayCollection
@@ -170,6 +173,7 @@ class JobListing implements BaseVoterSupportInterface
      * @Serializer\Exclude
      */
     private $candidates;
+
     public function addCandidate(JobCandidate $candidate)
     {
         $this->candidates->add($candidate);
@@ -251,10 +255,21 @@ class JobListing implements BaseVoterSupportInterface
 
     /**
      * @var string
+     * @ORM\Column(length=120, name="visibility",type="string",nullable=true)
+     */
+    private $visibility;
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="status",type="string",nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var string
      * @ORM\Column(length=120, name="title",type="string",nullable=true)
      */
     private $title;
-
 
     /**
      * @var string
@@ -354,7 +369,7 @@ class JobListing implements BaseVoterSupportInterface
     }
 
     /**
-     * @return ListingVisibility
+     * @return string
      */
     public function getVisibility()
     {
@@ -362,7 +377,7 @@ class JobListing implements BaseVoterSupportInterface
     }
 
     /**
-     * @param ListingVisibility $visibility
+     * @param string $visibility
      */
     public function setVisibility(ListingVisibility $visibility)
     {
@@ -496,7 +511,6 @@ class JobListing implements BaseVoterSupportInterface
     {
         $this->enabled = $enabled;
     }
-
 
 
     /**
@@ -658,7 +672,6 @@ class JobListing implements BaseVoterSupportInterface
     {
         $this->role = $role;
     }
-
 
 
 }
