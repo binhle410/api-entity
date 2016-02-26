@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="job__application__answer")
@@ -32,9 +33,8 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
     private $interview;
 
     /**
-     * @var InterviewQuestion
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestion")
-     * @ORM\JoinColumn(name="id_question", referencedColumnName="id")
+     * @var string
+     * @ORM\Column(name="question",type="string",length=1000,nullable=true)
      * @Serializer\Exclude
      */
     private $question;
@@ -73,7 +73,7 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
     }
 
     /**
-     * @return InterviewQuestion
+     * @return string
      */
     public function getQuestion()
     {
@@ -81,13 +81,12 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
     }
 
     /**
-     * @param InterviewQuestion $question
+     * @param string $question
      */
     public function setQuestion($question)
     {
         $this->question = $question;
     }
-
 
 
 }
