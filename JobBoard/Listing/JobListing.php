@@ -153,11 +153,15 @@ class JobListing implements BaseVoterSupportInterface
     private $salaryTo;
 
     /**
-     * @var ListingType
-     * @ORM\ManyToOne(targetEntity="ListingType")
-     * @ORM\JoinColumn(name="id_listing_type", referencedColumnName="id")
+     * @var ArrayCollection Tag $types
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\JoinTable(name="job__listing__listings_types",
+     *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     * @Serializer\Exclude
      */
-    private $type;
+    private $types;
 
 
     /**
@@ -273,7 +277,7 @@ class JobListing implements BaseVoterSupportInterface
 
     /**
      * @var string
-     * @ORM\Column(length=2500, name="role",type="string",nullable=true)
+     * @ORM\Column(length=500, name="role",type="string",nullable=true)
      */
     private $role;
 
@@ -352,21 +356,6 @@ class JobListing implements BaseVoterSupportInterface
         $this->title = $title;
     }
 
-    /**
-     * @return ListingType
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param ListingType $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
 
     /**
      * @return string

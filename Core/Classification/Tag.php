@@ -73,6 +73,12 @@ class Tag extends BaseTag implements BaseVoterSupportInterface, ListVoterSupport
 
     /**
      * @var bool
+     * @ORM\Column(name="job_type",type="boolean",nullable=true,options={"default":false})
+     */
+    private $jobType = false;
+
+    /**
+     * @var bool
      * @ORM\Column(name="industry",type="boolean",nullable=true,options={"default":false})
      */
     private $industry = false;
