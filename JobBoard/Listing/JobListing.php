@@ -63,7 +63,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *      )
  * )
  * @Hateoas\Relation(
- *  "salaryFrom",
+ *  "salary_from",
  *  href= @Hateoas\Route(
  *         "get_salary",
  *         parameters = { "salary" = "expr(object.getSalaryFrom().getId())"},
@@ -75,7 +75,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *      )
  * )
  *  * @Hateoas\Relation(
- *  "salaryTo",
+ *  "salary_to",
  *  href= @Hateoas\Route(
  *         "get_salary",
  *         parameters = { "salary" = "expr(object.getSalaryTo().getId())"},
