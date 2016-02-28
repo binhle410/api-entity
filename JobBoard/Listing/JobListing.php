@@ -113,8 +113,8 @@ class JobListing implements BaseVoterSupportInterface
     }
 
     /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User")
+     * @var Position
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Position")
      * @ORM\JoinColumn(name="id_creator", referencedColumnName="id")
      * @Serializer\Exclude
      **/
@@ -631,7 +631,7 @@ class JobListing implements BaseVoterSupportInterface
     }
 
     /**
-     * @return User
+     * @return Position
      */
     public function getCreator()
     {
@@ -639,7 +639,7 @@ class JobListing implements BaseVoterSupportInterface
     }
 
     /**
-     * @param User $creator
+     * @param Position $creator
      */
     public function setCreator($creator)
     {
