@@ -379,7 +379,7 @@ class Organisation implements BaseVoterSupportInterface
     //TODO implement addSite, removeSite
 
     /**
-     * @var integer
+     * @var int
      * @Gedmo\TreeRoot
      * @ORM\Column(name="root", type="integer", nullable=true)
      * @Serializer\Exclude
@@ -387,7 +387,7 @@ class Organisation implements BaseVoterSupportInterface
     private $root;
 
     /**
-     * @var integer
+     * @var int
      * @Gedmo\TreeLeft
      * @ORM\Column(name="lft", type="integer")
      * @Serializer\Exclude
@@ -395,7 +395,7 @@ class Organisation implements BaseVoterSupportInterface
     private $lft;
 
     /**
-     * @var integer
+     * @var int
      * @Gedmo\TreeLevel
      * @ORM\Column(name="lvl", type="integer")
      * @Serializer\Exclude
@@ -403,7 +403,7 @@ class Organisation implements BaseVoterSupportInterface
     private $lvl;
 
     /**
-     * @var integer
+     * @var int
      * @Gedmo\TreeRight
      * @ORM\Column(name="rgt", type="integer")
      * @Serializer\Exclude
