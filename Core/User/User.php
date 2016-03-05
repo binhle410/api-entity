@@ -150,7 +150,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
 
     /**
      * @var Gallery
-     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"merge","persist","remove"},orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"merge","persist","remove"},orphanRemoval=true, inversedBy="galleryUser")
      * @ORM\JoinColumn(name="id_gallery", referencedColumnName="id")
      * @Serializer\Exclude
      */

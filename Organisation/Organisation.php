@@ -11,6 +11,7 @@ use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\Organisation\Application\Application;
 use AppBundle\Entity\Organisation\Handbook\Handbook;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -451,7 +452,8 @@ class Organisation implements BaseVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * -> OneToMany unidirectional
+     * -> OneToMany unidirectional -> then turns out we need it bidirectional -> ManyToMany by accident, bahhhhh
+     * -> So, it is mapped as ManyToMany but it should behave as OneToMany
      * @ORM\ManyToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist","merge"}, inversedBy="bannerOrganisations")
      * @ORM\JoinTable(name="organisation__organisations_banners",
      *      joinColumns={@ORM\JoinColumn(name="id_organisation", referencedColumnName="id")},
@@ -625,15 +627,26 @@ class Organisation implements BaseVoterSupportInterface
         return $this;
     }
 
+    /**
+     * @param Media $banner
+     * @return $this
+     */
     public function addBanner($banner)
     {
         $this->banners->add($banner);
+        $banner->setOrganisationOwner($this);
+
         return $this;
     }
 
+    /**
+     * @param Media $banner
+     * @return $this
+     */
     public function removeBanner($banner)
     {
         $this->banners->removeElement($banner);
+        $banner->setOrganisationOwner(null);
         return $this;
     }
 
