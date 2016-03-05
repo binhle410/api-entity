@@ -368,7 +368,7 @@ class JobListing implements BaseVoterSupportInterface
     /**
      * @param string $visibility
      */
-    public function setVisibility(ListingVisibility $visibility)
+    public function setVisibility($visibility)
     {
         $this->visibility = $visibility;
     }
