@@ -163,6 +163,18 @@ class JobListing implements BaseVoterSupportInterface
      */
     private $types;
 
+    public function addType($type)
+    {
+        $this->types->add($type);
+        return $this;
+    }
+
+    public function removeType($type)
+    {
+        $this->types->removeElement($type);
+        return $this;
+    }
+
 
     /**
      * @var ArrayCollection

@@ -26,31 +26,6 @@ class Tag extends BaseTag implements BaseVoterSupportInterface, ListVoterSupport
      */
     private $id;
 
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string
-     */
-    protected $slug;
-
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
-
-    /**
-     * @var bool
-     */
-    protected $enabled;
-
     function __construct()
     {
         $this->slug = "";
@@ -242,4 +217,19 @@ class Tag extends BaseTag implements BaseVoterSupportInterface, ListVoterSupport
         $this->industry = $industry;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isJobType()
+    {
+        return $this->jobType;
+    }
+
+    /**
+     * @param boolean $jobType
+     */
+    public function setJobType($jobType)
+    {
+        $this->jobType = $jobType;
+    }
 }
