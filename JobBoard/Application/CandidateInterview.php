@@ -1,20 +1,22 @@
 <?php
+
 namespace AppBundle\Entity\JobBoard\Application;
 
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="job__application__interview")
  */
 class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
+
     /**
      * @var int
      * @ORM\Id
@@ -39,10 +41,28 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     private $answers;
 
     /**
-     * @var \DateTime
+     * @var string
+     * @ORM\Column(type="string", name="question_set_code")
      */
-    private $deadline;
+    private $questionSetCode;
 
+    /**
+     * @var datetime
+     * @ORM\Column(type="datetime", name="start_time")
+     */
+    private $startTime;
+
+    /**
+     * @var datetime
+     * @ORM\Column(type="datetime", name="end_time")
+     */
+    private $endTime;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="status")
+     */
+    private $status;
 
     /**
      * @return int
@@ -77,21 +97,67 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getDeadline()
+    public function getQuestionSetCode()
     {
-        return $this->deadline;
+        return $this->questionSetCode;
     }
 
     /**
-     * @param \DateTime $deadline
+     * @param string $questionSetCode
      */
-    public function setDeadline($deadline)
+    public function setQuestionSetCode($questionSetCode)
     {
-        $this->deadline = $deadline;
+        $this->questionSetCode = $questionSetCode;
     }
 
+    /**
+     * @return datetime
+     */
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
 
+    /**
+     * @param datetime $startTime
+     */
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+    }
+
+    /**
+     * @return datetime
+     */
+    public function getEndTime()
+    {
+        return $this->endTime;
+    }
+
+    /**
+     * @param datetime $endTime
+     */
+    public function setEndTime($endTime)
+    {
+        $this->endTime = $endTime;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param status $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
 }
