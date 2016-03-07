@@ -190,13 +190,22 @@ class JobListing implements BaseVoterSupportInterface
      */
     private $candidates;
 
-    public function addCandidate(JobCandidate $candidate)
+    /**
+     * @param JobCandidate $candidate
+     * @return JobListing
+     */
+
+    public function addCandidate($candidate)
     {
         $this->candidates->add($candidate);
         return $this;
     }
 
-    public function removeCandidate(JobCandidate $candidate)
+    /**
+     * @param JobCandidate $candidate
+     * @return JobListing
+     */
+    public function removeCandidate($candidate)
     {
         $this->candidates->removeElement($candidate);
         return $this;

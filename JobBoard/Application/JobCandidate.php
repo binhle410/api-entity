@@ -5,6 +5,7 @@ namespace AppBundle\Entity\JobBoard\Application;
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\JobBoard\Listing\JobListing;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -63,41 +64,6 @@ class JobCandidate implements BaseVoterSupportInterface
         $this->reviewers = new ArrayCollection();
         $this->folders = new ArrayCollection();
         $this->interviews = new ArrayCollection();
-    }
-
-    /**
-     * @var JobListing
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Listing\JobListing", inversedBy="candidates")
-     * @ORM\JoinColumn(name="id_listing", referencedColumnName="id")
-     * @Serializer\Exclude
-     */
-    private $listing;
-
-    /**
-     * @var JobListing
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
-     * @Serializer\Exclude
-     */
-    private $user;
-
-    /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateInterview", mappedBy="candidate")
-     * @Serializer\Exclude
-     */
-    private $interviews;
-
-    public function addInterview(CandidateInterview $interviews)
-    {
-        $this->interviews->add($interviews);
-        return $this;
-    }
-
-    public function removeInterview(CandidateInterview $interviews)
-    {
-        $this->interviews->removeElement($interviews);
-        return $this;
     }
 
     /**
@@ -172,6 +138,49 @@ class JobCandidate implements BaseVoterSupportInterface
     {
         $this->folders->removeElement($folder);
     }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateInterview", mappedBy="candidate")
+     * @Serializer\Exclude
+     */
+    private $interviews;
+
+    public function addInterview(CandidateInterview $interviews)
+    {
+        $this->interviews->add($interviews);
+        return $this;
+    }
+
+    public function removeInterview(CandidateInterview $interviews)
+    {
+        $this->interviews->removeElement($interviews);
+        return $this;
+    }
+
+    /**
+     * @var JobListing
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Listing\JobListing", inversedBy="candidates")
+     * @ORM\JoinColumn(name="id_listing", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $listing;
+
+    /**
+     * @var JobListing
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $user;
+
+    /**
+     * @var Gallery
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"merge","persist","remove"},orphanRemoval=true, inversedBy="introCandidate")
+     * @ORM\JoinColumn(name="id_intro_video_gallery", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $introVideoGallery;
 
     /**
      * @var bool
