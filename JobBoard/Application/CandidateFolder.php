@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="job__application__folder")
@@ -25,49 +26,7 @@ class CandidateFolder implements BaseVoterSupportInterface
 
     function __construct()
     {
-        $this->reviewers = new ArrayCollection();
-        $this->observers = new ArrayCollection();
         $this->candidates = new ArrayCollection();
-    }
-
-    /**
-     * @var ArrayCollection User
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="job__application__folders_reviewers",
-     *      joinColumns={@ORM\JoinColumn(name="id_folder", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_reviewer", referencedColumnName="id", unique=true)}
-     *      )
-     */
-    private $reviewers;
-
-    public function addReviewer(User $user)
-    {
-        $this->reviewers->add($user);
-    }
-
-    public function removeReviewer(User $user)
-    {
-        $this->reviewers->removeElement($user);
-    }
-
-    /**
-     * @var ArrayCollection User
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="job__application__folders_observers",
-     *      joinColumns={@ORM\JoinColumn(name="id_folder", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_observer", referencedColumnName="id", unique=true)}
-     *      )
-     */
-    private $observers;
-
-    public function addObserver(User $user)
-    {
-        $this->observers->add($user);
-    }
-
-    public function removeObserver(User $user)
-    {
-        $this->observers->removeElement($user);
     }
 
     /**

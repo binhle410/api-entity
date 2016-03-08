@@ -60,62 +60,8 @@ class JobCandidate implements BaseVoterSupportInterface
 
     function __construct()
     {
-        $this->observers = new ArrayCollection();
-        $this->reviewers = new ArrayCollection();
         $this->folders = new ArrayCollection();
         $this->interviews = new ArrayCollection();
-    }
-
-    /**
-     * @var ArrayCollection CandidateReviewer
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateReviewer")
-     * @ORM\JoinTable(name="job__application__candidates_reviewers",
-     *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_reviewer", referencedColumnName="id", unique=true)}
-     *      )
-     * @Serializer\Exclude
-     */
-    private $reviewers;
-
-    /**
-     * @param CandidateReviewer $reviewer
-     * @return $this
-     */
-    public function addReviewer($reviewer)
-    {
-        $this->reviewers->add($reviewer);
-        return $this;
-    }
-
-    /**
-     * @param CandidateReviewer $reviewer
-     * @return $this
-     */
-    public function removeReviewer($reviewer)
-    {
-        $this->reviewers->removeElement($reviewer);
-        return $this;
-    }
-
-    /**
-     * @var ArrayCollection User
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User")
-     * @ORM\JoinTable(name="job__application__candidates_observers",
-     *      joinColumns={@ORM\JoinColumn(name="id_candidate", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_observer", referencedColumnName="id", unique=true)}
-     *      )
-     * @Serializer\Exclude
-     */
-    private $observers;
-
-    public function addObserver(User $user)
-    {
-        $this->observers->add($user);
-    }
-
-    public function removeObserver(User $user)
-    {
-        $this->observers->removeElement($user);
     }
 
     /**

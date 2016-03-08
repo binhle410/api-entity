@@ -9,7 +9,9 @@ use AppBundle\Entity\Core\Tag;
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\JobBoard\Application\JobCandidate;
 use AppBundle\Entity\Organisation\Organisation;
+use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +34,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
+ *
+ * @Hateoas\Relation("job_candidates", href = @Hateoas\Route(
+ *         "get_joblisting_jobcandidates",
+ *         parameters = { "listing" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ *
  * @Hateoas\Relation(
  *  "creator",
  *  href= @Hateoas\Route(
@@ -87,7 +98,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *      )
  * )
  */
-class JobListing implements BaseVoterSupportInterface
+class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
     const VISIBILITY_LISTED = 'LISTED';
     const VISIBILITY_UNLISTED = 'UNLISTED';
@@ -175,6 +186,15 @@ class JobListing implements BaseVoterSupportInterface
         return $this;
     }
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
+     * @ORM\JoinTable(name="job__listing__listings_tags",
+     *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
+     *      )
+     * @Serializer\Exclude
+     */
+    private $tags;
 
     /**
      * @var ArrayCollection
@@ -211,14 +231,6 @@ class JobListing implements BaseVoterSupportInterface
         return $this;
     }
 
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
-     * @ORM\JoinTable(name="job__listing__listings_tags",
-     *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
-     *      )
-     **/
-    private $tags;
 
     /**
      * @var \DateTime
