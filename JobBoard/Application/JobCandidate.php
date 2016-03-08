@@ -4,7 +4,10 @@ namespace AppBundle\Entity\JobBoard\Application;
 
 use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\JobBoard\Listing\JobListing;
+use AppBundle\Entity\Organisation\Organisation;
+use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\OwnableInterface;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,8 +23,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
- *         "get_jobcandidate",
- *         parameters = {"candidate" = "expr(object.getId())"},
+ *         "get_joblisting_jobcandidate",
+ *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
@@ -47,7 +50,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  attributes = { "method" = {"put","delete"} },
  * )
  */
-class JobCandidate implements BaseVoterSupportInterface
+class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
 {
 
     /**
@@ -60,6 +63,7 @@ class JobCandidate implements BaseVoterSupportInterface
 
     function __construct()
     {
+        $this->enabled = true;
         $this->folders = new ArrayCollection();
         $this->interviews = new ArrayCollection();
     }
@@ -130,7 +134,7 @@ class JobCandidate implements BaseVoterSupportInterface
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", name="enabled", options={"default":false})
+     * @ORM\Column(type="boolean", name="enabled", options={"default":true})
      */
     private $enabled;
 
@@ -262,5 +266,54 @@ class JobCandidate implements BaseVoterSupportInterface
         $this->enabled = $enabled;
     }
 
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUserOwner($user)
+    {
+        return $this;
+    }
 
+    /**
+     * @return User
+     */
+    public function getUserOwner()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param Position $position
+     * @return $this
+     */
+    public function setPositionOwner($position)
+    {
+        return null;
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPositionOwner()
+    {
+        return null;
+    }
+
+    /**
+     * @param Organisation $organisation
+     * @return $this
+     */
+    public function setOrganisationOwner($organisation)
+    {
+        return $this;
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisationOwner()
+    {
+        return null;
+    }
 }
