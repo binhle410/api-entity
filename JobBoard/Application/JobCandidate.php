@@ -53,7 +53,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "intro_video_gallery",
  *  href= @Hateoas\Route(
- *         "get_joblisting_jobcandidate_intro_video_gallery",
+ *         "get_joblisting_jobcandidate_intros_videos_galleries",
  *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())"},
  *         absolute = true
  *     ),
