@@ -49,6 +49,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "method" = {"put","delete"} },
  * )
+ *
+ * @Hateoas\Relation(
+ *  "intro_video_gallery",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting_jobcandidate_intro_video_gallery",
+ *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
  */
 class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
 {
@@ -264,6 +274,22 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
+    }
+
+    /**
+     * @return Gallery
+     */
+    public function getIntroVideoGallery()
+    {
+        return $this->introVideoGallery;
+    }
+
+    /**
+     * @param Gallery $introVideoGallery
+     */
+    public function setIntroVideoGallery($introVideoGallery)
+    {
+        $this->introVideoGallery = $introVideoGallery;
     }
 
     /**
