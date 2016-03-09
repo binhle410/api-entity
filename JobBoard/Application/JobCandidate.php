@@ -6,6 +6,7 @@ use AppBundle\Entity\Core\User\User;
 use AppBundle\Entity\JobBoard\Listing\JobListing;
 use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Entity\Organisation\Position;
+use AppBundle\Entity\JobBoard\Application\CandidateReviewer;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\OwnableInterface;
 use Application\Sonata\MediaBundle\Entity\Gallery;
@@ -60,8 +61,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  attributes = { "method" = {"put","delete"} },
  * )
  */
-class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
-{
+class JobCandidate implements BaseVoterSupportInterface, OwnableInterface {
+
+    function __construct() {
+        $this->enabled = true;
+        $this->folders = new ArrayCollection();
+        $this->interviews = new ArrayCollection();
+        $this->reviewers = new ArrayCollection();
+    }
 
     /**
      * @var int
@@ -71,11 +78,18 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
      */
     private $id;
 
-    function __construct()
-    {
-        $this->enabled = true;
-        $this->folders = new ArrayCollection();
-        $this->interviews = new ArrayCollection();
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id) {
+        $this->id = $id;
     }
 
     /**
@@ -89,13 +103,25 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
      */
     private $folders;
 
-    public function addFolder(CandidateFolder $folder)
-    {
+    /**
+     * @return ArrayCollection
+     */
+    public function getFolders() {
+        return $this->folders;
+    }
+
+    /**
+     * @param ArrayCollection $folders
+     */
+    public function setFolders($folders) {
+        $this->folders = $folders;
+    }
+
+    public function addFolder(CandidateFolder $folder) {
         $this->folders->add($folder);
     }
 
-    public function removeFolder(CandidateFolder $folder)
-    {
+    public function removeFolder(CandidateFolder $folder) {
         $this->folders->removeElement($folder);
     }
 
@@ -106,15 +132,27 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
      */
     private $interviews;
 
-    public function addInterview(CandidateInterview $interviews)
-    {
-        $this->interviews->add($interviews);
+    /**
+     * @return ArrayCollection
+     */
+    public function getInterviews() {
+        return $this->interviews;
+    }
+
+    /**
+     * @param ArrayCollection $interviews
+     */
+    public function setInterviews($interviews) {
+        $this->interviews = $interviews;
+    }
+
+    public function addInterview(CandidateInterview $interview) {
+        $this->interviews->add($interview);
         return $this;
     }
 
-    public function removeInterview(CandidateInterview $interviews)
-    {
-        $this->interviews->removeElement($interviews);
+    public function removeInterview(CandidateInterview $interview) {
+        $this->interviews->removeElement($interview);
         return $this;
     }
 
@@ -127,12 +165,55 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     private $listing;
 
     /**
+     * @return JobListing
+     */
+    public function getListing() {
+        return $this->listing;
+    }
+
+    /**
+     * @param JobListing $listing
+     */
+    public function setListing($listing) {
+        $this->listing = $listing;
+    }
+
+    /**
      * @var JobListing
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates")
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * @Serializer\Exclude
      */
     private $user;
+
+    /**
+     * @return User
+     */
+    public function getUser() {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user) {
+        $this->user = $user;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUserOwner($user) {
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUserOwner() {
+        return $this->user;
+    }
 
     /**
      * @var Gallery
@@ -143,186 +224,184 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     private $introVideoGallery;
 
     /**
-     * @var bool
-     * @ORM\Column(type="boolean", name="enabled", options={"default":true})
-     */
-    private $enabled;
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return JobListing
-     */
-    public function getListing()
-    {
-        return $this->listing;
-    }
-
-    /**
-     * @param JobListing $listing
-     */
-    public function setListing($listing)
-    {
-        $this->listing = $listing;
-    }
-
-    /**
-     * @return JobListing
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param JobListing $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getInterviews()
-    {
-        return $this->interviews;
-    }
-
-    /**
-     * @param ArrayCollection $interviews
-     */
-    public function setInterviews($interviews)
-    {
-        $this->interviews = $interviews;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getReviewers()
-    {
-        return $this->reviewers;
-    }
-
-    /**
-     * @param ArrayCollection $reviewers
-     */
-    public function setReviewers($reviewers)
-    {
-        $this->reviewers = $reviewers;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getObservers()
-    {
-        return $this->observers;
-    }
-
-    /**
-     * @param ArrayCollection $observers
-     */
-    public function setObservers($observers)
-    {
-        $this->observers = $observers;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getFolders()
-    {
-        return $this->folders;
-    }
-
-    /**
-     * @param ArrayCollection $folders
-     */
-    public function setFolders($folders)
-    {
-        $this->folders = $folders;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @param boolean $enabled
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
-    /**
      * @return Gallery
      */
-    public function getIntroVideoGallery()
-    {
+    public function getIntroVideoGallery() {
         return $this->introVideoGallery;
     }
 
     /**
      * @param Gallery $introVideoGallery
      */
-    public function setIntroVideoGallery($introVideoGallery)
-    {
+    public function setIntroVideoGallery($introVideoGallery) {
         $this->introVideoGallery = $introVideoGallery;
     }
 
     /**
-     * @param User $user
-     * @return $this
+     * @var bool
+     * @ORM\Column(type="boolean", name="enabled", options={"default":true})
      */
-    public function setUserOwner($user)
-    {
+    private $enabled;
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled() {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled) {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateReviewer", mappedBy="candidate")
+     * @Serializer\Exclude
+     */
+    private $reviewers;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getReviewers() {
+        return $this->reviewers;
+    }
+
+    /**
+     * @param ArrayCollection $reviewers
+     */
+    public function setReviewers($reviewers) {
+        $this->reviewers = $reviewers;
+    }
+
+    public function addReviewers(CandidateReviewer $reviewers) {
+        $this->reviewers->add($reviewers);
+        return $this;
+    }
+
+    public function removeReviewers(CandidateReviewer $reviewers) {
+        $this->reviewers->removeElement($reviewers);
         return $this;
     }
 
     /**
-     * @return User
+     * @var Media
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"merge","persist","remove"},inversedBy="resumeCandidate")
+     * @ORM\JoinColumn(name="id_resume", referencedColumnName="id")
+     * @Serializer\Exclude
      */
-    public function getUserOwner()
-    {
-        return $this->user;
+    private $resume;
+
+    /**
+     * @return Media
+     */
+    public function getResume() {
+        return $this->resume;
+    }
+
+    /**
+     * @param Media $resume
+     */
+    public function setResume($resume) {
+        $this->resume = $resume;
+    }
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="reattempted", options={"default":false})
+     */
+    private $reattempted;
+
+    /**
+     * @return bool
+     */
+    public function isReattempted() {
+        return $this->reattempted;
+    }
+
+    /**
+     * @param bool $reattempted
+     */
+    public function setReattempted($reattempted) {
+        $this->reattempted = $reattempted;
+    }
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="status")
+     */
+    private $status;
+
+    /**
+     * @return string
+     */
+    public function getStatus() {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="invitation_status")
+     */
+    private $invitationStatus;
+
+    /**
+     * @return string
+     */
+    public function getInvitationStatus() {
+        return $this->invitationStatus;
+    }
+
+    /**
+     * @param string $invitationStatus
+     */
+    public function setInvitationStatus($invitationStatus) {
+        $this->invitationStatus = $invitationStatus;
+    }
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="withdawn", options={"default":false})
+     */
+    private $withdawn;
+
+    /**
+     * @return bool
+     */
+    public function isWithdawn() {
+        return $this->withdawn;
+    }
+
+    /**
+     * @param bool $withdawn
+     */
+    public function setWithdawn($withdawn) {
+        $this->withdawn = $withdawn;
     }
 
     /**
      * @param Position $position
      * @return $this
      */
-    public function setPositionOwner($position)
-    {
+    public function setPositionOwner($position) {
         return null;
     }
 
     /**
      * @return Position
      */
-    public function getPositionOwner()
-    {
+    public function getPositionOwner() {
         return null;
     }
 
@@ -330,16 +409,15 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
      * @param Organisation $organisation
      * @return $this
      */
-    public function setOrganisationOwner($organisation)
-    {
+    public function setOrganisationOwner($organisation) {
         return $this;
     }
 
     /**
      * @return Organisation
      */
-    public function getOrganisationOwner()
-    {
+    public function getOrganisationOwner() {
         return null;
     }
+
 }

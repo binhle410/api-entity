@@ -1,4 +1,5 @@
 <?php
+
 // src/AppBundle/Entity/JobBoard/Listing.php
 
 namespace AppBundle\Entity\JobBoard\Listing;
@@ -13,9 +14,8 @@ use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\JobBoard\Listing\InterviewQuestionSet;
 use Doctrine\ORM\Mapping as ORM;
-
-
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -98,12 +98,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *      )
  * )
  */
-class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
-{
+class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface {
+
     const VISIBILITY_LISTED = 'LISTED';
     const VISIBILITY_UNLISTED = 'UNLISTED';
     const VISIBILITY_SECURED = 'SECURED';
-
     const STATUS_ACTIVE = 'ACTIVE';
     const STATUS_PENDING = 'PENDING';
     const STATUS_EXPIRED = 'EXPIRED';
@@ -117,9 +116,9 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $id;
 
-    function __construct()
-    {
+    function __construct() {
         $this->tags = new ArrayCollection();
+        $this->questionSets = new ArrayCollection();
         $this->enabled = false;
     }
 
@@ -128,7 +127,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Position")
      * @ORM\JoinColumn(name="id_creator", referencedColumnName="id")
      * @Serializer\Exclude
-     **/
+     * */
     private $creator;
 
     /**
@@ -136,7 +135,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Organisation")
      * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
      * @Serializer\Exclude
-     **/
+     * */
     private $organisation;
 
     /**
@@ -144,7 +143,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
      * @Serializer\Exclude
-     **/
+     * */
     private $location;
 
     /**
@@ -152,7 +151,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
      * @ORM\JoinColumn(name="id_salary_from", referencedColumnName="id")
      * @Serializer\Exclude
-     **/
+     * */
     private $salaryFrom;
 
     /**
@@ -160,7 +159,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
      * @ORM\JoinColumn(name="id_salary_to", referencedColumnName="id")
      * @Serializer\Exclude
-     **/
+     * */
     private $salaryTo;
 
     /**
@@ -174,14 +173,12 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $types;
 
-    public function addType($type)
-    {
+    public function addType($type) {
         $this->types->add($type);
         return $this;
     }
 
-    public function removeType($type)
-    {
+    public function removeType($type) {
         $this->types->removeElement($type);
         return $this;
     }
@@ -214,9 +211,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @param JobCandidate $candidate
      * @return JobListing
      */
-
-    public function addCandidate($candidate)
-    {
+    public function addCandidate($candidate) {
         $this->candidates->add($candidate);
         return $this;
     }
@@ -225,12 +220,10 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @param JobCandidate $candidate
      * @return JobListing
      */
-    public function removeCandidate($candidate)
-    {
+    public function removeCandidate($candidate) {
         $this->candidates->removeElement($candidate);
         return $this;
     }
-
 
     /**
      * @var \DateTime
@@ -263,7 +256,6 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @ORM\Column(name="multiple_set", type="boolean", options={"default":true}, nullable=true)
      */
     private $multipleSet;
-
 
     /**
      * @var int
@@ -320,380 +312,380 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $description;
 
-
     /** @ORM\Column(length=250, name="qr_code_url",type="string",nullable=true) */
     private $qrCodeURL;
 
     /**
      * @return Location
      */
-    public function getLocation()
-    {
+    public function getLocation() {
         return $this->location;
     }
 
     /**
      * @param Location $location
      */
-    public function setLocation(Location $location)
-    {
+    public function setLocation(Location $location) {
         $this->location = $location;
     }
-
 
     /**
      * @return mixed
      */
-    public function getQrCodeURL()
-    {
+    public function getQrCodeURL() {
         return $this->qrCodeURL;
     }
 
     /**
      * @param mixed $qrCodeURL
      */
-    public function setQrCodeURL($qrCodeURL)
-    {
+    public function setQrCodeURL($qrCodeURL) {
         $this->qrCodeURL = $qrCodeURL;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getTags()
-    {
+    public function getTags() {
         return $this->tags;
     }
 
     /**
      * @param ArrayCollection $tags
      */
-    public function setTags(ArrayCollection $tags)
-    {
+    public function setTags(ArrayCollection $tags) {
         $this->tags = $tags;
     }
 
     /**
      * @return mixed
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
     /**
      * @param mixed $title
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
     }
-
 
     /**
      * @return string
      */
-    public function getVisibility()
-    {
+    public function getVisibility() {
         return $this->visibility;
     }
 
     /**
      * @param string $visibility
      */
-    public function setVisibility($visibility)
-    {
+    public function setVisibility($visibility) {
         $this->visibility = $visibility;
     }
 
     /**
      * @return mixed
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
     /**
      * @param mixed $description
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
     }
 
     /**
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param int $id
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
     /**
      * @return Salary
      */
-    public function getSalaryFrom()
-    {
+    public function getSalaryFrom() {
         return $this->salaryFrom;
     }
 
     /**
      * @param Salary $salaryFrom
      */
-    public function setSalaryFrom($salaryFrom)
-    {
+    public function setSalaryFrom($salaryFrom) {
         $this->salaryFrom = $salaryFrom;
     }
 
     /**
      * @return Salary
      */
-    public function getSalaryTo()
-    {
+    public function getSalaryTo() {
         return $this->salaryTo;
     }
 
     /**
      * @param Salary $salaryTo
      */
-    public function setSalaryTo($salaryTo)
-    {
+    public function setSalaryTo($salaryTo) {
         $this->salaryTo = $salaryTo;
     }
 
     /**
      * @return \DateTime
      */
-    public function getExpiryDate()
-    {
+    public function getExpiryDate() {
         return $this->expiryDate;
     }
 
     /**
      * @param \DateTime $expiryDate
      */
-    public function setExpiryDate(\DateTime $expiryDate)
-    {
+    public function setExpiryDate(\DateTime $expiryDate) {
         $this->expiryDate = $expiryDate;
     }
 
     /**
      * @return Organisation
      */
-    public function getOrganisation()
-    {
+    public function getOrganisation() {
         return $this->organisation;
     }
 
     /**
      * @param Organisation $organisation
      */
-    public function setOrganisation($organisation)
-    {
+    public function setOrganisation($organisation) {
         $this->organisation = $organisation;
     }
 
     /**
      * @return \DateTime
      */
-    public function getInterviewDeadline()
-    {
+    public function getInterviewDeadline() {
         return $this->interviewDeadline;
     }
 
     /**
      * @param \DateTime $interviewDeadline
      */
-    public function setInterviewDeadline($interviewDeadline)
-    {
+    public function setInterviewDeadline($interviewDeadline) {
         $this->interviewDeadline = $interviewDeadline;
     }
 
     /**
      * @return boolean
      */
-    public function isEnabled()
-    {
+    public function isEnabled() {
         return $this->enabled;
     }
 
     /**
      * @param boolean $enabled
      */
-    public function setEnabled($enabled)
-    {
+    public function setEnabled($enabled) {
         $this->enabled = $enabled;
     }
-
 
     /**
      * @return boolean
      */
-    public function isVideoInterview()
-    {
+    public function isVideoInterview() {
         return $this->videoInterview;
     }
 
     /**
      * @param boolean $videoInterview
      */
-    public function setVideoInterview($videoInterview)
-    {
+    public function setVideoInterview($videoInterview) {
         $this->videoInterview = $videoInterview;
     }
 
     /**
      * @return boolean
      */
-    public function isMultipleSet()
-    {
+    public function isMultipleSet() {
         return $this->multipleSet;
     }
 
     /**
      * @param boolean $multipleSet
      */
-    public function setMultipleSet($multipleSet)
-    {
+    public function setMultipleSet($multipleSet) {
         $this->multipleSet = $multipleSet;
     }
 
     /**
      * @return int
      */
-    public function getNumberOfSetQuestions()
-    {
+    public function getNumberOfSetQuestions() {
         return $this->numberOfSetQuestions;
     }
 
     /**
      * @param int $numberOfSetQuestions
      */
-    public function setNumberOfSetQuestions($numberOfSetQuestions)
-    {
+    public function setNumberOfSetQuestions($numberOfSetQuestions) {
         $this->numberOfSetQuestions = $numberOfSetQuestions;
     }
 
     /**
      * @return int
      */
-    public function getNumberOfSets()
-    {
+    public function getNumberOfSets() {
         return $this->numberOfSets;
     }
 
     /**
      * @param int $numberOfSets
      */
-    public function setNumberOfSets($numberOfSets)
-    {
+    public function setNumberOfSets($numberOfSets) {
         $this->numberOfSets = $numberOfSets;
     }
 
     /**
      * @return int
      */
-    public function getInterviewTimeLimit()
-    {
+    public function getInterviewTimeLimit() {
         return $this->interviewTimeLimit;
     }
 
     /**
      * @param int $interviewTimeLimit
      */
-    public function setInterviewTimeLimit($interviewTimeLimit)
-    {
+    public function setInterviewTimeLimit($interviewTimeLimit) {
         $this->interviewTimeLimit = $interviewTimeLimit;
     }
 
     /**
      * @return int
      */
-    public function getQuestionReadingTimeLimit()
-    {
+    public function getQuestionReadingTimeLimit() {
         return $this->questionReadingTimeLimit;
     }
 
     /**
      * @param int $questionReadingTimeLimit
      */
-    public function setQuestionReadingTimeLimit($questionReadingTimeLimit)
-    {
+    public function setQuestionReadingTimeLimit($questionReadingTimeLimit) {
         $this->questionReadingTimeLimit = $questionReadingTimeLimit;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getInterviewQuestionSets()
-    {
+    public function getInterviewQuestionSets() {
         return $this->interviewQuestionSets;
     }
 
     /**
      * @param ArrayCollection $interviewQuestionSets
      */
-    public function setInterviewQuestionSets($interviewQuestionSets)
-    {
+    public function setInterviewQuestionSets($interviewQuestionSets) {
         $this->interviewQuestionSets = $interviewQuestionSets;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getCandidates()
-    {
+    public function getCandidates() {
         return $this->candidates;
     }
 
     /**
      * @param ArrayCollection $candidates
      */
-    public function setCandidates($candidates)
-    {
+    public function setCandidates($candidates) {
         $this->candidates = $candidates;
     }
 
     /**
      * @return Position
      */
-    public function getCreator()
-    {
+    public function getCreator() {
         return $this->creator;
     }
 
     /**
      * @param Position $creator
      */
-    public function setCreator($creator)
-    {
+    public function setCreator($creator) {
         $this->creator = $creator;
     }
 
     /**
      * @return string
      */
-    public function getRole()
-    {
+    public function getRole() {
         return $this->role;
     }
 
     /**
      * @param string $role
      */
-    public function setRole($role)
-    {
+    public function setRole($role) {
         $this->role = $role;
     }
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="mock", options={"default":false})
+     */
+    private $mock;
+
+    /**
+     * @return bool
+     */
+    public function isMock() {
+        return $this->mock;
+    }
+
+    /**
+     * @param bool $mock
+     */
+    public function setMock($mock) {
+        $this->mock = $mock;
+    }
+    
+      /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="InterviewQuestionSet", mappedBy="listing")
+     * @Serializer\Exclude
+     */
+    private $questionSets;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getQuestionSets() {
+        return $this->questionSets;
+    }
+
+    /**
+     * @param ArrayCollection $questionSets
+     */
+    public function setQuestionSets($questionSets) {
+        $this->questionSets = $questionSets;
+    }
+
+    public function addQuestionSet(InterviewQuestionSet $questionSets) {
+        $this->questionSets->add($questionSets);
+        return $this;
+    }
+
+    public function removeQuestionSet(InterviewQuestionSet $questionSet) {
+        $this->questionSets->removeElement($questionSet);
+        return $this;
+    }
 
 }
