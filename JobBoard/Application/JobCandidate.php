@@ -58,7 +58,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object === null)"},
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getIntroVideoGallery() === null)"},
  * )
  */
 class JobCandidate implements BaseVoterSupportInterface, OwnableInterface {
