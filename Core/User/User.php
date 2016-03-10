@@ -10,9 +10,11 @@ namespace AppBundle\Entity\Core\User;
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\Message\MessageBox;
 use AppBundle\Entity\JobBoard\Application\JobCandidate;
+use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
+use AppBundle\Services\Core\Framework\OwnableInterface;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -80,7 +82,7 @@ use AppBundle\Entity\Core\User\UserDevice;
  * attributes = { "method" = {"put","delete"} },
  * )
  */
-class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSupportInterface
+class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSupportInterface, OwnableInterface
 {
     const CACHE_NS = 'system.user';
     /**
@@ -646,4 +648,54 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
         $this->gallery = $gallery;
     }
 
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUserOwner($user)
+    {
+        // TODO: Implement setUserOwner() method.
+    }
+
+    /**
+     * @return User
+     */
+    public function getUserOwner()
+    {
+        return $this;
+    }
+
+    /**
+     * @param Position $position
+     * @return $this
+     */
+    public function setPositionOwner($position)
+    {
+        // TODO: Implement setPositionOwner() method.
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPositionOwner()
+    {
+        // TODO: Implement getPositionOwner() method.
+    }
+
+    /**
+     * @param Organisation $organisation
+     * @return $this
+     */
+    public function setOrganisationOwner($organisation)
+    {
+        // TODO: Implement setOrganisationOwner() method.
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisationOwner()
+    {
+        // TODO: Implement getOrganisationOwner() method.
+    }
 }
