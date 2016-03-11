@@ -2,8 +2,12 @@
 
 namespace AppBundle\Entity\JobBoard\Application;
 
+use AppBundle\Entity\Core\User\User;
+use AppBundle\Entity\Organisation\Organisation;
+use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
+use AppBundle\Services\Core\Framework\OwnableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -14,7 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="job__application__interview")
  */
-class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportInterface
+class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportInterface, OwnableInterface
 {
 
     /**
@@ -24,6 +28,13 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    function __construct()
+    {
+        $this->completed = false;
+        $this->answers = new ArrayCollection();
+        $this->startTime = new \DateTime();
+    }
 
     /**
      * @var JobCandidate
@@ -41,28 +52,51 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     private $answers;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", name="question_set_code")
+     * @param CandidateAnswer $answer
+     * @return CandidateInterview
      */
-    private $questionSetCode;
+    public function addAnswer($answer)
+    {
+        $this->answers->add($answer);
+        $answer->setCandidate($this);
+        return $this;
+    }
 
     /**
-     * @var datetime
-     * @ORM\Column(type="datetime", name="start_time")
+     * @param CandidateAnswer $answer
+     * @return CandidateInterview
+     */
+    public function removeAnswer($answer)
+    {
+        $this->answers->removeElement($answer);
+        $answer->setCandidate(null);
+        return $this;
+    }
+
+
+    /**
+     * @var \Datetime
+     * @ORM\Column(type="datetime", name="start_time",nullable=true)
      */
     private $startTime;
 
     /**
-     * @var datetime
-     * @ORM\Column(type="datetime", name="end_time")
+     * @var \Datetime
+     * @ORM\Column(type="datetime", name="end_time",nullable=true)
      */
     private $endTime;
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="status")
+     * @ORM\Column(type="string", name="question_set_code",nullable=true)
      */
-    private $status;
+    private $questionSetCode;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="completed",nullable=true)
+     */
+    private $completed;
 
     /**
      * @return int
@@ -121,7 +155,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     }
 
     /**
-     * @param datetime $startTime
+     * @param \Datetime $startTime
      */
     public function setStartTime($startTime)
     {
@@ -129,7 +163,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     }
 
     /**
-     * @return datetime
+     * @return \Datetime
      */
     public function getEndTime()
     {
@@ -137,7 +171,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     }
 
     /**
-     * @param datetime $endTime
+     * @param \Datetime $endTime
      */
     public function setEndTime($endTime)
     {
@@ -145,19 +179,87 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     }
 
     /**
-     * @return string
+     * @return ArrayCollection
      */
-    public function getStatus()
+    public function getAnswers()
     {
-        return $this->status;
+        return $this->answers;
     }
 
     /**
-     * @param status $status
+     * @param ArrayCollection $answers
      */
-    public function setStatus($status)
+    public function setAnswers($answers)
     {
-        $this->status = $status;
+        $this->answers = $answers;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isCompleted()
+    {
+        return $this->completed;
+    }
+
+    /**
+     * @param boolean $completed
+     */
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+    }
+
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUserOwner($user)
+    {
+        // TODO: Implement setUserOwner() method.
+    }
+
+    /**
+     * @return User
+     */
+    public function getUserOwner()
+    {
+        return $this->getCandidate()->getUser();
+    }
+
+    /**
+     * @param Position $position
+     * @return $this
+     */
+    public function setPositionOwner($position)
+    {
+        // TODO: Implement setPositionOwner() method.
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPositionOwner()
+    {
+        return $this->getCandidate()->getListing()->getCreator();
+    }
+
+    /**
+     * @param Organisation $organisation
+     * @return $this
+     */
+    public function setOrganisationOwner($organisation)
+    {
+        // TODO: Implement setOrganisationOwner() method.
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisationOwner()
+    {
+//        return $this->getCandidate()->getListing()->getOrganisation();
+        return null;
+    }
 }
