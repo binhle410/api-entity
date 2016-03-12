@@ -118,7 +118,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     function __construct() {
         $this->tags = new ArrayCollection();
-        $this->questionSets = new ArrayCollection();
+        $this->interviewQuestionSets = new ArrayCollection();
         $this->enabled = false;
     }
 
@@ -194,11 +194,21 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $tags;
 
     /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="InterviewQuestionSet", mappedBy="listing", orphanRemoval=true)
+     * @var ArrayCollection InterviewQuestionSet
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestionSet", mappedBy="listing")
      * @Serializer\Exclude
      */
     private $interviewQuestionSets;
+
+    public function addInterviewQuestionSet(InterviewQuestionSet $questionSet) {
+        $this->interviewQuestionSets->add($questionSet);
+        return $this;
+    }
+
+    public function removeInterviewQuestionSet(InterviewQuestionSet $questionSet) {
+        $this->interviewQuestionSets->removeElement($questionSet);
+        return $this;
+    }
 
     /**
      * @var ArrayCollection
@@ -264,10 +274,10 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $numberOfSetQuestions;
 
     /**
-     * @var int
-     * @ORM\Column(name="number_of_sets", type="integer", options={"default":0}, nullable=true)
+     * var int
+     * Column(name="number_of_sets", type="integer", options={"default":0}, nullable=true)
      */
-    private $numberOfSets;
+//    private $numberOfSets;
 
     /**
      * Time limit in seconds
@@ -542,20 +552,6 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @return int
      */
-    public function getNumberOfSets() {
-        return $this->numberOfSets;
-    }
-
-    /**
-     * @param int $numberOfSets
-     */
-    public function setNumberOfSets($numberOfSets) {
-        $this->numberOfSets = $numberOfSets;
-    }
-
-    /**
-     * @return int
-     */
     public function getInterviewTimeLimit() {
         return $this->interviewTimeLimit;
     }
@@ -581,19 +577,6 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->questionReadingTimeLimit = $questionReadingTimeLimit;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getInterviewQuestionSets() {
-        return $this->interviewQuestionSets;
-    }
-
-    /**
-     * @param ArrayCollection $interviewQuestionSets
-     */
-    public function setInterviewQuestionSets($interviewQuestionSets) {
-        $this->interviewQuestionSets = $interviewQuestionSets;
-    }
 
     /**
      * @return ArrayCollection
@@ -656,36 +639,53 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     public function setMock($mock) {
         $this->mock = $mock;
     }
-    
-      /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="InterviewQuestionSet", mappedBy="listing")
-     * @Serializer\Exclude
-     */
-    private $questionSets;
 
     /**
      * @return ArrayCollection
      */
-    public function getQuestionSets() {
-        return $this->questionSets;
+    public function getTypes()
+    {
+        return $this->types;
     }
 
     /**
-     * @param ArrayCollection $questionSets
+     * @param ArrayCollection $types
      */
-    public function setQuestionSets($questionSets) {
-        $this->questionSets = $questionSets;
+    public function setTypes($types)
+    {
+        $this->types = $types;
     }
 
-    public function addQuestionSet(InterviewQuestionSet $questionSets) {
-        $this->questionSets->add($questionSets);
-        return $this;
+    /**
+     * @return ArrayCollection InterviewQuestionSet
+     */
+    public function getInterviewQuestionSets()
+    {
+        return $this->interviewQuestionSets;
     }
 
-    public function removeQuestionSet(InterviewQuestionSet $questionSet) {
-        $this->questionSets->removeElement($questionSet);
-        return $this;
+    /**
+     * @param ArrayCollection InterviewQuestionSet $interviewQuestionSets
+     */
+    public function setInterviewQuestionSets($interviewQuestionSets)
+    {
+        $this->interviewQuestionSets = $interviewQuestionSets;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
 }

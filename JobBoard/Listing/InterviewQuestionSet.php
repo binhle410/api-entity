@@ -31,11 +31,13 @@ class InterviewQuestionSet implements BaseVoterSupportInterface
     function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->active = false;
+        $this->enabled = false;
     }
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="InterviewQuestion", mappedBy="set", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestion", mappedBy="set", orphanRemoval=true)
      * @Serializer\Exclude
      */
     private $questions;
@@ -62,10 +64,28 @@ class InterviewQuestionSet implements BaseVoterSupportInterface
     private $listing;
 
     /**
+     * @var bool
+     * @ORM\Column(name="active", type="boolean", options={"default":false}, nullable=true)
+     */
+    private $active;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="enabled", type="boolean", options={"default":false}, nullable=true)
+     */
+    private $enabled;
+
+    /**
      * @var string
      * @ORM\Column(length=120, name="title",type="string",nullable=true)
      */
     private $title;
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="code",type="string",nullable=true)
+     */
+    private $code;
 
     /**
      * @return int
@@ -129,6 +149,54 @@ class InterviewQuestionSet implements BaseVoterSupportInterface
     public function setListing($listing)
     {
         $this->listing = $listing;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
     }
 
 
