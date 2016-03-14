@@ -157,6 +157,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     public function addInterview($interview)
     {
         $this->interviews->add($interview);
+        $interview->setCandidate($this);
         return $this;
     }
 
@@ -167,6 +168,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     public function removeInterview($interview)
     {
         $this->interviews->removeElement($interview);
+        $interview->setCandidate(null);
         return $this;
     }
 

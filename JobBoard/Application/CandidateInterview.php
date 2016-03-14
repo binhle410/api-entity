@@ -17,6 +17,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="job__application__interview")
+
+ * @Serializer\XmlRoot("candidate-interview")
  */
 class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportInterface, OwnableInterface
 {
@@ -38,7 +40,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
 
     /**
      * @var JobCandidate
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", inversedBy="interviews")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate",cascade={"merge","persist","remove"}, inversedBy="interviews")
      * @ORM\JoinColumn(name="id_candidate", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -46,7 +48,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
 
     /**
      * @var ArrayCollection CandidateAnswer
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateAnswer", mappedBy="interview")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateAnswer", mappedBy="interview", cascade={"merge","persist","remove"})
      * @Serializer\Exclude
      */
     private $answers;
@@ -58,7 +60,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     public function addAnswer($answer)
     {
         $this->answers->add($answer);
-        $answer->setCandidate($this);
+        $answer->setInterview($this);
         return $this;
     }
 
@@ -69,7 +71,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     public function removeAnswer($answer)
     {
         $this->answers->removeElement($answer);
-        $answer->setCandidate(null);
+        $answer->setInterview(null);
         return $this;
     }
 
@@ -81,10 +83,18 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     private $startTime;
 
     /**
+     * this is the same as JobListing.expiryDate
      * @var \Datetime
      * @ORM\Column(type="datetime", name="end_time",nullable=true)
      */
     private $endTime;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="enabled", options={"default":true})
+     */
+    private $enabled;
+
 
     /**
      * @var string
@@ -262,4 +272,22 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
 //        return $this->getCandidate()->getListing()->getOrganisation();
         return null;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+
 }

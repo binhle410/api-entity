@@ -52,6 +52,12 @@ class InterviewQuestion implements BaseVoterSupportInterface
     private $title;
 
     /**
+     * @var string
+     * @ORM\Column(length=120, name="question_text",type="string",nullable=true)
+     */
+    private $questionText;
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -97,6 +103,22 @@ class InterviewQuestion implements BaseVoterSupportInterface
     public function setSet($set)
     {
         $this->set = $set;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuestionText()
+    {
+        return $this->questionText;
+    }
+
+    /**
+     * @param string $questionText
+     */
+    public function setQuestionText($questionText)
+    {
+        $this->questionText = $questionText;
     }
 
 }
