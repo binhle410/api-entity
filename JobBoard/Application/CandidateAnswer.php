@@ -35,6 +35,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
  * )
+
+ * @Hateoas\Relation(
+ *  "video",
+ *  href= @Hateoas\Route(
+ *         "post_joblisting_jobcandidate_candidateinterview_answer_video",
+ *         parameters = { "listing" = "expr(object.getInterview().getCandidate().getListing().getId())","candidate" = "expr(object.getInterview().getCandidate().getId())","interview" = "expr(object.getInterview().getId())","answer" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
+ * )
+ *
  *
  */
 class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInterface
@@ -62,7 +73,7 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
 
     /**
      * @var Media
-     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="candidateAnswerVideo")
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="candidateAnswer")
      * @ORM\JoinColumn(name="id_media", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -86,6 +97,18 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
      */
     private $enabled;
 
+    /**
+     * Time limit in mili seconds
+     * @var int
+     * @ORM\Column(name="interview_time_limit", type="integer", options={"default":0}, nullable=true)
+     */
+    private $interviewTimeLimit;
+
+    /**
+     * @var int
+     * @ORM\Column(name="question_reading_time_limit", type="integer", options={"default":0}, nullable=true)
+     */
+    private $questionReadingTimeLimit;
 
     /**
      * @var int
@@ -212,6 +235,54 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
+    }
+
+    /**
+     * @return Media
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param Media $video
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInterviewTimeLimit()
+    {
+        return $this->interviewTimeLimit;
+    }
+
+    /**
+     * @param mixed $interviewTimeLimit
+     */
+    public function setInterviewTimeLimit($interviewTimeLimit)
+    {
+        $this->interviewTimeLimit = $interviewTimeLimit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuestionReadingTimeLimit()
+    {
+        return $this->questionReadingTimeLimit;
+    }
+
+    /**
+     * @param int $questionReadingTimeLimit
+     */
+    public function setQuestionReadingTimeLimit($questionReadingTimeLimit)
+    {
+        $this->questionReadingTimeLimit = $questionReadingTimeLimit;
     }
 
 }

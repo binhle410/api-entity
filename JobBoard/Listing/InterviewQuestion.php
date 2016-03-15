@@ -46,6 +46,19 @@ class InterviewQuestion implements BaseVoterSupportInterface
     private $set;
 
     /**
+     * Time limit in mili seconds
+     * @var int
+     * @ORM\Column(name="interview_time_limit", type="integer", options={"default":0}, nullable=true)
+     */
+    private $interviewTimeLimit;
+
+    /**
+     * @var int
+     * @ORM\Column(name="question_reading_time_limit", type="integer", options={"default":0}, nullable=true)
+     */
+    private $questionReadingTimeLimit;
+
+    /**
      * @var string
      * @ORM\Column(length=120, name="title",type="string",nullable=true)
      */
@@ -119,6 +132,38 @@ class InterviewQuestion implements BaseVoterSupportInterface
     public function setQuestionText($questionText)
     {
         $this->questionText = $questionText;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInterviewTimeLimit()
+    {
+        return $this->interviewTimeLimit;
+    }
+
+    /**
+     * @param int $interviewTimeLimit
+     */
+    public function setInterviewTimeLimit($interviewTimeLimit)
+    {
+        $this->interviewTimeLimit = $interviewTimeLimit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuestionReadingTimeLimit()
+    {
+        return $this->questionReadingTimeLimit;
+    }
+
+    /**
+     * @param int $questionReadingTimeLimit
+     */
+    public function setQuestionReadingTimeLimit($questionReadingTimeLimit)
+    {
+        $this->questionReadingTimeLimit = $questionReadingTimeLimit;
     }
 
 }

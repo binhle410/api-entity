@@ -98,7 +98,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *      )
  * )
  */
-class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface {
+class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
+{
 
     const VISIBILITY_LISTED = 'LISTED';
     const VISIBILITY_UNLISTED = 'UNLISTED';
@@ -116,10 +117,13 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $id;
 
-    function __construct() {
+    function __construct()
+    {
         $this->tags = new ArrayCollection();
         $this->interviewQuestionSets = new ArrayCollection();
         $this->enabled = false;
+        $this->interviewTimeLimit = 300;
+        $this->questionReadingTimeLimit = 30;
     }
 
     /**
@@ -173,12 +177,14 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $types;
 
-    public function addType($type) {
+    public function addType($type)
+    {
         $this->types->add($type);
         return $this;
     }
 
-    public function removeType($type) {
+    public function removeType($type)
+    {
         $this->types->removeElement($type);
         return $this;
     }
@@ -200,12 +206,14 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $interviewQuestionSets;
 
-    public function addInterviewQuestionSet(InterviewQuestionSet $questionSet) {
+    public function addInterviewQuestionSet(InterviewQuestionSet $questionSet)
+    {
         $this->interviewQuestionSets->add($questionSet);
         return $this;
     }
 
-    public function removeInterviewQuestionSet(InterviewQuestionSet $questionSet) {
+    public function removeInterviewQuestionSet(InterviewQuestionSet $questionSet)
+    {
         $this->interviewQuestionSets->removeElement($questionSet);
         return $this;
     }
@@ -221,7 +229,8 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @param JobCandidate $candidate
      * @return JobListing
      */
-    public function addCandidate($candidate) {
+    public function addCandidate($candidate)
+    {
         $this->candidates->add($candidate);
         return $this;
     }
@@ -230,7 +239,8 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @param JobCandidate $candidate
      * @return JobListing
      */
-    public function removeCandidate($candidate) {
+    public function removeCandidate($candidate)
+    {
         $this->candidates->removeElement($candidate);
         return $this;
     }
@@ -280,15 +290,15 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 //    private $numberOfSets;
 
     /**
-     * Time limit in seconds
+     * Time limit in mili seconds
      * @var int
-     * @ORM\Column(name="interview_time_limit", type="integer", options={"default":0}, nullable=true)
+     * @ORM\Column(name="interview_time_limit", type="integer", options={"default":300}, nullable=true)
      */
     private $interviewTimeLimit;
 
     /**
      * @var int
-     * @ORM\Column(name="question_reading_time_limit", type="integer", options={"default":0}, nullable=true)
+     * @ORM\Column(name="question_reading_time_limit", type="integer", options={"default":30}, nullable=true)
      */
     private $questionReadingTimeLimit;
 
@@ -328,252 +338,288 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @return Location
      */
-    public function getLocation() {
+    public function getLocation()
+    {
         return $this->location;
     }
 
     /**
      * @param Location $location
      */
-    public function setLocation(Location $location) {
+    public function setLocation(Location $location)
+    {
         $this->location = $location;
     }
 
     /**
      * @return mixed
      */
-    public function getQrCodeURL() {
+    public function getQrCodeURL()
+    {
         return $this->qrCodeURL;
     }
 
     /**
      * @param mixed $qrCodeURL
      */
-    public function setQrCodeURL($qrCodeURL) {
+    public function setQrCodeURL($qrCodeURL)
+    {
         $this->qrCodeURL = $qrCodeURL;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getTags() {
+    public function getTags()
+    {
         return $this->tags;
     }
 
     /**
      * @param ArrayCollection $tags
      */
-    public function setTags(ArrayCollection $tags) {
+    public function setTags(ArrayCollection $tags)
+    {
         $this->tags = $tags;
     }
 
     /**
      * @return mixed
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * @param mixed $title
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
     }
 
     /**
      * @return string
      */
-    public function getVisibility() {
+    public function getVisibility()
+    {
         return $this->visibility;
     }
 
     /**
      * @param string $visibility
      */
-    public function setVisibility($visibility) {
+    public function setVisibility($visibility)
+    {
         $this->visibility = $visibility;
     }
 
     /**
      * @return mixed
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * @param mixed $description
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @param int $id
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
     /**
      * @return Salary
      */
-    public function getSalaryFrom() {
+    public function getSalaryFrom()
+    {
         return $this->salaryFrom;
     }
 
     /**
      * @param Salary $salaryFrom
      */
-    public function setSalaryFrom($salaryFrom) {
+    public function setSalaryFrom($salaryFrom)
+    {
         $this->salaryFrom = $salaryFrom;
     }
 
     /**
      * @return Salary
      */
-    public function getSalaryTo() {
+    public function getSalaryTo()
+    {
         return $this->salaryTo;
     }
 
     /**
      * @param Salary $salaryTo
      */
-    public function setSalaryTo($salaryTo) {
+    public function setSalaryTo($salaryTo)
+    {
         $this->salaryTo = $salaryTo;
     }
 
     /**
      * @return \DateTime
      */
-    public function getExpiryDate() {
+    public function getExpiryDate()
+    {
         return $this->expiryDate;
     }
 
     /**
      * @param \DateTime $expiryDate
      */
-    public function setExpiryDate(\DateTime $expiryDate) {
+    public function setExpiryDate(\DateTime $expiryDate)
+    {
         $this->expiryDate = $expiryDate;
     }
 
     /**
      * @return Organisation
      */
-    public function getOrganisation() {
+    public function getOrganisation()
+    {
         return $this->organisation;
     }
 
     /**
      * @param Organisation $organisation
      */
-    public function setOrganisation($organisation) {
+    public function setOrganisation($organisation)
+    {
         $this->organisation = $organisation;
     }
 
     /**
      * @return \DateTime
      */
-    public function getInterviewDeadline() {
+    public function getInterviewDeadline()
+    {
         return $this->interviewDeadline;
     }
 
     /**
      * @param \DateTime $interviewDeadline
      */
-    public function setInterviewDeadline($interviewDeadline) {
+    public function setInterviewDeadline($interviewDeadline)
+    {
         $this->interviewDeadline = $interviewDeadline;
     }
 
     /**
      * @return boolean
      */
-    public function isEnabled() {
+    public function isEnabled()
+    {
         return $this->enabled;
     }
 
     /**
      * @param boolean $enabled
      */
-    public function setEnabled($enabled) {
+    public function setEnabled($enabled)
+    {
         $this->enabled = $enabled;
     }
 
     /**
      * @return boolean
      */
-    public function isVideoInterview() {
+    public function isVideoInterview()
+    {
         return $this->videoInterview;
     }
 
     /**
      * @param boolean $videoInterview
      */
-    public function setVideoInterview($videoInterview) {
+    public function setVideoInterview($videoInterview)
+    {
         $this->videoInterview = $videoInterview;
     }
 
     /**
      * @return boolean
      */
-    public function isMultipleSet() {
+    public function isMultipleSet()
+    {
         return $this->multipleSet;
     }
 
     /**
      * @param boolean $multipleSet
      */
-    public function setMultipleSet($multipleSet) {
+    public function setMultipleSet($multipleSet)
+    {
         $this->multipleSet = $multipleSet;
     }
 
     /**
      * @return int
      */
-    public function getNumberOfSetQuestions() {
+    public function getNumberOfSetQuestions()
+    {
         return $this->numberOfSetQuestions;
     }
 
     /**
      * @param int $numberOfSetQuestions
      */
-    public function setNumberOfSetQuestions($numberOfSetQuestions) {
+    public function setNumberOfSetQuestions($numberOfSetQuestions)
+    {
         $this->numberOfSetQuestions = $numberOfSetQuestions;
     }
 
     /**
      * @return int
      */
-    public function getInterviewTimeLimit() {
+    public function getInterviewTimeLimit()
+    {
         return $this->interviewTimeLimit;
     }
 
     /**
      * @param int $interviewTimeLimit
      */
-    public function setInterviewTimeLimit($interviewTimeLimit) {
+    public function setInterviewTimeLimit($interviewTimeLimit)
+    {
         $this->interviewTimeLimit = $interviewTimeLimit;
     }
 
     /**
      * @return int
      */
-    public function getQuestionReadingTimeLimit() {
+    public function getQuestionReadingTimeLimit()
+    {
         return $this->questionReadingTimeLimit;
     }
 
     /**
      * @param int $questionReadingTimeLimit
      */
-    public function setQuestionReadingTimeLimit($questionReadingTimeLimit) {
+    public function setQuestionReadingTimeLimit($questionReadingTimeLimit)
+    {
         $this->questionReadingTimeLimit = $questionReadingTimeLimit;
     }
 
@@ -581,42 +627,48 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @return ArrayCollection
      */
-    public function getCandidates() {
+    public function getCandidates()
+    {
         return $this->candidates;
     }
 
     /**
      * @param ArrayCollection $candidates
      */
-    public function setCandidates($candidates) {
+    public function setCandidates($candidates)
+    {
         $this->candidates = $candidates;
     }
 
     /**
      * @return Position
      */
-    public function getCreator() {
+    public function getCreator()
+    {
         return $this->creator;
     }
 
     /**
      * @param Position $creator
      */
-    public function setCreator($creator) {
+    public function setCreator($creator)
+    {
         $this->creator = $creator;
     }
 
     /**
      * @return string
      */
-    public function getRole() {
+    public function getRole()
+    {
         return $this->role;
     }
 
     /**
      * @param string $role
      */
-    public function setRole($role) {
+    public function setRole($role)
+    {
         $this->role = $role;
     }
 
@@ -629,14 +681,16 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @return bool
      */
-    public function isMock() {
+    public function isMock()
+    {
         return $this->mock;
     }
 
     /**
      * @param bool $mock
      */
-    public function setMock($mock) {
+    public function setMock($mock)
+    {
         $this->mock = $mock;
     }
 

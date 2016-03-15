@@ -105,22 +105,6 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     private $id;
 
     /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @var ArrayCollection CandidateFolder
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateFolder"))
      * @ORM\JoinTable(name="job__application__candidates_folders",
@@ -409,7 +393,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     }
 
     /**
-     * @return JobListing
+     * @return User
      */
     public function getUser()
     {
@@ -417,7 +401,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     }
 
     /**
-     * @param JobListing $user
+     * @param User $user
      */
     public function setUser($user)
     {
@@ -535,6 +519,22 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     public function setInterviewed($interviewed)
     {
         $this->interviewed = $interviewed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 }
