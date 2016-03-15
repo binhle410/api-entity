@@ -19,6 +19,25 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="job__application__interview")
 
  * @Serializer\XmlRoot("candidate-interview")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting_jobcandidate_candidateinterview",
+ *         parameters = { "listing" = "expr(object.getCandidate().getListing().getId())","candidate" = "expr(object.getCandidate().getId())","candidateInterview" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
+ * )
+
+ * @Hateoas\Relation(
+ *  "answers",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting_jobcandidate_candidateinterview_answers",
+ *         parameters = { "listing" = "expr(object.getCandidate().getListing().getId())","candidate" = "expr(object.getCandidate().getId())","interview" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
+ * )
  */
 class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportInterface, OwnableInterface
 {
@@ -83,7 +102,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     private $startTime;
 
     /**
-     * this is the same as JobListing.expiryDate
+     * this is the same as JobListing.interviewDeadline
      * @var \Datetime
      * @ORM\Column(type="datetime", name="end_time",nullable=true)
      */

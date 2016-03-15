@@ -4,6 +4,7 @@ namespace AppBundle\Entity\JobBoard\Application;
 use AppBundle\Entity\JobBoard\Listing\InterviewQuestion;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
+use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -13,6 +14,28 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="job__application__answer")
+ *
+ * @Serializer\XmlRoot("answer")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting_jobcandidate_candidateinterview_answer",
+ *         parameters = { "listing" = "expr(object.getInterview().getCandidate().getListing().getId())","candidate" = "expr(object.getInterview().getCandidate().getId())","interview" = "expr(object.getInterview().getId())","answer" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
+ * )
+
+ * @Hateoas\Relation(
+ *  "question_text",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting_jobcandidate_candidateinterview_answer_question_text",
+ *         parameters = { "listing" = "expr(object.getInterview().getCandidate().getListing().getId())","candidate" = "expr(object.getInterview().getCandidate().getId())","interview" = "expr(object.getInterview().getId())","answer" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
+ * )
+ *
  */
 class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
@@ -24,6 +47,11 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
      */
     private $id;
 
+    function __construct()
+    {
+        $this->enabled = true;
+    }
+
     /**
      * @var CandidateInterview
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateInterview", inversedBy="answers")
@@ -31,6 +59,14 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
      * @Serializer\Exclude
      */
     private $interview;
+
+    /**
+     * @var Media
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="candidateAnswerVideo")
+     * @ORM\JoinColumn(name="id_media", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $video;
 
     /**
      * @var \DateTime
@@ -61,6 +97,7 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
     /**
      * @var string
      * @ORM\Column(name="question_text",type="string",length=1000,nullable=true)
+     * @Serializer\Exclude
      */
     private $questionText;
 
