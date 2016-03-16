@@ -17,7 +17,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="job__application__interview")
-
  * @Serializer\XmlRoot("candidate-interview")
  * @Hateoas\Relation(
  *  "self",
@@ -28,7 +27,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
  * )
-
  * @Hateoas\Relation(
  *  "answers",
  *  href= @Hateoas\Route(
@@ -55,6 +53,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
         $this->completed = false;
         $this->answers = new ArrayCollection();
         $this->startTime = new \DateTime();
+        $this->enabled = true;
     }
 
     /**
