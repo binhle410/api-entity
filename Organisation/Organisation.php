@@ -37,14 +37,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * )
  *
  * @Hateoas\Relation(
- *  "organisation.post",
- *  href= @Hateoas\Route(
- *         "post_organisation",
- *         parameters = {},
- *         absolute = true
- *     )
- * )
- * @Hateoas\Relation(
  *  "handbooks",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbooks",
@@ -67,13 +59,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
  *     )
- * )
- * @Hateoas\Relation("positions.post",
- *  href= @Hateoas\Route(
- *         "post_organisation_position",
- *          parameters = { "organisationId" = "expr(object.getId())"},
- *         absolute = true
- *     ),
  * )
  * @Hateoas\Relation(
  *  "sites",
@@ -120,13 +105,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getNotifications().count() == 0)")
  * )
  * @Hateoas\Relation(
- *  "notifications.post",
+ *  "job_board",
  *  href= @Hateoas\Route(
- *         "post_organisation_notifications",
+ *         "get_organisation_jobboard",
  *         parameters = { "organisation" = "expr(object.getId())"},
  *         absolute = true
- *     ),
+ *     )
  * )
+ *
  * @Hateoas\Relation(
  *  "logo",
  *  href= @Hateoas\Route(
@@ -137,6 +123,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getLogo() == null)")
  * )
  *
+ * // todo: too bad we need to make the post and get to have the same URL pattern
  * @Hateoas\Relation(
  *  "logo.post",
  *  href= @Hateoas\Route(
@@ -157,6 +144,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getAppImage() == null)")
  * )
+// todo same here
  * @Hateoas\Relation(
  *  "app_image.post",
  *  href= @Hateoas\Route(
@@ -174,22 +162,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBanners().count() == 0)")
  * )
- * @Hateoas\Relation(
- *  "banners.post",
- *  href= @Hateoas\Route(
- *         "post_organisation_banner",
- *         parameters = { "organisation" = "expr(object.getId())"},
- *         absolute = true
- *     ),
- * )
- * @Hateoas\Relation(
- *  "businesses.post",
- *  href= @Hateoas\Route(
- *         "post_business",
- *         parameters = {},
- *         absolute = true
- *     )
- * )
+ *
  */
 class Organisation implements BaseVoterSupportInterface
 {
