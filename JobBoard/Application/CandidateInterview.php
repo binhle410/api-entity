@@ -54,6 +54,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
         $this->answers = new ArrayCollection();
         $this->startTime = new \DateTime();
         $this->enabled = true;
+        $this->viewed = false;
     }
 
     /**
@@ -113,6 +114,11 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
      */
     private $enabled;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="viewed", options={"default":false})
+     */
+    private $viewed;
 
     /**
      * @var string
@@ -307,5 +313,19 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
         $this->enabled = $enabled;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isViewed()
+    {
+        return $this->viewed;
+    }
 
+    /**
+     * @param boolean $viewed
+     */
+    public function setViewed($viewed)
+    {
+        $this->viewed = $viewed;
+    }
 }
