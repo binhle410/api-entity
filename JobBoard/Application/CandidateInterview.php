@@ -96,14 +96,14 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
 
 
     /**
-     * @var \Datetime
+     * @var \DateTime
      * @ORM\Column(type="datetime", name="start_time",nullable=true)
      */
     private $startTime;
 
     /**
      * this is the same as JobListing.interviewDeadline
-     * @var \Datetime
+     * @var \DateTime
      * @ORM\Column(type="datetime", name="end_time",nullable=true)
      */
     private $endTime;

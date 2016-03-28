@@ -13,6 +13,7 @@ use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
+use AppBundle\Services\Core\Framework\OwnableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\JobBoard\Listing\InterviewQuestionSet;
 use Doctrine\ORM\Mapping as ORM;
@@ -98,7 +99,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *      )
  * )
  */
-class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
+class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface, OwnableInterface
 {
 
     const VISIBILITY_LISTED = 'LISTED';
@@ -742,4 +743,54 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->status = $status;
     }
 
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUserOwner($user)
+    {
+        // TODO: Implement setUserOwner() method.
+    }
+
+    /**
+     * @return User
+     */
+    public function getUserOwner()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param Position $position
+     * @return $this
+     */
+    public function setPositionOwner($position)
+    {
+        // TODO: Implement setPositionOwner() method.
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPositionOwner()
+    {
+        // TODO: Implement getPositionOwner() method.
+    }
+
+    /**
+     * @param Organisation $organisation
+     * @return $this
+     */
+    public function setOrganisationOwner($organisation)
+    {
+        // TODO: Implement setOrganisationOwner() method.
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisationOwner()
+    {
+        // TODO: Implement getOrganisationOwner() method.
+    }
 }

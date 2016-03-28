@@ -238,6 +238,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
      * @ORM\Column(type="boolean", name="withdrawn", options={"default":false})
      */
     private $withdrawn;
+    
     /**
      * @var string
      * @ORM\Column(type="string", name="status")
