@@ -35,14 +35,16 @@ class CandidateFolder implements BaseVoterSupportInterface
      */
     private $candidates;
 
-    public function addCandidate(User $user)
+    public function addCandidate(JobCandidate $candidate)
     {
-        $this->candidates->add($user);
+        $this->candidates->add($candidate);
+        $candidate->addFolder($this);
     }
 
-    public function removeCandidate(User $user)
+    public function removeCandidate(JobCandidate $candidate)
     {
-        $this->candidates->removeElement($user);
+        $this->candidates->removeElement($candidate);
+        $candidate->removeFolder($this);
     }
 
     /**

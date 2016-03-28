@@ -108,6 +108,13 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
      */
     private $endTime;
 
+
+    /**
+     * @var \Datetime
+     * @ORM\Column(type="datetime", name="submitted_time",nullable=true)
+     */
+    private $submittedTime;
+
     /**
      * @var bool
      * @ORM\Column(type="boolean", name="enabled", options={"default":true})
@@ -328,4 +335,21 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     {
         $this->viewed = $viewed;
     }
+
+    /**
+     * @return \Datetime
+     */
+    public function getSubmittedTime()
+    {
+        return $this->submittedTime;
+    }
+
+    /**
+     * @param \Datetime $submittedTime
+     */
+    public function setSubmittedTime($submittedTime)
+    {
+        $this->submittedTime = $submittedTime;
+    }    
+
 }
