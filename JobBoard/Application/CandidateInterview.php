@@ -300,8 +300,8 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
      */
     public function getOrganisationOwner()
     {
-//        return $this->getCandidate()->getListing()->getOrganisation();
-        return null;
+        return $this->getCandidate()->getListing()->getOrganisation();
+//        return $this->getCandidate()->getListing()->getCreator()->getEmployer();
     }
 
     /**
@@ -350,6 +350,6 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     public function setSubmittedTime($submittedTime)
     {
         $this->submittedTime = $submittedTime;
-    }    
+    }
 
 }

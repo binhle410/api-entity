@@ -757,7 +757,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     public function getUserOwner()
     {
-        return $this->creator;
+        return $this->creator->getEmployee();
     }
 
     /**
@@ -774,14 +774,15 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     public function getPositionOwner()
     {
-        // TODO: Implement getPositionOwner() method.
+        return $this->creator;
     }
 
     /**
      * @param Organisation $organisation
      * @return $this
      */
-    public function setOrganisationOwner($organisation)
+    public
+    function setOrganisationOwner($organisation)
     {
         // TODO: Implement setOrganisationOwner() method.
     }
@@ -789,8 +790,9 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @return Organisation
      */
-    public function getOrganisationOwner()
+    public
+    function getOrganisationOwner()
     {
-        // TODO: Implement getOrganisationOwner() method.
+        return $this->organisation;
     }
 }

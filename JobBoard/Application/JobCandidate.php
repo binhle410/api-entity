@@ -79,7 +79,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     const INVITATION_REJECTED = 'REJECTED';
     const INVITATION_UNINVITED = 'UNINVITED'; // DEFAULT
 
-    const STATUS_APPLIED = 'APPLIED'; // NEW
+    const STATUS_APPLIED = 'APPLIED'; // applied + !viewed = NEW, applied + viewed = VIEWED
     const STATUS_REJECTED = 'REJECTED';
     const STATUS_HIRED = 'HIRED';
     const STATUS_PENDING = 'PENDING';
