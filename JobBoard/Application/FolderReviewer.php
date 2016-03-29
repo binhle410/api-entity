@@ -12,9 +12,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="job__application__candidate_reviewer")
+ * @ORM\Table(name="job__application__folder_reviewer")
  */
-class CandidateReviewer implements BaseVoterSupportInterface {
+class FolderReviewer implements BaseVoterSupportInterface {
 
     /**
      * @var int
