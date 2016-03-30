@@ -2,7 +2,10 @@
 namespace AppBundle\Entity\JobBoard\Application;
 
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Entity\Organisation\Organisation;
+use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\OwnableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="job__application__folder")
  */
-class CandidateFolder implements BaseVoterSupportInterface
+class CandidateFolder implements BaseVoterSupportInterface, OwnableInterface
 {
     /**
      * @var int
@@ -48,9 +51,30 @@ class CandidateFolder implements BaseVoterSupportInterface
     }
 
     /**
-     * @var string
+     * @var ArrayCollection FolderReviewer
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\FolderReviewer",mappedBy="folder")
      */
-    private $title;
+    private $reviewers;
+
+    /**
+     * @var Position
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Position")
+     * @ORM\JoinColumn(name="id_creator", referencedColumnName="id")
+     * @Serializer\Exclude
+     * */
+    private $creator;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", name="ordering")
+     */
+    private $ordering;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="name",length=250)
+     */
+    private $name;
 
     /**
      * @return int
@@ -84,21 +108,6 @@ class CandidateFolder implements BaseVoterSupportInterface
         $this->reviewers = $reviewers;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getObservers()
-    {
-        return $this->observers;
-    }
-
-    /**
-     * @param ArrayCollection $observers
-     */
-    public function setObservers($observers)
-    {
-        $this->observers = $observers;
-    }
 
     /**
      * @return ArrayCollection
@@ -119,18 +128,102 @@ class CandidateFolder implements BaseVoterSupportInterface
     /**
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
-     * @param string $title
+     * @param string $name
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
     }
 
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUserOwner($user)
+    {
+        // TODO: Implement setUserOwner() method.
+    }
+
+    /**
+     * @return User
+     */
+    public function getUserOwner()
+    {
+        // TODO: Implement getUserOwner() method.
+    }
+
+    /**
+     * @param Position $position
+     * @return $this
+     */
+    public function setPositionOwner($position)
+    {
+        // TODO: Implement setPositionOwner() method.
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPositionOwner()
+    {
+        // TODO: Implement getPositionOwner() method.
+    }
+
+    /**
+     * @param Organisation $organisation
+     * @return $this
+     */
+    public function setOrganisationOwner($organisation)
+    {
+        // TODO: Implement setOrganisationOwner() method.
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisationOwner()
+    {
+        // TODO: Implement getOrganisationOwner() method.
+    }
+
+    /**
+     * @return Position
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param Position $creator
+     */
+    public function setCreator($creator)
+    {
+        $this->creator = $creator;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrdering()
+    {
+        return $this->ordering;
+    }
+
+    /**
+     * @param int $ordering
+     */
+    public function setOrdering($ordering)
+    {
+        $this->ordering = $ordering;
+    }
+    
 
 }

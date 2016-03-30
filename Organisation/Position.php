@@ -63,15 +63,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  *     ),
  * )
  *
- *
  * @Hateoas\Relation("employee_classes", href = @Hateoas\Route(
- *         "get_organisation_position_employee_classes",
+ *         "get_organisation_position_classes",
  *         parameters = { "organisationId" = "expr(object.getEmployer().getId())","position" = "expr(object.getId())" },
  *         absolute = true
  *     ),
  * )
  * @Hateoas\Relation("employee_functions", href = @Hateoas\Route(
- *         "get_organisation_position_employee_functions",
+ *         "get_organisation_position_functions",
  *         parameters = { "organisationId" = "expr(object.getEmployer().getId())","position" = "expr(object.getId())" },
  *         absolute = true
  *     ),
@@ -135,6 +134,7 @@ class Position implements BaseVoterSupportInterface
      * @Serializer\Exclude
      */
     private $employeeClasses;
+
     /**
      * @param Tag $tag
      * @return Position
@@ -168,6 +168,7 @@ class Position implements BaseVoterSupportInterface
      * @Serializer\Exclude
      */
     private $employeeFunctions;
+
     /**
      * @param Tag $tag
      * @return Position

@@ -28,34 +28,26 @@ class FolderReviewer implements BaseVoterSupportInterface {
         
     }
 
-    private $user;
+    private $position;
+
+    /**
+     * @var bool
+     */
+    private $viewOnly;
 
     /**
      * @var string
      */
-    private $title;
+    private $vote;
 
-    /**
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id) {
-        $this->id = $id;
-    }
 
     /**
      * @var JobCandidate
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", inversedBy="reviewers")
-     * @ORM\JoinColumn(name="id_candidate", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateFolder", inversedBy="reviewers")
+     * @ORM\JoinColumn(name="id_folder", referencedColumnName="id")
      * @Serializer\Exclude
      */
-    private $candidate;
+    private $folder;
 
     /**
      * @return JobCandidate
@@ -71,4 +63,18 @@ class FolderReviewer implements BaseVoterSupportInterface {
         $this->candidate = $candidate;
     }
 
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
 }
