@@ -45,13 +45,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "methods" =  "expr('abc')" },
  * )
- * @Hateoas\Relation("handbooks.post", href = @Hateoas\Route(
- *         "post_organisation_handbook",
- *         parameters = { "organisationId" = "expr(object.getId())"},
- *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getHandbooks().count() == 0)")
- * )
+ *
  * @Hateoas\Relation(
  *  "positions",
  *  href= @Hateoas\Route(
