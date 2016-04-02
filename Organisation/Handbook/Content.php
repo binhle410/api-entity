@@ -71,6 +71,7 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Entity
  * @ORM\Table(name="organisation__handbook__content")
  * @Gedmo\Loggable()
+ * @Gedmo\TranslationEntity(class="AppBundle\TranslationEntity\Organisation\Handbook\ContentTranslation")
  */
 class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
