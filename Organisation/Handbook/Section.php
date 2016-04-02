@@ -130,7 +130,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $description;
 
     /**
-     * @var Organisation
+     * @var Section
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      * @Gedmo\Versioned

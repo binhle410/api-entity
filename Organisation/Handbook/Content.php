@@ -121,6 +121,24 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $enabled = true;
 
     /**
+     * We have to do it this way since at the time of coding, Gedmo\Translatable is not supporting Entity Translation
+     * @var int
+     * @ORM\Column(name="image_id", type="integer", nullable=true)
+     * @Gedmo\Translatable
+     * @Serializer\Exclude
+     */
+    private $imageId;
+
+
+    /**
+     * @var string
+     * @ORM\Column(name="html_text", type="text", nullable=true)
+     * @Gedmo\Translatable
+     * @Gedmo\Versioned
+     */
+    private $htmlText;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
@@ -128,6 +146,7 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @Gedmo\Versioned
      */
     private $description;
+
     /**
      * @var Section
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="contents")
@@ -138,8 +157,8 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $section;
 
     /**
-     * @var Organisation
-     * @ORM\ManyToOne(targetEntity="Section", inversedBy="children")
+     * @var Content
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      * @Gedmo\Versioned
      * @Serializer\Exclude
@@ -148,7 +167,7 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Section", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Content", mappedBy="parent")
      * @Serializer\Exclude
      * */
     private $children;
@@ -275,7 +294,7 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     public function setId($id)
     {
-        return $this->id=$id;
+        return $this->id = $id;
     }
 
 
@@ -309,6 +328,54 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
     public function setHandbook($handbook)
     {
         $this->handbook = $handbook;
+    }
+
+    /**
+     * @return int
+     */
+    public function getImageId()
+    {
+        return $this->imageId;
+    }
+
+    /**
+     * @param int $imageId
+     */
+    public function setImageId($imageId)
+    {
+        $this->imageId = $imageId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHtmlText()
+    {
+        return $this->htmlText;
+    }
+
+    /**
+     * @param string $htmlText
+     */
+    public function setHtmlText($htmlText)
+    {
+        $this->htmlText = $htmlText;
+    }
+
+    /**
+     * @return Section
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    /**
+     * @param Section $section
+     */
+    public function setSection($section)
+    {
+        $this->section = $section;
     }
 
 
