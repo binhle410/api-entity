@@ -90,7 +90,6 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->enabled = true;
     }
 
-
     /**
      * @var string
      * @ORM\Column(length=50)
@@ -115,7 +114,6 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $imageId;
 
-
     /**
      * @var string
      * @ORM\Column(name="html_text", type="text", nullable=true)
@@ -123,8 +121,6 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @Gedmo\Versioned
      */
     private $htmlText;
-
-
 
     /**
      * @var Section
