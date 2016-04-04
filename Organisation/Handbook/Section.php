@@ -12,6 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Translatable\Translatable;
+use AppBundle\Entity\Organisation\Handbook\Content;
 
 /**
  * @Serializer\XmlRoot("section")
@@ -100,6 +101,14 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $handbook;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Content", orphanRemoval=true, mappedBy="handbook", cascade={"persist", "remove", "merge"})
+     * @Serializer\Exclude
+     * */
+
+    private $contents;
+
+    /**
      * @var string
      * @ORM\Column(length=10, nullable=true)
      * @Gedmo\Versioned
@@ -183,6 +192,28 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->children->removeElement($child);
         $child->setParent(null);
+        return $this;
+    }
+    /**
+     * @param Content $content
+     * @return $this
+     */
+    public function addContent(Content $content)
+    {
+        $this->contents->add($content);
+        $content->setSection($this);
+        return $this;
+    }
+
+    /**
+     * Remove a content
+     *
+     * @param Content $content
+     */
+    public function removeContent(Content $content)
+    {
+        $this->contents->removeElement($content);
+        $content->setSection(null);
         return $this;
     }
 

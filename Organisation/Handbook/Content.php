@@ -90,21 +90,6 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->enabled = true;
     }
 
-    /**
-     * @var Handbook
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", inversedBy="sections")
-     * @ORM\JoinColumn(name="id_handbook", referencedColumnName="id")
-     * @Gedmo\Versioned
-     * @Serializer\Exclude
-     * */
-    private $handbook;
-
-    /**
-     * @var string
-     * @ORM\Column(length=10, nullable=true)
-     * @Gedmo\Versioned
-     */
-    private $version;
 
     /**
      * @var string
@@ -139,14 +124,7 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $htmlText;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     * @Gedmo\Translatable
-     * @Gedmo\Versioned
-     */
-    private $description;
+
 
     /**
      * @var Section
@@ -214,6 +192,22 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -238,97 +232,11 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
     }
 
     /**
-     * @param boolean $active
+     * @param boolean $enabled
      */
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return Organisation
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param Organisation $parent
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        return $this->id = $id;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * @param string $version
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-    }
-
-    /**
-     * @return Handbook
-     */
-    public function getHandbook()
-    {
-        return $this->handbook;
-    }
-
-    /**
-     * @param Handbook $handbook
-     */
-    public function setHandbook($handbook)
-    {
-        $this->handbook = $handbook;
     }
 
     /**
@@ -378,6 +286,40 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->section = $section;
     }
+
+    /**
+     * @return Content
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param Content $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param ArrayCollection $children
+     */
+    public function setChildren($children)
+    {
+        $this->children = $children;
+    }
+
+
 
 
 }
