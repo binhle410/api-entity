@@ -37,9 +37,23 @@ use Gedmo\Translatable\Translatable;
  *         absolute = true
  *     ),
  * )
+ * @Hateoas\Relation("images.post",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_handbook_section_content_image",
+ *         parameters = { "organisationId" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getSection().getHandbook().getId())","sectionId"="expr(object.getSection().getId())","content"="expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
  * @Hateoas\Relation("image_url",
  *  href= @Hateoas\Route(
- *         "get_organisation_handbook_section_content_image_u_r_l",
+ *         "get_organisation_handbook_section_content_image_url",
+ *         parameters = { "organisationId" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getSection().getHandbook().getId())","sectionId"="expr(object.getSection().getId())","content"="expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation("image",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook_section_content_image",
  *         parameters = { "organisationId" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getSection().getHandbook().getId())","sectionId"="expr(object.getSection().getId())","content"="expr(object.getId())"},
  *         absolute = true
  *     ),
