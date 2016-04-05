@@ -44,8 +44,7 @@ use AppBundle\Entity\Organisation\Handbook\Content;
  *         "get_organisation_handbook_section_contents",
  *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","sectionId"="expr(object.getId())"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getContents().count() == 0)")
+ *     )
  * )
  * @Hateoas\Relation(
  *  "organisation",
