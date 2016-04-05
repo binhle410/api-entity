@@ -39,6 +39,15 @@ use AppBundle\Entity\Organisation\Handbook\Content;
  *     ),
  * )
  * @Hateoas\Relation(
+ *  "contents",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook_section_contents",
+ *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","sectionId"="expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getContents().count() == 0)")
+ * )
+ * @Hateoas\Relation(
  *  "organisation",
  *  href= @Hateoas\Route(
  *         "get_organisation",
@@ -102,7 +111,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Content", orphanRemoval=true, mappedBy="handbook", cascade={"persist", "remove", "merge"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Content", orphanRemoval=true, mappedBy="section", cascade={"persist", "remove", "merge"})
      * @Serializer\Exclude
      * */
 
@@ -194,6 +203,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
         $child->setParent(null);
         return $this;
     }
+
     /**
      * @param Content $content
      * @return $this
@@ -215,6 +225,14 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->contents->removeElement($content);
         $content->setSection(null);
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getContents()
+    {
+        return $this->contents;
     }
 
     /**
@@ -299,7 +317,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     public function setId($id)
     {
-        return $this->id=$id;
+        return $this->id = $id;
     }
 
 

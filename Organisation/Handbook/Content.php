@@ -53,7 +53,7 @@ use Gedmo\Translatable\Translatable;
  * )
  * @Hateoas\Relation("image",
  *  href= @Hateoas\Route(
- *         "get_organisation_handbook_section_content_image",
+ *         "get_organisation_handbook_section_content_images",
  *         parameters = { "organisationId" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getSection().getHandbook().getId())","sectionId"="expr(object.getSection().getId())","content"="expr(object.getId())"},
  *         absolute = true
  *     ),
