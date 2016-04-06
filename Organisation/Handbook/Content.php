@@ -188,6 +188,12 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
     }
 
     /**
+     * @var int
+     * @ORM\Column(name="ordering", type="integer",nullable=true,options={"default":0})
+     */
+    private $ordering;
+
+    /**
      * @return int
      */
     public function getId()
