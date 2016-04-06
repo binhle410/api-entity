@@ -321,7 +321,20 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->children = $children;
     }
 
+    /**
+     * @return int
+     */
+    public function getOrdering()
+    {
+        return $this->ordering;
+    }
 
-
+    /**
+     * @param int $ordering
+     */
+    public function setOrdering($ordering)
+    {
+        $this->ordering = $ordering;
+    }
 
 }
