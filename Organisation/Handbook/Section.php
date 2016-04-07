@@ -31,13 +31,7 @@ use AppBundle\Entity\Organisation\Handbook\Content;
  *         absolute = true
  *     ),
  * )
- * @Hateoas\Relation("sections.post",
- *  href= @Hateoas\Route(
- *         "post_organisation_handbook_section",
- *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())"},
- *         absolute = true
- *     ),
- * )
+ * 
  * @Hateoas\Relation(
  *  "contents",
  *  href= @Hateoas\Route(
