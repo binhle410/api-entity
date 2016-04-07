@@ -29,28 +29,15 @@ use Gedmo\Translatable\Translatable;
  *         absolute = true
  *     ),
  * )
- * @Hateoas\Relation("self.post", href = @Hateoas\Route(
- *         "post_organisation_handbook",
- *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())"},
- *         absolute = true
- *     )
- * )
  * @Hateoas\Relation(
  *  "sections",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook_sections",
  *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getSections().count() == 0)")
+ *     )
  * )
- * @Hateoas\Relation("sections.post",
- *  href= @Hateoas\Route(
- *         "post_organisation_handbook_section",
- *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbookId" = "expr(object.getId())"},
- *         absolute = true
- *     ),
- * )
+
  * @Hateoas\Relation(
  *  "organisation",
  *  href= @Hateoas\Route(
