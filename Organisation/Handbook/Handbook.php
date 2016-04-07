@@ -56,6 +56,7 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
 {
 
     /**
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
