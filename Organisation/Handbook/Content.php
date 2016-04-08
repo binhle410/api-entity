@@ -48,7 +48,7 @@ use Gedmo\Translatable\Translatable;
  *  "section",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook_section",
- *        parameters = { "organisation" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbook" = "expr(object.getSection().getHandbook().getId())","section"="expr(object.getSection().getId())"},
+ *        parameters = { "organisationId" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getSection().getHandbook().getId())","section"="expr(object.getSection().getId())"},
  *         absolute = true
  *     ),
  * )
