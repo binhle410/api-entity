@@ -112,7 +112,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var int
-     * @ORM\Column(type="integer" nullable=true, name="ordering")
+     * @ORM\Column(type="integer", nullable=true, name="ordering")
      */
     private $ordering;
 
