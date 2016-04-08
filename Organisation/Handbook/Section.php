@@ -31,7 +31,7 @@ use AppBundle\Entity\Organisation\Handbook\Content;
  *         absolute = true
  *     ),
  * )
- * 
+ *
  * @Hateoas\Relation(
  *  "contents",
  *  href= @Hateoas\Route(
@@ -104,18 +104,17 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Content", orphanRemoval=true, mappedBy="section", cascade={"persist", "remove", "merge"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Content", orphanRemoval=true, mappedBy="section", cascade={"persist",  "merge"})
      * @Serializer\Exclude
      * */
 
     private $contents;
 
     /**
-     * @var string
-     * @ORM\Column(length=10, nullable=true)
-     * @Gedmo\Versioned
+     * @var int
+     * @ORM\Column(type="integer" nullable=true, name="ordering")
      */
-    private $version;
+    private $ordering;
 
     /**
      * @var string
@@ -313,21 +312,20 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
         return $this->id = $id;
     }
 
-
     /**
-     * @return string
+     * @return int
      */
-    public function getVersion()
+    public function getOrdering()
     {
-        return $this->version;
+        return $this->ordering;
     }
 
     /**
-     * @param string $version
+     * @param int $ordering
      */
-    public function setVersion($version)
+    public function setOrdering($ordering)
     {
-        $this->version = $version;
+        $this->ordering = $ordering;
     }
 
     /**
@@ -345,6 +343,5 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->handbook = $handbook;
     }
-
 
 }

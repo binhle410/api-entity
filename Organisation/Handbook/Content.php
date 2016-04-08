@@ -124,7 +124,7 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var Section
-     * @ORM\ManyToOne(targetEntity="Section", inversedBy="contents")
+     * @ORM\ManyToOne(targetEntity="Section", inversedBy="contents",cascade={"persist"})
      * @ORM\JoinColumn(name="id_section", referencedColumnName="id", onDelete="CASCADE")
      * @Gedmo\Versioned
      * @Serializer\Exclude
