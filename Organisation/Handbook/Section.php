@@ -36,7 +36,7 @@ use AppBundle\Entity\Organisation\Handbook\Content;
  *  "contents",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook_section_contents",
- *         parameters = { "organisationId" = "expr(object.getHandbook().getOrganisation().getId())","handbookId" = "expr(object.getHandbook().getId())","sectionId"="expr(object.getId())"},
+ *         parameters = { "organisation" = "expr(object.getHandbook().getOrganisation().getId())","handbook" = "expr(object.getHandbook().getId())","section"="expr(object.getId())"},
  *         absolute = true
  *     )
  * )
