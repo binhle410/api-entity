@@ -153,8 +153,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_organisation_banners",
  *         parameters = { "organisation" = "expr(object.getId())"},
  *         absolute = true
- *     ),
- *  exclusion=@Hateoas\Exclusion(excludeIf="expr(object.getBanners().count() == 0)")
+ *     )
  * )
  *
  */
