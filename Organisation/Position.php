@@ -109,6 +109,13 @@ class Position implements BaseVoterSupportInterface
     }
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateReviewer", mappedBy="user", orphanRemoval=true)
+     * @Serializer\Exclude
+     */
+    private $candidateReviewers;
+    
+    /**
      * @var \AppBundle\Entity\Core\User\User
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Core\User\User",inversedBy="positions", fetch="EAGER")
      * @ORM\JoinColumn(name="id_employee", referencedColumnName="id")

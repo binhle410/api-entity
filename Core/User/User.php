@@ -165,6 +165,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
      */
     private $userDevices;
 
+
     /**
      * @return ArrayCollection
      */
