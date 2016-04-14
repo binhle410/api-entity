@@ -14,7 +14,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="job__application__folder_reviewer")
  */
-class FolderReviewer implements BaseVoterSupportInterface {
+class FolderReviewer implements BaseVoterSupportInterface
+{
 
     /**
      * @var int
@@ -24,10 +25,11 @@ class FolderReviewer implements BaseVoterSupportInterface {
      */
     private $id;
 
-    function __construct() {
-        
+    function __construct()
+    {
+
     }
-    
+
     /**
      * @var Position
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Position", inversedBy="folderReviewers")
@@ -42,12 +44,6 @@ class FolderReviewer implements BaseVoterSupportInterface {
     private $viewOnly;
 
     /**
-     * @var string
-     */
-    private $vote;
-
-
-    /**
      * @var JobCandidate
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateFolder", inversedBy="reviewers")
      * @ORM\JoinColumn(name="id_folder", referencedColumnName="id")
@@ -58,14 +54,16 @@ class FolderReviewer implements BaseVoterSupportInterface {
     /**
      * @return JobCandidate
      */
-    public function getCandidate() {
+    public function getCandidate()
+    {
         return $this->candidate;
     }
 
     /**
      * @param JobCandidate $candidate
      */
-    public function setCandidate($candidate) {
+    public function setCandidate($candidate)
+    {
         $this->candidate = $candidate;
     }
 
@@ -73,14 +71,16 @@ class FolderReviewer implements BaseVoterSupportInterface {
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @param int $id
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 }

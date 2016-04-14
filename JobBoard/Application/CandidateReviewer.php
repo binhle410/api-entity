@@ -54,6 +54,13 @@ class CandidateReviewer implements BaseVoterSupportInterface
     private $title;
 
     /**
+     * @var string
+     * @ORM\Column(name="vote",type="string")
+     */
+    private $vote;
+
+
+    /**
      * @return int
      */
     public function getId()
@@ -118,5 +125,22 @@ class CandidateReviewer implements BaseVoterSupportInterface
     {
         $this->title = $title;
     }
-    
+
+    /**
+     * @return string
+     */
+    public function getVote()
+    {
+        return $this->vote;
+    }
+
+    /**
+     * @param string $vote
+     */
+    public function setVote($vote)
+    {
+        $this->vote = $vote;
+    }
+
+
 }
