@@ -27,7 +27,13 @@ class FolderReviewer implements BaseVoterSupportInterface {
     function __construct() {
         
     }
-
+    
+    /**
+     * @var Position
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Position", inversedBy="folderReviewers")
+     * @ORM\JoinColumn(name="id_position", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
     private $position;
 
     /**
