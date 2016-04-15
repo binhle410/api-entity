@@ -42,6 +42,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getInterviews().count() === 0)"},
  * )
  *
+ *
  * @Hateoas\Relation(
  *  "job_listing",
  *  href= @Hateoas\Route(
