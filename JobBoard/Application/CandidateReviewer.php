@@ -12,7 +12,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repositories\JobBoard\Application\CandidateReviewerRepository")
  * @ORM\Table(name="job__application__candidate_reviewer")
  */
 class CandidateReviewer implements BaseVoterSupportInterface
