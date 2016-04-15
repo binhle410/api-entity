@@ -41,7 +41,18 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getInterviews().count() === 0)"},
  * )
+ * 
  *
+
+ * @Hateoas\Relation(
+ *  "logged_in_reviewer",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting_jobcandidate_candidatereviewer",
+ *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getInterviews().count() === 0)"},
+ * )
  *
  * @Hateoas\Relation(
  *  "job_listing",
