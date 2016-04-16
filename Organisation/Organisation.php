@@ -22,7 +22,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repositories\Organisation\OrganisationRepository")
  * @ORM\Table(name="organisation__organisation")
  *
  * @Serializer\XmlRoot("organisation")

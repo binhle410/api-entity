@@ -3,8 +3,10 @@
 namespace AppBundle\Entity\JobBoard\Application;
 
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
+use AppBundle\Services\Core\Framework\OwnableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -15,7 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\JobBoard\Application\CandidateReviewerRepository")
  * @ORM\Table(name="job__application__candidate_reviewer")
  */
-class CandidateReviewer implements BaseVoterSupportInterface
+class CandidateReviewer implements BaseVoterSupportInterface, OwnableInterface
 {
 
     /**
@@ -28,7 +30,8 @@ class CandidateReviewer implements BaseVoterSupportInterface
 
     function __construct()
     {
-
+        $this->enabled = true;
+        $this->viewed = false;
     }
 
     /**
@@ -46,6 +49,19 @@ class CandidateReviewer implements BaseVoterSupportInterface
      * @Serializer\Exclude
      */
     private $position;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="enabled", options={"default":true})
+     */
+    private $enabled;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="viewed", options={"default":false})
+     */
+    private $viewed;
+
 
     /**
      * @var string
@@ -142,5 +158,88 @@ class CandidateReviewer implements BaseVoterSupportInterface
         $this->vote = $vote;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUserOwner($user)
+    {
+        // TODO: Implement setUserOwner() method.
+    }
+
+    /**
+     * @return User
+     */
+    public function getUserOwner()
+    {
+        // TODO: Implement getUserOwner() method.
+    }
+
+    /**
+     * @param Position $position
+     * @return $this
+     */
+    public function setPositionOwner($position)
+    {
+        // TODO: Implement setPositionOwner() method.
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPositionOwner()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param Organisation $organisation
+     * @return $this
+     */
+    public function setOrganisationOwner($organisation)
+    {
+        // TODO: Implement setOrganisationOwner() method.
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisationOwner()
+    {
+        // TODO: Implement getOrganisationOwner() method.
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isViewed()
+    {
+        return $this->viewed;
+    }
+
+    /**
+     * @param boolean $viewed
+     */
+    public function setViewed($viewed)
+    {
+        $this->viewed = $viewed;
+    }
 
 }

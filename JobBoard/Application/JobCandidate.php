@@ -41,17 +41,20 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getInterviews().count() === 0)"},
  * )
- * 
  *
-
+ *
  * @Hateoas\Relation(
  *  "logged_in_reviewer",
  *  href= @Hateoas\Route(
  *         "get_joblisting_jobcandidate_candidatereviewer",
- *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())"},
+ *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())","reviewer"="expr(service('app.job_board.application.candidate_reviewer_retriever').getLoggedInCandidateReviewer(object).getId())"},
  *         absolute = true
  *     ),
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getInterviews().count() === 0)"},
+ *      exclusion = @Hateoas\Exclusion(
+ *          excludeIf = "expr(service('app.job_board.application.candidate_reviewer_retriever').getLoggedInCandidateReviewer(object) === null)"
+ *      )
+ *
  * )
  *
  * @Hateoas\Relation(
@@ -250,7 +253,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
      * @ORM\Column(type="boolean", name="withdrawn", options={"default":false})
      */
     private $withdrawn;
-    
+
     /**
      * @var string
      * @ORM\Column(type="string", name="status")
