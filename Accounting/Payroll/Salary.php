@@ -52,6 +52,7 @@ class Salary implements BaseVoterSupportInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     
     /**
      * @var Currency

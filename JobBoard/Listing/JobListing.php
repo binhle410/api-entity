@@ -47,8 +47,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "creator",
  *  href= @Hateoas\Route(
- *         "get_user",
- *         parameters = {"username" = "expr(object.getCreator().getId())"},
+ *         "get_organisation_position",
+ *         parameters = {"organisationId" = "expr(object.getCreator().getEmployer().getId())","position" = "expr(object.getCreator().getId())"},
  *         absolute = true
  *     ),
  *  attributes = { "method" = {"put","delete"} },
@@ -125,6 +125,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->enabled = false;
         $this->interviewTimeLimit = 300;
         $this->questionReadingTimeLimit = 30;
+        $this->mock = false;
     }
 
     /**

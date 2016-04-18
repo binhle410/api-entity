@@ -102,7 +102,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  "job_board",
  *  href= @Hateoas\Route(
  *         "get_organisation_jobboard",
- *         parameters = { "organisation" = "expr(object.getId())"},
+ *         parameters = { "organisation" = "expr(object.getId())","jobBoard" = "self"},
  *         absolute = true
  *     )
  * )
