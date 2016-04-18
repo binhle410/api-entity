@@ -30,12 +30,6 @@ use AppBundle\Entity\Core\User\UserDevice;
  * @ORM\Table(name="user__user")
  *
  * @Serializer\XmlRoot("user")
- * @Hateoas\Relation("user.post", href = @Hateoas\Route(
- *         "post_user",
- *         parameters = {},
- *         absolute = true
- *     )
- * )
  *
  * @Hateoas\Relation("messages", href = @Hateoas\Route(
  *         "get_user_messages",
