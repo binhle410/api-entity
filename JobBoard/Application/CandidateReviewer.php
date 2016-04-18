@@ -32,6 +32,7 @@ class CandidateReviewer implements BaseVoterSupportInterface, OwnableInterface
     {
         $this->enabled = true;
         $this->viewed = false;
+        $this->sharedIndividually = false;
     }
 
     /**
@@ -55,6 +56,12 @@ class CandidateReviewer implements BaseVoterSupportInterface, OwnableInterface
      * @ORM\Column(type="boolean", name="enabled", options={"default":true})
      */
     private $enabled;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="shared_individually", options={"default":false})
+     */
+    private $sharedIndividually;
 
     /**
      * @var bool
@@ -241,5 +248,22 @@ class CandidateReviewer implements BaseVoterSupportInterface, OwnableInterface
     {
         $this->viewed = $viewed;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isSharedIndividually()
+    {
+        return $this->sharedIndividually;
+    }
+
+    /**
+     * @param boolean $sharedIndividually
+     */
+    public function setSharedIndividually($sharedIndividually)
+    {
+        $this->sharedIndividually = $sharedIndividually;
+    }
+
 
 }
