@@ -5,6 +5,7 @@
 namespace AppBundle\Entity\Organisation\Handbook;
 
 use AppBundle\Entity\Organisation\Organisation;
+use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -37,7 +38,6 @@ use Gedmo\Translatable\Translatable;
  *         absolute = true
  *     )
  * )
-
  * @Hateoas\Relation(
  *  "organisation",
  *  href= @Hateoas\Route(
@@ -85,6 +85,32 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @Serializer\Exclude
      * */
     private $organisation;
+
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Position", mappedBy="handbooks", cascade={"persist", "merge"})
+     * @Serializer\Exclude
+     **/
+    private $viewers;
+
+    /**
+     * @param Position $viewer
+     */
+    public function addViewer($viewer)
+    {
+        $this->viewers->add($viewer);
+        $viewer->addHandbook($this);
+    }
+
+    /**
+     * @param Position $viewer
+     */
+    public function removeViewer($viewer)
+    {
+        $this->viewers->removeElement($viewer);
+        $viewer->removeHandbook($this);
+    }
 
     /**
      * @var ArrayCollection
@@ -280,6 +306,22 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getViewers()
+    {
+        return $this->viewers;
+    }
+
+    /**
+     * @param ArrayCollection $viewers
+     */
+    public function setViewers($viewers)
+    {
+        $this->viewers = $viewers;
     }
 
 

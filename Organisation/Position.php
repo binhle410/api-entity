@@ -6,6 +6,7 @@ namespace AppBundle\Entity\Organisation;
 
 use AppBundle\Entity\Core\Classification\Tag;
 use AppBundle\Entity\Core\User\User;
+use AppBundle\Entity\Organisation\Handbook\Handbook;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -106,6 +107,35 @@ class Position implements BaseVoterSupportInterface
         $this->tags = new ArrayCollection();
         $this->enabled = true;
         $this->benefitAppAccessible = true;
+    }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", inversedBy="viewers")
+     * @ORM\JoinTable(name="organisation__handbook__handbooks_viewers",
+     *      joinColumns={@ORM\JoinColumn(name="id_handbook", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_position", referencedColumnName="id")}
+     *      )
+     *
+     **/
+    private $handbooks;
+
+    /**
+     * @param Handbook $handbook
+     * @return ArrayCollection
+     */
+    public function addHandbook($handbook){
+        $this->handbooks->add($handbook);
+        return $this->handbooks;
+    }
+
+    /**
+     * @param Handbook $handbook
+     * @return ArrayCollection
+     */
+    public function removeHandbook($handbook){
+        $this->handbooks->removeElement($handbook);
+        return $this->handbooks;
     }
 
     /**
@@ -476,5 +506,86 @@ class Position implements BaseVoterSupportInterface
     {
         $this->benefitAppAccessible = $benefitAppAccessible;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHandbooks()
+    {
+        return $this->handbooks;
+    }
+
+    /**
+     * @param mixed $handbooks
+     */
+    public function setHandbooks($handbooks)
+    {
+        $this->handbooks = $handbooks;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCandidateReviewers()
+    {
+        return $this->candidateReviewers;
+    }
+
+    /**
+     * @param ArrayCollection $candidateReviewers
+     */
+    public function setCandidateReviewers($candidateReviewers)
+    {
+        $this->candidateReviewers = $candidateReviewers;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFolderReviewers()
+    {
+        return $this->folderReviewers;
+    }
+
+    /**
+     * @param ArrayCollection $folderReviewers
+     */
+    public function setFolderReviewers($folderReviewers)
+    {
+        $this->folderReviewers = $folderReviewers;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEmployeeClasses()
+    {
+        return $this->employeeClasses;
+    }
+
+    /**
+     * @param ArrayCollection $employeeClasses
+     */
+    public function setEmployeeClasses($employeeClasses)
+    {
+        $this->employeeClasses = $employeeClasses;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEmployeeFunctions()
+    {
+        return $this->employeeFunctions;
+    }
+
+    /**
+     * @param ArrayCollection $employeeFunctions
+     */
+    public function setEmployeeFunctions($employeeFunctions)
+    {
+        $this->employeeFunctions = $employeeFunctions;
+    }
+
 
 }

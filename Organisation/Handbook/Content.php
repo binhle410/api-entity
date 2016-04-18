@@ -114,6 +114,16 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $imageId;
 
+
+    /**
+     * We have to do it this way since at the time of coding, Gedmo\Translatable is not supporting Entity Translation
+     * @var int
+     * @ORM\Column(name="pdf_id", type="integer", nullable=true)
+     * @Gedmo\Translatable
+     * @Serializer\Exclude
+     */
+    private $pdfId;
+
     /**
      * @var string
      * @ORM\Column(name="html_text", type="text", nullable=true)

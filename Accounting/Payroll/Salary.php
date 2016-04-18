@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="accounting__payroll__salary")
@@ -39,6 +40,11 @@ class Salary implements BaseVoterSupportInterface
     const MONTHLY = 'MONTHLY';
     const YEARLY = 'YEARLY';
 
+    function __construct()
+    {
+        $this->type = self::HOURLY;
+    }
+
     /**
      * @var int
      * @ORM\Id
@@ -46,7 +52,7 @@ class Salary implements BaseVoterSupportInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
      * @var Currency
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Currency")
@@ -56,14 +62,15 @@ class Salary implements BaseVoterSupportInterface
     private $currency;
 
     /**
-     * @var int
+     * @var float
      * @ORM\Column(name="amount",type="float", precision=4, scale=2)
      */
     private $amount;
 
     /**
-     * This var contains the hourly rate in USD currency.
-     * @var int
+     * This var contains the hourly rate in USD currency. We need a script to update convertedAmount
+     * when the FX rates change.
+     * @var float
      * @ORM\Column(name="converted_amount",type="float", precision=4, scale=2)
      */
     private $convertedAmount;
@@ -108,7 +115,7 @@ class Salary implements BaseVoterSupportInterface
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getAmount()
     {
@@ -116,12 +123,13 @@ class Salary implements BaseVoterSupportInterface
     }
 
     /**
-     * @param int $amount
+     * @param float $amount
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
     }
+
 
     /**
      * @return string
@@ -140,7 +148,7 @@ class Salary implements BaseVoterSupportInterface
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getConvertedAmount()
     {
@@ -148,12 +156,11 @@ class Salary implements BaseVoterSupportInterface
     }
 
     /**
-     * @param int $convertedAmount
+     * @param float $convertedAmount
      */
     public function setConvertedAmount($convertedAmount)
     {
         $this->convertedAmount = $convertedAmount;
     }
-
 
 }
