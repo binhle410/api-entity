@@ -57,7 +57,7 @@ class Salary implements BaseVoterSupportInterface
     /**
      * @var Currency
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Currency")
-     * @ORM\JoinColumn(name="id_currency", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_currency", referencedColumnName="symbol")
      * @Serializer\Exclude
      */
     private $currency;

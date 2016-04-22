@@ -27,24 +27,18 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Currency implements BaseVoterSupportInterface
 {
 //    const SYMBOLS = ['USD','EUR','SGD','VND','PHILIPPINE_PESO'];
-/**
-    const USD = 'USD';
-    const EUR = 'EUR';
-    const SGD = 'SGD';
-    const VND = 'VND';
-    const PHILIPPINE_PESO = 'PHILIPPINE_PESO';
- */
-
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer",options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * const USD = 'USD';
+     * const EUR = 'EUR';
+     * const SGD = 'SGD';
+     * const VND = 'VND';
+     * const PHILIPPINE_PESO = 'PHILIPPINE_PESO';
      */
-    private $id;
 
     /**
      * @var string
-     * @ORM\Column(length=120, name="symbol",type="string",nullable=true,unique=true)
+     * @ORM\Id
+     * @ORM\Column(type="string",length=120)
      */
     private $symbol;
 
@@ -63,15 +57,13 @@ class Currency implements BaseVoterSupportInterface
     }
 
     /**
-     * @param string $symbol
+     * @param mixed $symbol
      */
-//    public function setSymbol($symbol)
-//    {
-//        if(!in_array($symbol,Currency::SYMBOLS)){
-//            throw new \Exception($symbol.' cannot be found');
-//        }
-//        $this->symbol = $symbol;
-//    }
+    public function setSymbol($symbol)
+    {
+        $this->symbol = $symbol;
+    }
+
 
     /**
      * @return float
@@ -89,21 +81,7 @@ class Currency implements BaseVoterSupportInterface
         $this->exchangeRate = $exchangeRate;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
 
 }
