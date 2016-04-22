@@ -16,6 +16,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\JobBoard\Application\CandidateReviewerRepository")
  * @ORM\Table(name="job__application__candidate_reviewer")
+ *
+ * @Serializer\XmlRoot("candidate-reviewer")
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting_jobcandidate_candidatereviewer",
+ *         parameters = {"listing" = "expr(object.getCandidate().getListing().getId())","candidate" = "expr(object.getCandidate().getId())","reviewer"="expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
  */
 class CandidateReviewer implements BaseVoterSupportInterface, OwnableInterface
 {
