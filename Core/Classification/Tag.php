@@ -33,6 +33,17 @@ class Tag extends BaseTag implements BaseVoterSupportInterface, ListVoterSupport
         $this->enabled = false;
     }
 
+//    /**
+//     * @var ArrayCollection Position $employeeClassPositions
+//     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Position", inversedBy="employeeClasses")
+//     * @ORM\JoinTable(name="organisation__positions_classes",
+//     *      joinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")},
+//     *      inverseJoinColumns={@ORM\JoinColumn(name="id_position", referencedColumnName="id")}
+//     *      )
+//     * @Serializer\Exclude
+//     */
+//    private $employeeClassPositions;
+
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Core\Site")
      * @ORM\JoinColumn(name="id_site", referencedColumnName="id")
