@@ -107,6 +107,7 @@ class Position implements BaseVoterSupportInterface
         $this->tags = new ArrayCollection();
         $this->enabled = true;
         $this->benefitAppAccessible = true;
+        $this->default = true;
     }
 
     /**
@@ -124,7 +125,8 @@ class Position implements BaseVoterSupportInterface
      * @param Handbook $handbook
      * @return ArrayCollection
      */
-    public function addHandbook($handbook){
+    public function addHandbook($handbook)
+    {
         $this->handbooks->add($handbook);
         return $this->handbooks;
     }
@@ -133,7 +135,8 @@ class Position implements BaseVoterSupportInterface
      * @param Handbook $handbook
      * @return ArrayCollection
      */
-    public function removeHandbook($handbook){
+    public function removeHandbook($handbook)
+    {
         $this->handbooks->removeElement($handbook);
         return $this->handbooks;
     }
@@ -278,6 +281,12 @@ class Position implements BaseVoterSupportInterface
      * @ORM\Column(type="boolean", name="benefit_app_accessible", nullable=true, options={"default":true})
      */
     private $benefitAppAccessible;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="default", options={"default":true})
+     */
+    private $default;
 
     /**
      * @var bool
@@ -585,6 +594,22 @@ class Position implements BaseVoterSupportInterface
     public function setEmployeeFunctions($employeeFunctions)
     {
         $this->employeeFunctions = $employeeFunctions;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDefault()
+    {
+        return $this->default;
+    }
+
+    /**
+     * @param boolean $default
+     */
+    public function setDefault($default)
+    {
+        $this->default = $default;
     }
 
 
