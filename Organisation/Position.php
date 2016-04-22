@@ -103,11 +103,15 @@ class Position implements BaseVoterSupportInterface
 
     function __construct()
     {
+        $this->employeeClasses = new ArrayCollection();
+        $this->employeeFunctions = new ArrayCollection();
+        $this->tags = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->tags = new ArrayCollection();
         $this->enabled = true;
         $this->benefitAppAccessible = true;
-        $this->default = true;
+        $this->defaultPos = true;
+        $this->handbookContact = true;
     }
 
     /**
@@ -284,9 +288,9 @@ class Position implements BaseVoterSupportInterface
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", name="default", options={"default":true})
+     * @ORM\Column(type="boolean", name="default_pos", options={"default":true})
      */
-    private $default;
+    private $defaultPos;
 
     /**
      * @var bool
@@ -599,17 +603,17 @@ class Position implements BaseVoterSupportInterface
     /**
      * @return boolean
      */
-    public function isDefault()
+    public function isDefaultPos()
     {
-        return $this->default;
+        return $this->defaultPos;
     }
 
     /**
-     * @param boolean $default
+     * @param boolean $defaultPos
      */
-    public function setDefault($default)
+    public function setDefaultPos($defaultPos)
     {
-        $this->default = $default;
+        $this->defaultPos = $defaultPos;
     }
 
 
