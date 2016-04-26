@@ -216,6 +216,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing")
+     * @Serializer\Exclude()
      */
     private $candidates;
 
@@ -260,6 +261,13 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
         $this->tags->removeElement($tag);
         return $this;
     }
+
+
+    /**
+     * @var array
+     * @Serializer\Exclude()
+     */
+    protected $roles;
 
     /**
      * @var ArrayCollection
