@@ -52,7 +52,7 @@ use Gedmo\Translatable\Translatable;
  *         absolute = true
  *     ),
  * )
-  * @Hateoas\Relation("children",
+ * @Hateoas\Relation("children",
  *  href = @Hateoas\Route(
  *         "get_organisation_handbook_section_content_children",
  *         parameters = { "organisation" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbook" = "expr(object.getSection().getHandbook().getId())","section"="expr(object.getSection().getId())","content"="expr(object.getId())"},
@@ -347,4 +347,19 @@ class Content implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->ordering = $ordering;
     }
 
+    /**
+     * @return int
+     */
+    public function getPdfId()
+    {
+        return $this->pdfId;
+    }
+
+    /**
+     * @param int $pdfId
+     */
+    public function setPdfId($pdfId)
+    {
+        $this->pdfId = $pdfId;
+    }
 }
