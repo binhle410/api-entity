@@ -281,14 +281,6 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     public function setVersion($version)
     {
-        if ($version !== $this->version) {
-            if (!empty($this->getSections())) {
-                foreach ($this->sections as $section) {
-//            $section = new Section();
-                    $section->setVersion($version);
-                }
-            }
-        }
         $this->version = $version;
     }
 
