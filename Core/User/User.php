@@ -54,6 +54,13 @@ use AppBundle\Entity\Core\User\UserDevice;
  * )
  *
  *
+ * @Hateoas\Relation("positions", href = @Hateoas\Route(
+ *         "get_user_positions",
+ *         parameters = { "user" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
  * @Hateoas\Relation("job_candidates", href = @Hateoas\Route(
  *         "get_user_job_candidates",
  *         parameters = { "userId" = "expr(object.getId())" },
