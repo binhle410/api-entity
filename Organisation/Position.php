@@ -112,6 +112,7 @@ class Position implements BaseVoterSupportInterface
         $this->benefitAppAccessible = true;
         $this->defaultPos = true;
         $this->handbookContact = true;
+        $this->hrAdmin = false;
     }
 
     /**
@@ -291,6 +292,13 @@ class Position implements BaseVoterSupportInterface
      * @ORM\Column(type="boolean", name="default_pos", options={"default":true})
      */
     private $defaultPos;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", name="hr_admin", options={"default":false})
+     */
+    private $hrAdmin;
+    
 
     /**
      * @var bool
@@ -614,6 +622,22 @@ class Position implements BaseVoterSupportInterface
     public function setDefaultPos($defaultPos)
     {
         $this->defaultPos = $defaultPos;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isHrAdmin()
+    {
+        return $this->hrAdmin;
+    }
+
+    /**
+     * @param boolean $hrAdmin
+     */
+    public function setHrAdmin($hrAdmin)
+    {
+        $this->hrAdmin = $hrAdmin;
     }
 
 
