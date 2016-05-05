@@ -122,7 +122,7 @@ class Position implements BaseVoterSupportInterface
      *      joinColumns={@ORM\JoinColumn(name="id_handbook", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_position", referencedColumnName="id")}
      *      )
-     *
+     * @Serializer\Exclude()
      **/
     private $handbooks;
 
