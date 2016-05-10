@@ -44,6 +44,20 @@ use Gedmo\Translatable\Translatable;
  *         absolute = true
  *     ),
  * )
+ * @Hateoas\Relation("pdf_binary",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook_section_content_pdf_binary",
+ *         parameters = { "organisation" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbook" = "expr(object.getSection().getHandbook().getId())","section"="expr(object.getSection().getId())","content"="expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation("pdf",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook_section_content_pdfs",
+ *         parameters = { "organisation" = "expr(object.getSection().getHandbook().getOrganisation().getId())","handbook" = "expr(object.getSection().getHandbook().getId())","section"="expr(object.getSection().getId())","content"="expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
  * @Hateoas\Relation(
  *  "section",
  *  href= @Hateoas\Route(
