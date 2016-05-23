@@ -109,6 +109,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     const STATUS_PENDING = 'PENDING';
     const STATUS_EXPIRED = 'EXPIRED';
     const STATUS_DRAFT = 'DRAFT';
+    const STATUS_CLOSE = 'CLOSE';
 
     /**
      * @var int
