@@ -105,6 +105,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     const VISIBILITY_LISTED = 'LISTED';
     const VISIBILITY_UNLISTED = 'UNLISTED';
     const VISIBILITY_SECURED = 'SECURED';
+    const VISIBILITY_VISIBILITY_ONLY = 'VISIBILITY_ONLY';
     const STATUS_ACTIVE = 'ACTIVE';
     const STATUS_PENDING = 'PENDING';
     const STATUS_EXPIRED = 'EXPIRED';
@@ -231,6 +232,50 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->interviewQuestionSets->removeElement($questionSet);
         return $this;
+    }
+
+    /**
+     * @var bool
+     * @ORM\Column(name="interview_required", type="boolean", options={"default":false}, nullable=true)
+     */
+    private $interviewRequired;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="introduction_required", type="boolean", options={"default":false}, nullable=true)
+     */
+    private $introductionRequired;
+
+    /**
+     * @return boolean
+     */
+    public function isInterviewRequired()
+    {
+        return $this->interviewRequired;
+    }
+
+    /**
+     * @param boolean $interviewRequired
+     */
+    public function setInterviewRequired($interviewRequired)
+    {
+        $this->interviewRequired = $interviewRequired;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIntroductionRequired()
+    {
+        return $this->introductionRequired;
+    }
+
+    /**
+     * @param boolean $introductionRequired
+     */
+    public function setIntroductionRequired($introductionRequired)
+    {
+        $this->introductionRequired = $introductionRequired;
     }
 
     /**
