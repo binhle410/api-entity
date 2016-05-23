@@ -129,6 +129,16 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->mock = false;
         $this->status = self::STATUS_DRAFT;
         $this->visibility = self::VISIBILITY_LISTED;
+        $this->createdDate = new \DateTime();
+    }
+
+
+    /** @ORM\Column(name="created_date",type="datetime") */
+    private $createdDate;
+    
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
     }
 
     /**
