@@ -105,7 +105,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     const VISIBILITY_LISTED = 'LISTED';
     const VISIBILITY_UNLISTED = 'UNLISTED';
     const VISIBILITY_SECURED = 'SECURED';
-    const VISIBILITY_VISIBILITY_ONLY = 'VISIBILITY_ONLY';
+    const VISIBILITY_INVITATION_ONLY = 'INVITATION_ONLY';
     const STATUS_ACTIVE = 'ACTIVE';
     const STATUS_PENDING = 'PENDING';
     const STATUS_EXPIRED = 'EXPIRED';
