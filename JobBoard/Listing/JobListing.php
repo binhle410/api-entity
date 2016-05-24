@@ -110,7 +110,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     const STATUS_PENDING = 'PENDING';
     const STATUS_EXPIRED = 'EXPIRED';
     const STATUS_DRAFT = 'DRAFT';
-    const STATUS_CLOSE = 'CLOSE';
+    const STATUS_CLOSED = 'CLOSED';
 
     /**
      * @var int
@@ -367,6 +367,29 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @ORM\Column(length=120, name="visibility",type="string",nullable=true)
      */
     private $visibility;
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="code",type="string",nullable=true)
+     */
+    private $code;
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
 
     /**
      * @var string
