@@ -123,6 +123,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->types = new ArrayCollection();
         $this->interviewQuestionSets = new ArrayCollection();
         $this->enabled = false;
         $this->interviewTimeLimit = 300;
@@ -136,7 +137,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /** @ORM\Column(name="created_date",type="datetime") */
     private $createdDate;
-    
+
     public function getCreatedDate()
     {
         return $this->createdDate;
@@ -206,7 +207,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     }
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
      * @ORM\JoinTable(name="job__listing__listings_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
@@ -215,9 +216,10 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      */
     private $tags;
 
+
     /**
      * @var ArrayCollection InterviewQuestionSet
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestionSet", mappedBy="listing")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestionSet", mappedBy="listing",cascade={"merge","persist"})
      * @Serializer\Exclude
      */
     private $interviewQuestionSets;

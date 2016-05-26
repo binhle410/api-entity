@@ -57,6 +57,11 @@ class Location implements BaseVoterSupportInterface
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
