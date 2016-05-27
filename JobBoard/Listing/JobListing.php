@@ -161,7 +161,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var Location
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\Location\Location",cascade={"merge","persist"})
      * @ORM\JoinColumn(name="id_location", referencedColumnName="id")
      * @Serializer\Exclude
      * */
@@ -169,7 +169,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var Salary
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary",cascade={"merge","persist"})
      * @ORM\JoinColumn(name="id_salary_from", referencedColumnName="id")
      * @Serializer\Exclude
      * */
@@ -177,7 +177,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var Salary
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Accounting\Payroll\Salary",cascade={"merge","persist"})
      * @ORM\JoinColumn(name="id_salary_to", referencedColumnName="id")
      * @Serializer\Exclude
      * */
@@ -219,7 +219,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var ArrayCollection InterviewQuestionSet
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestionSet", mappedBy="listing",cascade={"merge","persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestionSet", mappedBy="listing",orphanRemoval=true,cascade={"merge","persist","remove"})
      * @Serializer\Exclude
      */
     private $interviewQuestionSets;
@@ -227,12 +227,14 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     public function addInterviewQuestionSet(InterviewQuestionSet $questionSet)
     {
         $this->interviewQuestionSets->add($questionSet);
+        $questionSet->setListing($this);
         return $this;
     }
 
     public function removeInterviewQuestionSet(InterviewQuestionSet $questionSet)
     {
         $this->interviewQuestionSets->removeElement($questionSet);
+        $questionSet->setListing(null);
         return $this;
     }
 
@@ -282,7 +284,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\JobCandidate", mappedBy="listing",orphanRemoval=true,cascade={"merge","persist","remove"})
      * @Serializer\Exclude
      */
     private $candidates;
@@ -294,6 +296,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     public function addCandidate($candidate)
     {
         $this->candidates->add($candidate);
+        $candidate->getListing($this);
         return $this;
     }
 
@@ -304,6 +307,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     public function removeCandidate($candidate)
     {
         $this->candidates->removeElement($candidate);
+        $candidate->setListing(null);
         return $this;
     }
 
@@ -878,5 +882,12 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     function getOrganisationOwner()
     {
         return $this->organisation;
+    }
+    public function setSalary($salary){
+        $this->setSalaryFrom($salary['salary_from']);
+        $this->setSalaryTo($salary['salary_to']);
+    }
+    public function getSalary(){
+        return ['salary_from'=>$this->getSalaryFrom(),'salary_to'=>$this->getSalaryTo()];
     }
 }
