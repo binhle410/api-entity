@@ -109,6 +109,8 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
         $this->folders = new ArrayCollection();
         $this->interviews = new ArrayCollection();
         $this->reviewers = new ArrayCollection();
+        $this->withdrawn = false;
+        $this->status = self::STATUS_APPLIED;
     }
 
     /**
