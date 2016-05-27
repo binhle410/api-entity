@@ -185,7 +185,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var ArrayCollection Tag $types
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",orphanRemoval=true,cascade={"merge","persist","remove"})
      * @ORM\JoinTable(name="job__listing__listings_types",
      *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
@@ -207,7 +207,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     }
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",cascade={"merge","persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Tag",orphanRemoval=true,cascade={"merge","persist","remove"})
      * @ORM\JoinTable(name="job__listing__listings_tags",
      *      joinColumns={@ORM\JoinColumn(name="id_listing", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_tag", referencedColumnName="id")}
@@ -215,6 +215,18 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @Serializer\Exclude
      */
     private $tags;
+
+    public function addTag($tag)
+    {
+        $this->tags->add($tag);
+        return $this;
+    }
+
+    public function removeTag($tag)
+    {
+        $this->tags->removeElement($tag);
+        return $this;
+    }
 
 
     /**
@@ -296,7 +308,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     public function addCandidate($candidate)
     {
         $this->candidates->add($candidate);
-        $candidate->getListing($this);
+        $candidate->setListing($this);
         return $this;
     }
 
