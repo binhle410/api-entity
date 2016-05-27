@@ -37,7 +37,7 @@ class InterviewQuestionSet implements BaseVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestion", mappedBy="set", orphanRemoval=true,cascade={"merge","persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Listing\InterviewQuestion", mappedBy="set", orphanRemoval=true,cascade={"merge","persist","remove"})
      * @Serializer\Exclude
      */
     private $questions;
