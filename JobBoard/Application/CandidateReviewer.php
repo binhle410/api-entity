@@ -45,6 +45,50 @@ class CandidateReviewer implements BaseVoterSupportInterface, OwnableInterface
         $this->viewed = false;
         $this->sharedIndividually = false;
     }
+    // createdAt / referrer
+
+    private $createAt;
+
+    /**
+     * @var Position
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Position")
+     * @ORM\JoinColumn(name="id_position_referer", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $referrer;
+
+    /**
+     * @return mixed
+     */
+    public function getCreateAt()
+    {
+        return $this->createAt;
+    }
+
+    /**
+     * @param mixed $createAt
+     */
+    public function setCreateAt($createAt)
+    {
+        $this->createAt = $createAt;
+    }
+
+    /**
+     * @return Position
+     */
+    public function getReferrer()
+    {
+        return $this->referrer;
+    }
+
+    /**
+     * @param Position $referrer
+     */
+    public function setReferrer($referrer)
+    {
+        $this->referrer = $referrer;
+    }
+
 
     /**
      * @var JobCandidate
