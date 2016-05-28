@@ -306,6 +306,12 @@ class Organisation implements BaseVoterSupportInterface
     }
 
     /**
+     * @var ArrayCollection UserGroup
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\User\UserGroup",mappedBy="organisation")
+     */
+    private $userGroups;
+
+    /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Business\Business", mappedBy="owner",cascade={"persist","merge","remove"}, orphanRemoval=true)
      * @Serializer\Exclude

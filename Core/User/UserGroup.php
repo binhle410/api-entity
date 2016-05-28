@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Core\User;
 
+use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\Group as BaseGroup;
@@ -24,7 +25,7 @@ class UserGroup extends BaseGroup implements BaseVoterSupportInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User", mappedBy="groups")
@@ -33,12 +34,64 @@ class UserGroup extends BaseGroup implements BaseVoterSupportInterface
     private $users;
 
     /**
+     * @var Organisation
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Organisation",inversedBy="userGroups")
+     */
+    private $organisation;
+
+    /**
      * @var string
      * @ORM\Column(length=120, name="type",type="string",nullable=false)
      */
     private $type;
-    //todo map
+
     /**
-     * organisation:Orga.... - each usergroup must belong to an Organisation
+     * @return mixed
      */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param ArrayCollection $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @param Organisation $organisation
+     */
+    public function setOrganisation($organisation)
+    {
+        $this->organisation = $organisation;
+    }
+
+
 }
