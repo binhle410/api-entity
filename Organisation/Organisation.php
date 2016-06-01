@@ -156,6 +156,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  * )
  *
+ * @Hateoas\Relation(
+ *  "user_groups",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroups",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     )
+ * )
+ *
  */
 class Organisation implements BaseVoterSupportInterface
 {
@@ -181,6 +190,7 @@ class Organisation implements BaseVoterSupportInterface
         $this->banners = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->applications = new ArrayCollection();
+        $this->userGroups = new ArrayCollection();
     }
 
     /**
@@ -308,8 +318,26 @@ class Organisation implements BaseVoterSupportInterface
     /**
      * @var ArrayCollection UserGroup
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\User\UserGroup",mappedBy="organisation")
+     * @Serializer\Exclude
      */
     private $userGroups;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserGroups()
+    {
+        return $this->userGroups;
+    }
+
+    /**
+     * @param ArrayCollection $userGroups
+     */
+    public function setUserGroups($userGroups)
+    {
+        $this->userGroups = $userGroups;
+    }
+
 
     /**
      * @var ArrayCollection

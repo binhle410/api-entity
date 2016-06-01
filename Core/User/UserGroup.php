@@ -4,20 +4,37 @@ namespace AppBundle\Entity\Core\User;
 use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
+ * @Serializer\XmlRoot("user_group")
  * @ORM\Entity
  * @ORM\Table(name="user__group")
+ *
+ * @Hateoas\Relation(
+ *  "self",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroup",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "method" = {"put","delete"} },
+ * )
+ *
+ * @Hateoas\Relation(
+ *  "user_group_aces",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroup_cloudbookacls",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ *
  */
-class UserGroup extends BaseGroup implements BaseVoterSupportInterface
+class UserGroup  implements BaseVoterSupportInterface
 {
-    function __construct($name, array $roles)
-    {
-        parent::__construct($name, $roles);
-    }
 
     /**
      * @ORM\Id
@@ -36,6 +53,7 @@ class UserGroup extends BaseGroup implements BaseVoterSupportInterface
     /**
      * @var Organisation
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Organisation",inversedBy="userGroups")
+     * @Serializer\Exclude
      */
     private $organisation;
 
@@ -44,6 +62,47 @@ class UserGroup extends BaseGroup implements BaseVoterSupportInterface
      * @ORM\Column(length=120, name="type",type="string",nullable=false)
      */
     private $type;
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @var string
+     * @ORM\Column(length=120, name="name",type="string",nullable=false)
+     */
+    private $name;
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+
+
 
     /**
      * @return mixed
