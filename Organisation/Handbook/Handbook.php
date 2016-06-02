@@ -67,11 +67,25 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $enabled = true;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean",name="public",nullable=true,options={"default":true})
+     * @Gedmo\Versioned
+     */
+    private $public = true;
+
+
+    /**
      * @var string
      * @ORM\Column(length=10, nullable=true)
      * @Gedmo\Versioned
      */
     private $version;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\ACEEntities\Organisation\Handbook\HandbookUserGroupACE", mappedBy="selectedObjects")
+     */
+    private $userGroupACEs;
 
     /**
      * @var Organisation
@@ -80,7 +94,7 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @Serializer\Exclude
      * */
     private $organisation;
-    
+
 
     /**
      * @var ArrayCollection
@@ -269,5 +283,38 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->enabled = $enabled;
     }
- 
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserGroupACEs()
+    {
+        return $this->userGroupACEs;
+    }
+
+    /**
+     * @param ArrayCollection $userGroupACEs
+     */
+    public function setUserGroupACEs($userGroupACEs)
+    {
+        $this->userGroupACEs = $userGroupACEs;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * @param boolean $public
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+    }
+    
+    
 }
