@@ -1,11 +1,7 @@
 <?php
-
-// src/AppBundle/Entity/Organisation/Handbook/Handbook.php
-
 namespace AppBundle\Entity\Organisation\Handbook;
 
 use AppBundle\Entity\Organisation\Organisation;
-use AppBundle\Entity\Organisation\Position;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
-use Gedmo\Translatable\Translatable;
 
 /**
  * @Serializer\XmlRoot("handbook")
@@ -72,11 +67,25 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $enabled = true;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean",name="public",nullable=true,options={"default":true})
+     * @Gedmo\Versioned
+     */
+    private $public = true;
+
+
+    /**
      * @var string
      * @ORM\Column(length=10, nullable=true)
      * @Gedmo\Versioned
      */
     private $version;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\ACEEntities\Organisation\Handbook\HandbookUserGroupACE", mappedBy="selectedObjects")
+     */
+    private $userGroupACEs;
 
     /**
      * @var Organisation
@@ -86,31 +95,6 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
      * */
     private $organisation;
 
-
-    /**
-     * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Position", mappedBy="handbooks", cascade={"persist", "merge"})
-     * @Serializer\Exclude
-     **/
-    private $viewers;
-
-    /**
-     * @param Position $viewer
-     */
-    public function addViewer($viewer)
-    {
-        $this->viewers->add($viewer);
-        $viewer->addHandbook($this);
-    }
-
-    /**
-     * @param Position $viewer
-     */
-    public function removeViewer($viewer)
-    {
-        $this->viewers->removeElement($viewer);
-        $viewer->removeHandbook($this);
-    }
 
     /**
      * @var ArrayCollection
@@ -303,18 +287,34 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @return ArrayCollection
      */
-    public function getViewers()
+    public function getUserGroupACEs()
     {
-        return $this->viewers;
+        return $this->userGroupACEs;
     }
 
     /**
-     * @param ArrayCollection $viewers
+     * @param ArrayCollection $userGroupACEs
      */
-    public function setViewers($viewers)
+    public function setUserGroupACEs($userGroupACEs)
     {
-        $this->viewers = $viewers;
+        $this->userGroupACEs = $userGroupACEs;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return $this->public;
+    }
 
+    /**
+     * @param boolean $public
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+    }
+    
+    
 }
