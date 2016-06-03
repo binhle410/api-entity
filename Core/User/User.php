@@ -285,9 +285,16 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
      * )
      * @Serializer\Exclude
      */
-    protected $groups;
-    //TODO implement addGroup, removeGroup
+    protected $userGroups;
 
+    public function addUserGroup(UserGroup $group){
+        $this->userGroups->add($this);
+        
+    }
+    public function removeUserGroup(UserGroup $group){
+        $this->userGroups->removeElement($this);
+    }
+    
     /**
      * @var \DateTime
      * @ORM\Column(name="birthday",type="datetime",nullable=true)
