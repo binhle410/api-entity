@@ -74,7 +74,7 @@ class UserGroup  implements BaseVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User", mappedBy="groups",cascade={"persist","remove"},orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User", mappedBy="userGroups",cascade={"persist"})
      * @Serializer\Exclude
      */
     private $users;
@@ -82,13 +82,13 @@ class UserGroup  implements BaseVoterSupportInterface
     public function addUser($user)
     {
         $this->users->add($user);
-        $user->addGroup($this);
+        $user->addUserGroup($this);
     }
 
     public function removeUser($user)
     {
         $this->users->removeElement($user);
-//        $user->removeGroup()
+        $user->removeUserGroup($this);
     }
 
     /**

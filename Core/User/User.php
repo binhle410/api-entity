@@ -144,7 +144,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
         $this->dateAdded = new \DateTime('now');
         $this->birthday = new \Datetime();
         $this->tags = new ArrayCollection();
-        $this->groups = new ArrayCollection();
+        $this->userGroups = new ArrayCollection();
         $this->profiles = new ArrayCollection();
         $this->userDevices = new ArrayCollection();
         $this->positions = new ArrayCollection();
@@ -288,11 +288,11 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     protected $userGroups;
 
     public function addUserGroup(UserGroup $group){
-        $this->userGroups->add($this);
+        $this->userGroups->add($group);
         
     }
     public function removeUserGroup(UserGroup $group){
-        $this->userGroups->removeElement($this);
+        $this->userGroups->removeElement($group);
     }
     
     /**
@@ -569,21 +569,6 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
         $this->tags = $tags;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
-     * @param ArrayCollection $groups
-     */
-    public function setGroups($groups)
-    {
-        $this->groups = $groups;
-    }
 
     /**
      * @return mixed
