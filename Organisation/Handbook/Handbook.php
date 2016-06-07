@@ -84,6 +84,7 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\ACEEntities\Organisation\Handbook\HandbookUserGroupACE", mappedBy="selectedObjects")
+     * @Serializer\Exclude
      */
     private $userGroupACEs;
 
