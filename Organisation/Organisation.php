@@ -53,7 +53,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(null,'AppBundle\\Entity\\Core\\User\\User'))","null" = "expr(object.getPositions().count() === 0)"},
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(null,'AppBundle\\Entity\\Organisation\\Position'))","null" = "expr(object.getPositions().count() === 0)"},
  * )
  * @Hateoas\Relation(
  *  "sites",
