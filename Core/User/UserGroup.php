@@ -70,7 +70,24 @@ class UserGroup  implements BaseVoterSupportInterface
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->userGroupACEs = new ArrayCollection();
     }
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\ACEEntities\Core\Core\UserGroupACE", mappedBy="userGroup",cascade={"remove"})
+     */
+    private $userGroupACEs;
+
+    public function addUserGroupACE($userGroupACE)
+    {
+        $this->userGroupACEs->add($userGroupACE);
+    }
+
+    public function removeUserGroupACE($userGroupACE)
+    {
+        $this->userGroupACEs->removeElement($userGroupACE);
+    }
+
 
     /**
      * @var ArrayCollection
