@@ -43,7 +43,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(null,'AppBundle\\Entity\\Organisation\\Handbook\\Handbook'))","null" = "expr(object.getHandbooks().count() === 0)"},
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object,'HANDBOOK'))","null" = "expr(object.getHandbooks().count() === 0)"},
  * )
  *
  * @Hateoas\Relation(
@@ -53,7 +53,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(null,'AppBundle\\Entity\\Organisation\\Position'))","null" = "expr(object.getPositions().count() === 0)"},
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object,'USER'))","null" = "expr(object.getPositions().count() === 0)"},
  * )
  * @Hateoas\Relation(
  *  "sites",
@@ -164,7 +164,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisation" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(null,'AppBundle\\Entity\\Core\\User\\UserGroup'))","null" = "expr(object.getUserGroups().count() === 0)"},
+ *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object,'USER_GROUP'))","null" = "expr(object.getUserGroups().count() === 0)"},
  *
  * )
  *

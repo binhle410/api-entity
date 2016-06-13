@@ -17,7 +17,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())" },
  *         absolute = true
  *     ),
- *   attributes = { "method" = {"put","delete"} },
+ *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object === null)"},
  * )
  * @Hateoas\Relation("translations", href = @Hateoas\Route(
  *         "get_organisation_handbook_translations",
