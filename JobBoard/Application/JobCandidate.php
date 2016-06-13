@@ -121,6 +121,30 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
      */
     private $id;
 
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Core\InvitationCode")
+     * @ORM\JoinColumn(name="invitation_code_id", referencedColumnName="id")
+     */
+    private $invitationCode;
+
+    /**
+     * @return mixed
+     */
+    public function getInvitationCode()
+    {
+        return $this->invitationCode;
+    }
+
+    /**
+     * @param mixed $invitationCode
+     */
+    public function setInvitationCode($invitationCode)
+    {
+        $this->invitationCode = $invitationCode;
+    }
+    
+
     /**
      * @var ArrayCollection CandidateFolder
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateFolder"))

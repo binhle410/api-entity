@@ -24,9 +24,33 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * )
  *
  * @Hateoas\Relation(
- *  "user_group_aces",
+ *  "users",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroup_users",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  )
+ * @Hateoas\Relation(
+ *  "handbook_user_group_aces",
  *  href= @Hateoas\Route(
  *         "get_organisation_usergroup_cloudbookacls",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation(
+ *  "user_user_group_aces",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroup_useracls",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation(
+ *  "user_group_user_group_aces",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroup_usergroupacls",
  *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
  *         absolute = true
  *     ),
@@ -43,12 +67,46 @@ class UserGroup  implements BaseVoterSupportInterface
      */
     protected $id;
 
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->userGroupACEs = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\ACEEntities\Core\Core\UserGroupACE", mappedBy="userGroup",cascade={"remove"})
+     */
+    private $userGroupACEs;
+
+    public function addUserGroupACE($userGroupACE)
+    {
+        $this->userGroupACEs->add($userGroupACE);
+    }
+
+    public function removeUserGroupACE($userGroupACE)
+    {
+        $this->userGroupACEs->removeElement($userGroupACE);
+    }
+
+
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User", mappedBy="groups")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\User", mappedBy="userGroups",cascade={"persist"})
      * @Serializer\Exclude
      */
     private $users;
+
+    public function addUser($user)
+    {
+        $this->users->add($user);
+        $user->addUserGroup($this);
+    }
+
+    public function removeUser($user)
+    {
+        $this->users->removeElement($user);
+        $user->removeUserGroup($this);
+    }
 
     /**
      * @var Organisation

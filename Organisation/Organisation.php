@@ -43,7 +43,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "methods" =  "expr('abc')" },
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object,'HANDBOOK'))","null" = "expr(object.getHandbooks().count() === 0)"},
  * )
  *
  * @Hateoas\Relation(
@@ -52,7 +52,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_organisation_positions",
  *         parameters = { "organisationId" = "expr(object.getId())"},
  *         absolute = true
- *     )
+ *     ),
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object,'USER'))","null" = "expr(object.getPositions().count() === 0)"},
  * )
  * @Hateoas\Relation(
  *  "sites",
@@ -162,7 +163,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         "get_organisation_usergroups",
  *         parameters = { "organisation" = "expr(object.getId())"},
  *         absolute = true
- *     )
+ *     ),
+ *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object,'USER_GROUP'))","null" = "expr(object.getUserGroups().count() === 0)"},
+ *
  * )
  *
  */
