@@ -31,6 +31,7 @@ use AppBundle\Entity\Core\User\UserDevice;
  *
  * @Serializer\XmlRoot("user")
  *
+ */
 class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSupportInterface, OwnableInterface
 {
     const CACHE_NS = 'system.user';
