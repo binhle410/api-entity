@@ -278,7 +278,6 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     protected $roles;
 
     /**
-     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\UserGroup", inversedBy="users")
      * @ORM\JoinTable(name="user__users_groups",
      *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
