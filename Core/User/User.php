@@ -31,6 +31,57 @@ use AppBundle\Entity\Core\User\UserDevice;
  *
  * @Serializer\XmlRoot("user")
  *
+ * @Hateoas\Relation("messages", href = @Hateoas\Route(
+ *         "get_user_messages",
+ *         parameters = { "username" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ *
+ * @Hateoas\Relation("gallery", href = @Hateoas\Route(
+ *         "get_user_gallery",
+ *         parameters = { "username" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ * @Hateoas\Relation("introduction_videos", href = @Hateoas\Route(
+ *         "get_user_videos",
+ *         parameters = { "username" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ *
+ * @Hateoas\Relation("positions", href = @Hateoas\Route(
+ *         "get_user_positions",
+ *         parameters = { "user" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ * @Hateoas\Relation("job_candidates", href = @Hateoas\Route(
+ *         "get_user_job_candidates",
+ *         parameters = { "userId" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ * @Hateoas\Relation("devices", href = @Hateoas\Route(
+ *         "get_user_devices",
+ *         parameters = { "userId" = "expr(object.getId())" },
+ *         absolute = true
+ *     )
+ * )
+ *
+ * @Hateoas\Relation("self", href = @Hateoas\Route(
+ *         "get_user",
+ *         parameters = { "username" = "expr(object.getId())" },
+ *         absolute = true
+ *     ),
+ * attributes = { "method" = {"put","delete"} },
+ * )
  */
 class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSupportInterface, OwnableInterface
 {
