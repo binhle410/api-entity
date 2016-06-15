@@ -87,6 +87,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
 {
     const CACHE_NS = 'system.user';
     /**
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer",options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -271,7 +272,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
 
 
     /**
-     * @var array
+     *
      * @Serializer\Exclude()
      */
     protected $roles;
