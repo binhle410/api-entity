@@ -278,6 +278,7 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     protected $roles;
 
     /**
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\User\UserGroup", inversedBy="users")
      * @ORM\JoinTable(name="user__users_groups",
      *      joinColumns={@ORM\JoinColumn(name="id_user", referencedColumnName="id")},
@@ -700,4 +701,23 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     {
         // TODO: Implement getOrganisationOwner() method.
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUserGroups()
+    {
+        return $this->userGroups ;
+    }
+
+    /**
+     * @param mixed $userGroups
+     */
+    public function setUserGroups( $userGroups )
+    {
+        $this->userGroups = $userGroups ? $userGroups : new ArrayCollection();
+    }
+    
+    
+    
 }
