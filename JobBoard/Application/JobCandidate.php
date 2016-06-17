@@ -125,6 +125,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Core\InvitationCode")
      * @ORM\JoinColumn(name="invitation_code_id", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $invitationCode;
 
