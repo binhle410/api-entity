@@ -112,6 +112,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     const STATUS_DRAFT = 'DRAFT';
     const STATUS_CLOSED = 'CLOSED';
 
+
     /**
      * @var int
      * @ORM\Id
