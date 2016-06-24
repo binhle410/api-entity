@@ -381,6 +381,29 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     private $questionReadingTimeLimit;
 
     /**
+     * @var int
+     * @ORM\Column(name="question_set_counter", type="integer", options={"default":0}, nullable=true)
+     */
+    private $questionSetCounter;
+
+    /**
+     * @return int
+     */
+    public function getQuestionSetCounter()
+    {
+        return $this->questionSetCounter;
+    }
+
+    /**
+     * @param int $questionSetCounter
+     */
+    public function setQuestionSetCounter($questionSetCounter)
+    {
+        $this->questionSetCounter = $questionSetCounter;
+    }
+    
+
+    /**
      * @var string
      * @ORM\Column(length=120, name="visibility",type="string",nullable=true)
      */
@@ -435,6 +458,9 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /** @ORM\Column(length=250, name="qr_code_url",type="string",nullable=true) */
     private $qrCodeURL;
+
+
+
 
     /**
      * @return Location
