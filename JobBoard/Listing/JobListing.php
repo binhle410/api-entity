@@ -124,6 +124,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->tags = new ArrayCollection();
         $this->types = new ArrayCollection();
+        $this->candidates = new ArrayCollection();
         $this->interviewQuestionSets = new ArrayCollection();
         $this->enabled = false;
         $this->interviewTimeLimit = 300;
