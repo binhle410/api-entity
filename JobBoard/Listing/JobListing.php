@@ -132,6 +132,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->status = self::STATUS_DRAFT;
         $this->visibility = self::VISIBILITY_LISTED;
         $this->createdDate = new \DateTime();
+        $this->questionSetCounter =0;
     }
 
 
