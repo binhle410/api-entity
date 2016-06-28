@@ -144,7 +144,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     {
         $this->invitationCode = $invitationCode;
     }
-    
+
 
     /**
      * @var ArrayCollection CandidateFolder
@@ -170,7 +170,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
 
     /**
      * @var ArrayCollection CandidateInterView $interviews
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateInterview", mappedBy="candidate")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateInterview", mappedBy="candidate",orphanRemoval=true,cascade={"merge","persist","remove"})
      * @Serializer\Exclude
      */
     private $interviews;
