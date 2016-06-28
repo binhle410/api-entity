@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
- *         "get_categories",
+ *         "get_category",
  *         parameters = { "category" = "expr(object.getId())"},
  *         absolute = true
  *     ),
@@ -90,6 +90,15 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
      * @Serializer\Exclude
      */
     protected $handbook;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\ACEEntities\Core\Classification\CategoryUserGroupACE", mappedBy="selectedObjects")
+     * @Serializer\Exclude
+     */
+    private $userGroupACEs;
+
+
     /**
      * @return mixed
      */
@@ -168,6 +177,22 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
     public function setRight($right)
     {
         $this->right = $right;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserGroupACEs()
+    {
+        return $this->userGroupACEs;
+    }
+
+    /**
+     * @param ArrayCollection $userGroupACEs
+     */
+    public function setUserGroupACEs( $userGroupACEs )
+    {
+        $this->userGroupACEs = $userGroupACEs;
     }
 
 

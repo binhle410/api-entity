@@ -42,15 +42,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     ),
  * )
- * @Hateoas\Relation(
- *     "category",
- *  href= @Hateoas\Route(
- *         "get_categories",
- *         parameters = { "organisation" = "expr(object.getCategory().getId())"},
- *         absolute = true
- *     ),
- *
- * )
  * @ORM\Entity
  * @ORM\Table(name="organisation__handbook__handbook")
  * @Gedmo\Loggable()
