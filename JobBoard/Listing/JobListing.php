@@ -454,7 +454,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var string
-     * @ORM\Column(length=2500, name="description",type="string",nullable=true)
+     * @ORM\Column(name="description",type="text",nullable=true)
      */
     private $description;
 
