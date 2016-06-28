@@ -159,7 +159,15 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
      * @Serializer\Exclude
      */
     private $gallery;
-
+    /**
+     * @var \Application\Sonata\MediaBundle\Entity\Media
+     * @var resume
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"merge","persist","remove"}, inversedBy="userResume")
+     * @ORM\JoinColumn(name="id_resume", referencedColumnName="id")
+     * @Serializer\Exclude
+     *
+     */
+    private $resume;
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\User\UserDevice", mappedBy="user", orphanRemoval=true)
@@ -717,7 +725,27 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
     {
         $this->userGroups = $userGroups ? $userGroups : new ArrayCollection();
     }
-    
+        /**
+     * Set userResume
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $userResume
+     * @return User
+     */
+    public function setResume(\Application\Sonata\MediaBundle\Entity\Media $resume = null)
+    {
+        $this->resume = $resume;
+
+        return $this;
+    }
+    /**
+     * Get userResume
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getResume()
+    {
+        return $this->resume;
+    }
     
     
 }
