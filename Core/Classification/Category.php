@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
- *         "get_category",
+ *         "get_categories",
  *         parameters = { "category" = "expr(object.getId())"},
  *         absolute = true
  *     ),
@@ -84,6 +84,12 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
      **/
     protected $children;
 
+    /**
+     * @var handbook
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="category")
+     * @Serializer\Exclude
+     */
+    protected $handbook;
     /**
      * @return mixed
      */

@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Organisation\Handbook;
 
+use AppBundle\Entity\Core\Classification\Category;
 use AppBundle\Entity\Organisation\Organisation;
 use AppBundle\Services\Core\Framework\BaseVoterSupportInterface;
 use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
@@ -41,7 +42,15 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     ),
  * )
+ * @Hateoas\Relation(
+ *     "category",
+ *  href= @Hateoas\Route(
+ *         "get_categories",
+ *         parameters = { "organisation" = "expr(object.getCategory().getId())"},
+ *         absolute = true
+ *     ),
  *
+ * )
  * @ORM\Entity
  * @ORM\Table(name="organisation__handbook__handbook")
  * @Gedmo\Loggable()
@@ -131,6 +140,16 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
      * this is not a mapped field of entity metadata, just a simple property
      */
     private $locale;
+
+    /**
+     * @var Category
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Category", inversedBy="handbook")
+     * @ORM\JoinTable(name="category__handbook",
+     *      joinColumns={@ORM\JoinColumn(name="id_handbook", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_category", referencedColumnName="id")}
+     * )
+     * */
+    protected $category;
 
     public function getLocale()
     {
@@ -315,6 +334,22 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     public function setPublic($public)
     {
         $this->public = $public;
+    }
+
+    /**
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category $category
+     */
+    public function setCategory( $category )
+    {
+        $this->category = $category;
     }
     
     
