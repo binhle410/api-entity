@@ -171,8 +171,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "categories",
  *  href= @Hateoas\Route(
- *         "get_categories",
- *         parameters = {},
+ *         "get_organisation_categories",
+ *         parameters = { "organisation" = "expr(object.getId())"},
  *         absolute = true
  *     )
  *
@@ -383,6 +383,30 @@ class Organisation implements BaseVoterSupportInterface
         $position->setEmployer(null);
         return $this;
     }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Core\Classification\Category", mappedBy="organisation", orphanRemoval=true)
+     * @Serializer\Exclude
+     */
+    private $categories;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param ArrayCollection $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+    
 
     /**
      * @var ArrayCollection

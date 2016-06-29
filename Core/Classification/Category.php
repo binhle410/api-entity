@@ -29,8 +29,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "handbooks",
  *  href= @Hateoas\Route(
- *         "get_category_handbooks",
- *         parameters = { "category" = "expr(object.getId())"},
+ *         "get_organisation_category_handbooks",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","category" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object === null)"},
@@ -106,6 +106,33 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
      * @Serializer\Exclude
      */
     private $userGroupACEs;
+
+
+    /**
+     * @var \AppBundle\Entity\Organisation\Organisation
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Organisation",inversedBy="categories")
+     * @ORM\JoinColumn(name="id_organisation", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $organisation;
+
+    /**
+     * @return \AppBundle\Entity\Organisation\Organisation
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Organisation\Organisation $organisation
+     */
+    public function setOrganisation($organisation)
+    {
+        $this->organisation = $organisation;
+    }
+    
+    
 
 
     public function __construct()
