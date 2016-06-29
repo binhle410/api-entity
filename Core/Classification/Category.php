@@ -94,8 +94,8 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
     protected $children;
 
     /**
-     * @var handbook
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="category")
+     * @var handbooks
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="categories")
      * @Serializer\Exclude
      */
     protected $handbooks;
