@@ -24,7 +24,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = { "category" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "method" = {"put","delete"} },
+ *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object === null)"},
+ * )
+ * @Hateoas\Relation(
+ *  "handbooks",
+ *  href= @Hateoas\Route(
+ *         "get_category_handbooks",
+ *         parameters = { "categoryId" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object === null)"},
  * )
  */
 class Category  extends BaseCategory implements BaseVoterSupportInterface
@@ -86,10 +95,10 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
 
     /**
      * @var handbook
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", mappedBy="category")
      * @Serializer\Exclude
      */
-    protected $handbook;
+    protected $handbooks;
 
     /**
      * @var ArrayCollection
@@ -98,6 +107,11 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
      */
     private $userGroupACEs;
 
+
+    public function __construct()
+    {
+        $this->handbooks = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -195,6 +209,42 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
         $this->userGroupACEs = $userGroupACEs;
     }
 
+    /**
+     * @return handbook
+     */
+    public function getHandbooks()
+    {
+        return $this->handbooks;
+    }
 
+    /**
+     * @param handbook $handbooks
+     */
+    public function setHandbooks( $handbooks )
+    {
+        $this->handbooks = $handbooks;
+    }
+
+    /**
+     * @param $handbook
+     *
+     * @return $this
+     */
+    public function addHandbook($handbook)
+    {
+        $this->handbooks->add($handbook);
+        return $this;
+    }
+
+    /**
+     * @param $handbook
+     *
+     * @return $this
+     */
+    public function removeHandbook($handbook)
+    {
+        $this->handbooks->removeElement($handbook);
+        return $this;
+    }
 
 }

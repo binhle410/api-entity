@@ -134,13 +134,18 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var Category
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Category", inversedBy="handbook")
-     * @ORM\JoinTable(name="category__handbook",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Core\Classification\Category", inversedBy="handbooks")
+     * @ORM\JoinTable(name="organisation__handbook__handbook_category",
      *      joinColumns={@ORM\JoinColumn(name="id_handbook", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_category", referencedColumnName="id")}
      * )
      * */
-    protected $category;
+    protected $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     public function getLocale()
     {
@@ -330,18 +335,40 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @return Category
      */
-    public function getCategory()
+    public function getCategories()
     {
-        return $this->category;
+        return $this->categories;
     }
 
     /**
-     * @param Category $category
+     * @param Category $categories
      */
-    public function setCategory( $category )
+    public function setCategories( $categories )
     {
-        $this->category = $category;
+        $this->categories = $categories;
     }
-    
+
+    /**
+     * @param $category
+     *
+     * @return $this
+     */
+    public function addCategory($category)
+    {
+        $this->categories->add($category);
+        return $this;
+    }
+
+    /**
+     * @param $category
+     *
+     * @return $this
+     */
+    public function removeCategory($category)
+    {
+        $this->categories->removeElement($category);
+        return $this;
+    }
+
     
 }

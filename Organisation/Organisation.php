@@ -168,6 +168,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * )
  *
+ * @Hateoas\Relation(
+ *  "categories",
+ *  href= @Hateoas\Route(
+ *         "get_categories",
+ *         parameters = {},
+ *         absolute = true
+ *     )
+ *
+ * )
+ *
  */
 class Organisation implements BaseVoterSupportInterface
 {
