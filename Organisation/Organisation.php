@@ -177,6 +177,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  *
  * )
+ * * @Hateoas\Relation(
+ *  "category.post",
+ *  href= @Hateoas\Route(
+ *         "post_category",
+ *         parameters = {},
+ *         absolute = true
+ *     )
+ *
+ * )
  *
  */
 class Organisation implements BaseVoterSupportInterface
