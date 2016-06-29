@@ -139,6 +139,7 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
      *      joinColumns={@ORM\JoinColumn(name="id_handbook", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_category", referencedColumnName="id")}
      * )
+     * @Serializer\Exclude
      * */
     protected $categories;
 

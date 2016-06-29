@@ -30,7 +30,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  "handbooks",
  *  href= @Hateoas\Route(
  *         "get_category_handbooks",
- *         parameters = { "categoryId" = "expr(object.getId())"},
+ *         parameters = { "category" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object === null)"},
