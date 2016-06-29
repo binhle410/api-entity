@@ -55,6 +55,15 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     ),
  * )
+
+ * @Hateoas\Relation(
+ *  "category_user_group_aces",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroup_categoryacls",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
  *
  */
 class UserGroup  implements BaseVoterSupportInterface
