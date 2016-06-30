@@ -612,6 +612,12 @@ class Organisation implements BaseVoterSupportInterface
     private $aboutCompany;
 
     /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
      * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function getLogo()
@@ -1246,6 +1252,28 @@ class Organisation implements BaseVoterSupportInterface
     {
         $this->tags = $tags;
     }
+    
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Organisation
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 
 }
