@@ -146,6 +146,29 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     }
 
     /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+
+    /**
      * @var Position
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Position")
      * @ORM\JoinColumn(name="id_creator", referencedColumnName="id")
