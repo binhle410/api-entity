@@ -20,8 +20,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Hateoas\Relation(
  *  "self",
  *  href= @Hateoas\Route(
- *         "get_category",
- *         parameters = { "category" = "expr(object.getId())"},
+ *         "get_organisation_category",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","category" = "expr(object.getId())"},
  *         absolute = true
  *     ),
  *   attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object === null)"},
