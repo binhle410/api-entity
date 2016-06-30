@@ -147,7 +147,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(length=128, unique=true)
+     * @ORM\Column(length=128, unique=true , nullable=true)
      */
     private $slug;
 
