@@ -613,7 +613,7 @@ class Organisation implements BaseVoterSupportInterface
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
+     * @ORM\Column(length=128, unique=true,nullable=true)
      */
     private $slug;
 
