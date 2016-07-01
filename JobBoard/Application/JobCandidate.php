@@ -110,7 +110,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
         $this->interviews = new ArrayCollection();
         $this->reviewers = new ArrayCollection();
         $this->withdrawn = false;
-        $this->status = self::STATUS_APPLIED;
+        $this->status = self::STATUS_PENDING;
     }
 
     /**
