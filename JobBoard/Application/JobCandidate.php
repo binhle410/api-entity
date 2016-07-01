@@ -123,7 +123,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
 
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Core\InvitationCode")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Core\Core\InvitationCode",cascade={"merge","persist","remove"})
      * @ORM\JoinColumn(name="invitation_code_id", referencedColumnName="id")
      * @Serializer\Exclude
      */
@@ -227,7 +227,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
 
     /**
      * @var JobListing
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates",cascade={"merge","persist","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates")
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * @Serializer\Exclude
      */

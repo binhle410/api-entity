@@ -426,7 +426,7 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->questionSetCounter = $questionSetCounter;
     }
-    
+
 
     /**
      * @var string
