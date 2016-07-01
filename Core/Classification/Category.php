@@ -260,6 +260,7 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
     public function addHandbook($handbook)
     {
         $this->handbooks->add($handbook);
+        $handbook->addCategory($this);
         return $this;
     }
 
@@ -271,6 +272,7 @@ class Category  extends BaseCategory implements BaseVoterSupportInterface
     public function removeHandbook($handbook)
     {
         $this->handbooks->removeElement($handbook);
+        $handbook->removeCategory($this);
         return $this;
     }
 
