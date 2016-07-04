@@ -127,8 +127,8 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->candidates = new ArrayCollection();
         $this->interviewQuestionSets = new ArrayCollection();
         $this->enabled = false;
-        $this->interviewTimeLimit = 300;
-        $this->questionReadingTimeLimit = 30;
+        $this->interviewTimeLimit = 30000;
+        $this->questionReadingTimeLimit = 3000;
         $this->mock = false;
         $this->status = self::STATUS_DRAFT;
         $this->visibility = self::VISIBILITY_LISTED;

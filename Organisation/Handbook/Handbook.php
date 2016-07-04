@@ -86,7 +86,14 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
      * @ORM\ManyToMany(targetEntity="AppBundle\ACEEntities\Organisation\Handbook\HandbookUserGroupACE", mappedBy="selectedObjects")
      * @Serializer\Exclude
      */
-    private $userGroupACEs;
+    private $userGroupACEs;  
+    
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\ACEEntities\Organisation\Handbook\HandbookUserACE", mappedBy="selectedObjects")
+     * @Serializer\Exclude
+     */
+    private $userACEs;
 
     /**
      * @var Organisation
@@ -316,6 +323,23 @@ class Handbook implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         $this->userGroupACEs = $userGroupACEs;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserACEs()
+    {
+        return $this->userACEs;
+    }
+
+    /**
+     * @param ArrayCollection $userACEs
+     */
+    public function setUserACEs($userACEs)
+    {
+        $this->userACEs = $userACEs;
+    }
+    
 
     /**
      * @return boolean

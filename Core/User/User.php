@@ -82,6 +82,33 @@ use AppBundle\Entity\Core\User\UserDevice;
  *     ),
  * attributes = { "method" = {"put","delete"} },
  * )
+ *
+ * @Hateoas\Relation(
+ *  "handbooks",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_user_cloud_books",
+ *         parameters = { "organisation" = "expr(service('app.organisation.position.retriever').getLoggedInPosition().getEmployer().getId())","user" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ * @Hateoas\Relation(
+ *  "blocked_handbooks",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_user_blocked_cloud_books",
+ *         parameters = { "organisation" = "expr(service('app.organisation.position.retriever').getLoggedInPosition().getEmployer().getId())","user" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ *
+ *
+ * @Hateoas\Relation(
+ *  "handbook_user_aces",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_user_cloudbookacls",
+ *         parameters = { "organisation" = "expr(service('app.organisation.position.retriever').getLoggedInPosition().getEmployer().getId())","user" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
  */
 class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSupportInterface, OwnableInterface
 {

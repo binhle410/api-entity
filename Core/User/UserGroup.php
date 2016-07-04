@@ -31,6 +31,25 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *         absolute = true
  *     ),
  *  )
+ *
+ * @Hateoas\Relation(
+ *  "categories",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroup_categories",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ *@Hateoas\Relation(
+ *  "handbooks",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_usergroup_cloud_books",
+ *         parameters = { "organisation" = "expr(object.getOrganisation().getId())","userGroup" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ * )
+ *
+ *
  * @Hateoas\Relation(
  *  "handbook_user_group_aces",
  *  href= @Hateoas\Route(
