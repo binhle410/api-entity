@@ -176,25 +176,10 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
         $this->profiles = new ArrayCollection();
         $this->userDevices = new ArrayCollection();
         $this->positions = new ArrayCollection();
-        $this->userACEs = new ArrayCollection();
     }
 
 
 
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\ACEEntities\Core\Core\UserACE", mappedBy="user",cascade={"remove"})
-     */
-    private $userACEs;
-
-    public function addUserACE($userACE)
-    {
-        $this->userACEs->add($userACE);
-    }
-
-    public function removeUserACE($userACE)
-    {
-        $this->userACEs->removeElement($userACE);
-    }
     /**
      * @var Gallery
      * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"merge","persist","remove"},orphanRemoval=true, inversedBy="galleryUser")
