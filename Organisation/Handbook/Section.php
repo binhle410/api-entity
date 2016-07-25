@@ -96,7 +96,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
     /**
      * @var Handbook
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation\Handbook\Handbook", inversedBy="sections")
-     * @ORM\JoinColumn(name="id_handbook", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_handbook", referencedColumnName="id", onDelete="CASCADE")
      * @Gedmo\Versioned
      * @Serializer\Exclude
      * */
