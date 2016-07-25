@@ -104,7 +104,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Content", orphanRemoval=true, mappedBy="section", cascade={"persist",  "merge"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Organisation\Handbook\Content", orphanRemoval=true, mappedBy="section", cascade={"persist", "remove", "merge"})
      * @Serializer\Exclude
      * */
 
@@ -151,7 +151,7 @@ class Section implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Section", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Section", mappedBy="parent",cascade={"persist", "remove", "merge"})
      * @Serializer\Exclude
      * */
     private $children;
