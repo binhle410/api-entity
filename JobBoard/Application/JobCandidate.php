@@ -50,7 +50,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())"},
  *         absolute = true
  *     ),
- *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getActiveInterview() === null)"}
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object,'interview'))","null" = "expr(object.getActiveInterview() === null)"}
  *
  * )
  *
@@ -130,13 +130,16 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
     public function getActiveInterview()
     {
         if ($this->isInterviewed()) {
-            return null;
+            $activeInterview = null;
+        } else {
+            $expr = Criteria::expr();
+            $criteria = Criteria::create()->where($expr->andX($expr->eq("enabled", true), $expr->eq("completed", false)))
+                ->setFirstResult(0)
+                ->setMaxResults(1);
+            $activeInterviews = $this->interviews->matching($criteria);
+            $activeInterview = $activeInterviews->get(0);
         }
-        $expr = Criteria::expr();
-        $criteria = Criteria::create()->where($expr->andX($expr->eq("enabled", 1), $expr->eq("completed", 0)))
-            ->setFirstResult(0)
-            ->setMaxResults(1);
-        return $this->interviews->matching($criteria)->get(0);
+        return $activeInterview;
     }
 
     /**
