@@ -12,6 +12,7 @@ use AppBundle\Services\Core\Framework\OwnableInterface;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
@@ -42,17 +43,27 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getInterviews().count() === 0)"},
  * )
  *
+ * @Hateoas\Relation(
+ *  "active_interview",
+ *  href= @Hateoas\Route(
+ *         "get_joblisting_jobcandidate_actives_interviews",
+ *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())"},
+ *         absolute = true
+ *     ),
+ *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getActiveInterview() === null)"}
+ *
+ * )
  *
  * @Hateoas\Relation(
  *  "logged_in_reviewer",
  *  href= @Hateoas\Route(
  *         "get_joblisting_jobcandidate_candidatereviewer",
- *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())","reviewer"="expr(service('app.job_board.application.candidate_reviewer_retriever').getLoggedInCandidateReviewer(object).getId())"},
+ *         parameters = {"listing" = "expr(object.getListing().getId())","candidate" = "expr(object.getId())","reviewer"="expr(service('app.job_board.application.candidate_reviewer.retriever').getLoggedInCandidateReviewer(object).getId())"},
  *         absolute = true
  *     ),
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))","null" = "expr(object.getInterviews().count() === 0)"},
  *      exclusion = @Hateoas\Exclusion(
- *          excludeIf = "expr(service('app.job_board.application.candidate_reviewer_retriever').getLoggedInCandidateReviewer(object) === null)"
+ *          excludeIf = "expr(service('app.job_board.application.candidate_reviewer.retriever').getLoggedInCandidateReviewer(object) === null)"
  *      )
  *
  * )
@@ -111,6 +122,29 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
         $this->reviewers = new ArrayCollection();
         $this->withdrawn = false;
         $this->status = self::STATUS_PENDING;
+    }
+
+    /**
+     * @return CandidateInterview|null
+     */
+    public function getActiveInterview()
+    {
+        if ($this->isInterviewed()) {
+            return null;
+        }
+        $expr = Criteria::expr();
+        $criteria = Criteria::create()->where($expr->andX($expr->eq("enabled", 1), $expr->eq("completed", 0)))
+            ->setFirstResult(0)
+            ->setMaxResults(1);
+        return $this->interviews->matching($criteria)->get(0);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canCreateInterview()
+    {
+        return $this->getListing()->isVideoInterview() && ($this->isReattemptable() || !$this->isInterviewed());
     }
 
     /**
@@ -293,7 +327,6 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
      * @ORM\Column(type="string", name="invitation_status")
      */
     private $invitationStatus;
-
 
     /**
      * @param bool $withdawn

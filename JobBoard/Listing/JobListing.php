@@ -16,6 +16,7 @@ use AppBundle\Services\Core\Framework\ListVoterSupportInterface;
 use AppBundle\Services\Core\Framework\OwnableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\JobBoard\Listing\InterviewQuestionSet;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
@@ -133,9 +134,31 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
         $this->status = self::STATUS_DRAFT;
         $this->visibility = self::VISIBILITY_LISTED;
         $this->createdDate = new \DateTime();
-        $this->questionSetCounter =0;
+        $this->questionSetCounter = 0;
     }
 
+    /**
+     * @return InterviewQuestionSet
+     */
+    public function fetchCurrentQuestionSet()
+    {
+        $listing = $this;
+        $criteriaQuestionSet = Criteria::create()
+//           ->where(Criteria::expr()->eq('enabled',true))
+//           ->andWhere(Criteria::expr()->eq('active',true))
+            ->setFirstResult($listing->getQuestionSetCounter())
+            ->setMaxResults(1);
+        $questionSets = $listing->getInterviewQuestionSets()->matching($criteriaQuestionSet);
+        $questionSet = $questionSets->get(0);
+
+        //update the question counter
+        if ($listing->getQuestionSetCounter() <= $listing->getInterviewQuestionSets()->count() - 2) {
+            $listing->setQuestionSetCounter($listing->getQuestionSetCounter() + 1);
+        } else {
+            $listing->setQuestionSetCounter(0);
+        }
+        return $questionSet;
+    }
 
     /** @ORM\Column(name="created_date",type="datetime") */
     private $createdDate;
@@ -483,8 +506,6 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
 
     /** @ORM\Column(length=250, name="qr_code_url",type="string",nullable=true) */
     private $qrCodeURL;
-
-
 
 
     /**
@@ -946,11 +967,15 @@ class JobListing implements BaseVoterSupportInterface, ListVoterSupportInterface
     {
         return $this->organisation;
     }
-    public function setSalary($salary){
+
+    public function setSalary($salary)
+    {
         $this->setSalaryFrom($salary['salary_from']);
         $this->setSalaryTo($salary['salary_to']);
     }
-    public function getSalary(){
-        return ['salary_from'=>$this->getSalaryFrom(),'salary_to'=>$this->getSalaryTo()];
+
+    public function getSalary()
+    {
+        return ['salary_from' => $this->getSalaryFrom(), 'salary_to' => $this->getSalaryTo()];
     }
 }
