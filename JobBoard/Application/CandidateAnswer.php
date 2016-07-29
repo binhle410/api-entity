@@ -34,6 +34,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *         absolute = true
  *     ),
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
+ *      exclusion = @Hateoas\Exclusion(
+ *          excludeIf = "expr(object.getViewTime()  !== null)"
+ *      )
  * )
 
  * @Hateoas\Relation(
