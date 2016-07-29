@@ -68,6 +68,7 @@ class CandidateInterview implements BaseVoterSupportInterface, ListVoterSupportI
     /**
      * @var ArrayCollection CandidateAnswer
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\JobBoard\Application\CandidateAnswer", mappedBy="interview", cascade={"merge","persist","remove"})
+     * @ORM\OrderBy({"ordering" = "ASC"})
      * @Serializer\Exclude
      */
     private $answers;
