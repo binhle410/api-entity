@@ -25,7 +25,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     ),
  *  attributes = { "actions" =  "expr(service('app.core.security.authority').getAllowedActions(object))"},
  * )
-
  * @Hateoas\Relation(
  *  "question_text",
  *  href= @Hateoas\Route(
@@ -38,7 +37,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *          excludeIf = "expr(object.getViewTime()  !== null)"
  *      )
  * )
-
  * @Hateoas\Relation(
  *  "video",
  *  href= @Hateoas\Route(
@@ -76,7 +74,7 @@ class CandidateAnswer implements BaseVoterSupportInterface, ListVoterSupportInte
 
     /**
      * @var Media
-     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="candidateAnswer")
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="candidateAnswer",orphanRemoval=true,cascade={"merge","persist","remove"})
      * @ORM\JoinColumn(name="id_media", referencedColumnName="id")
      * @Serializer\Exclude
      */
