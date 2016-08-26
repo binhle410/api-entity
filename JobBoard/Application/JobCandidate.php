@@ -264,7 +264,7 @@ class JobCandidate implements BaseVoterSupportInterface, OwnableInterface
 
     /**
      * @var JobListing
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Core\User\User", inversedBy="candidates",cascade={"persist"})
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * @Serializer\Exclude
      */
