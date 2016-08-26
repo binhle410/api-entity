@@ -462,6 +462,31 @@ class User extends BaseUser implements BaseVoterSupportInterface, ListVoterSuppo
 //        $this->sites = $sites;
 //    }
 
+
+
+    /**
+     * @var Media
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media",cascade={"persist"})
+     */
+    private $imageProfile;
+
+    /**
+     * @return Media
+     */
+    public function getImageProfile()
+    {
+        return $this->imageProfile;
+    }
+
+    /**
+     * @param Media $imageProfile
+     */
+    public function setImageProfile($imageProfile)
+    {
+        $this->imageProfile = $imageProfile;
+    }
+
+
     /**
      * @return mixed
      */
