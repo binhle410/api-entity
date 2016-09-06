@@ -14,7 +14,7 @@ use Sonata\ClassificationBundle\Entity\BaseTag;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="classification__tag")
+ * @ORM\Table(name="core__classification__tag")
  */
 class Tag extends BaseTag implements BaseVoterSupportInterface, ListVoterSupportInterface
 {

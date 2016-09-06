@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @Gedmo\Tree(type="nested")
  * @ORM\Entity
- * @ORM\Table(name="classification__category")
+ * @ORM\Table(name="core__classification__category")
  *
  * @Serializer\XmlRoot("category")
  * @Hateoas\Relation(
