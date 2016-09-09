@@ -27,6 +27,14 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     ),
  * )
  * @Hateoas\Relation(
+ *  "sections_search",
+ *  href= @Hateoas\Route(
+ *         "get_organisation_handbook_section_search",
+ *         parameters = { "organisationId" = "expr(object.getOrganisation().getId())","handbook" = "expr(object.getId())"},
+ *         absolute = true
+ *     )
+ * )
+ * * @Hateoas\Relation(
  *  "sections",
  *  href= @Hateoas\Route(
  *         "get_organisation_handbook_sections",
