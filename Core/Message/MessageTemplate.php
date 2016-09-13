@@ -34,6 +34,9 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class MessageTemplate implements BaseVoterSupportInterface
 {
 
+    const CODE_CLOUDBOOK_LOGIN_APP ='CODE_CLOUDBOOK_LOGIN_APP';
+    const CODE_CLOUDBOOK_LOGIN_WEB ='CODE_CLOUDBOOK_LOGIN_WEB';
+    const CODE_CLOUDBOOK_LOGIN_ALL ='CODE_CLOUDBOOK_LOGIN_ALL';
     /**
      * @var int
      * @ORM\Id
@@ -63,7 +66,7 @@ class MessageTemplate implements BaseVoterSupportInterface
 
     /**
      * @var string
-     * @ORM\Column(name="entity", length=120)
+     * @ORM\Column(name="entity", length=120,nullable=true)
      */
     private $entity;
 

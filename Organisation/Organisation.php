@@ -177,6 +177,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     )
  *
  * )
+ * @Hateoas\Relation(
+ *  "post.information_login",
+ *  href= @Hateoas\Route(
+ *         "post_organisation_information_login",
+ *         parameters = { "organisation" = "expr(object.getId())"},
+ *         absolute = true
+ *     )
+ *
+ * )
  *
  */
 class Organisation implements BaseVoterSupportInterface
